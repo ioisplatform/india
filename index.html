@@ -1,0 +1,2652 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IOIS PLATFORM | Indian Online Income Supporting System</title>
+
+    <meta name="description"
+          content="IOIS Platform - Digital Products, Creator Resources, Career Tools and Membership Plans.">
+
+    <meta name="theme-color" content="#030712">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Existing External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #030712;
+        }
+
+        .tiranga-text {
+            background: linear-gradient(
+                90deg,
+                #f97316 0%,
+                #ffffff 50%,
+                #10b981 100%
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-glow {
+            box-shadow:
+                0 0 40px rgba(245,158,11,.12),
+                inset 0 0 40px rgba(15,23,42,.8);
+        }
+
+        .glass-card {
+            background: rgba(15,23,42,.72);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(245,158,11,.18);
+        }
+
+        .plan-card {
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 50px rgba(0,0,0,.35);
+            border-color: rgba(245,158,11,.65);
+        }
+
+        .solar-orbit {
+            animation: rotate 25s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pulse-ring {
+            animation: pulseRing 2s infinite;
+        }
+
+        @keyframes pulseRing {
+
+            0% {
+                box-shadow: 0 0 0 0 rgba(245,158,11,.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(245,158,11,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(245,158,11,0);
+            }
+        }
+
+        .room-wall {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b1329 0%,
+                    #050b18 100%
+                );
+
+            border: 3px solid #1e293b;
+
+            box-shadow:
+                inset 0 0 50px rgba(0,0,0,.8);
+        }
+
+        .digit-clock-box {
+            background: #020617;
+            border: 3px inset #334155;
+
+            box-shadow:
+                0 0 15px rgba(245,158,11,.3);
+        }
+
+        /* =====================================================
+           IOIS LIVE ANALOG CLOCK
+        ===================================================== */
+        .analog-clock {
+            width: 230px;
+            height: 230px;
+            border: 6px solid #f59e0b;
+            border-radius: 50%;
+            position: relative;
+            margin: 15px auto;
+            background: radial-gradient(circle at center, #111827 0%, #020617 72%);
+            box-shadow: 0 0 25px rgba(245,158,11,.35), inset 0 0 25px rgba(0,0,0,.8);
+        }
+        .clock-number {
+            position: absolute; inset: 0;
+            font-weight: 900; font-size: 15px; color: #fbbf24;
+        }
+        .clock-number span { position: absolute; }
+        .n12 { top: 9px; left: 50%; transform: translateX(-50%); }
+        .n1 { top: 27px; right: 50px; }
+        .n2 { top: 58px; right: 27px; }
+        .n3 { top: 50%; right: 10px; transform: translateY(-50%); }
+        .n4 { bottom: 58px; right: 27px; }
+        .n5 { bottom: 27px; right: 50px; }
+        .n6 { bottom: 9px; left: 50%; transform: translateX(-50%); }
+        .n7 { bottom: 27px; left: 50px; }
+        .n8 { bottom: 58px; left: 27px; }
+        .n9 { top: 50%; left: 10px; transform: translateY(-50%); }
+        .n10 { top: 58px; left: 27px; }
+        .n11 { top: 27px; left: 50px; }
+        .clock-hand {
+            position: absolute;
+            left: 50%; bottom: 50%;
+            transform-origin: 50% 100%;
+            transform: translateX(-50%) rotate(0deg);
+            border-radius: 10px; z-index: 5;
+        }
+        .hour-hand { width: 7px; height: 58px; background: #fff; }
+        .minute-hand { width: 5px; height: 78px; background: #fbbf24; }
+        .second-hand { width: 2px; height: 88px; background: #ef4444; }
+        .clock-center {
+            position: absolute; width: 14px; height: 14px;
+            background: #f59e0b; border: 3px solid #fff;
+            border-radius: 50%; left: 50%; top: 50%;
+            transform: translate(-50%, -50%); z-index: 10;
+        }
+
+        .window-frame {
+            background: #1e1b4b;
+            border: 5px solid #451a03;
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,.9);
+        }
+
+        .faq-content {
+            display: none;
+        }
+
+        .faq-content.open {
+            display: block;
+        }
+
+    </style>
+
+</head>
+
+<body class="bg-[#030712] text-white font-sans min-h-screen">
+
+<!-- =====================================================
+     LIVE ANNOUNCEMENT
+===================================================== -->
+
+<div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600
+            text-gray-950 py-2 px-4 font-bold text-xs
+            flex items-center shadow-md">
+
+    <span class="bg-red-600 text-white text-[10px]
+                 px-2 py-1 rounded font-black mr-2
+                 uppercase tracking-wider shrink-0">
+        LIVE UPDATE
+    </span>
+
+    <div class="overflow-hidden whitespace-nowrap">
+        🔥 IOIS PLATFORM —
+        ₹10 से शुरुआत करें और Digital Resources प्राप्त करें!
+        &nbsp;&nbsp;&nbsp;
+        🚀 ₹49 से ₹999 तक Membership Plans उपलब्ध हैं!
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="bg-[#080d1e]/95 backdrop-blur-xl
+           border-b border-amber-500/20
+           sticky top-0 z-40">
+
+    <div class="max-w-7xl mx-auto px-4 py-3
+                flex justify-between items-center">
+
+        <!-- LOGO -->
+
+        <a href="index.html"
+           class="flex items-center gap-2">
+
+            <img
+                src="assets/logo.png"
+                onerror="this.style.display='none'"
+                alt="IOIS Logo"
+                class="w-11 h-11 rounded-full
+                       border-2 border-amber-400
+                       shadow-md object-cover"
+            >
+
+            <div>
+
+                <span
+                    class="text-xl font-extrabold
+                           tracking-wider tiranga-text
+                           block leading-none">
+                    IOIS PLATFORM
+                </span>
+
+                <span
+                    class="text-[9px] text-teal-400
+                           tracking-widest font-semibold
+                           uppercase">
+                    Indian Online Income Supporting System
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- DESKTOP MENU -->
+
+        <div class="hidden md:flex items-center
+                    gap-5 text-xs font-semibold
+                    text-gray-300">
+
+            <a href="index.html"
+               class="text-amber-400">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="membership.html"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-layer-group"></i>
+                All 7 Plans
+            </a>
+
+            <a href="#services"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-toolbox"></i>
+                Services
+            </a>
+
+            <a href="#examples"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-chart-line"></i>
+                Examples
+            </a>
+
+            <a href="news.html"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-newspaper"></i>
+                समाचार
+            </a>
+
+            <a href="jobs.html"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-briefcase"></i>
+                Jobs
+            </a>
+
+            <a href="chat.html"
+               class="hover:text-amber-400">
+                <i class="fa-solid fa-comments"></i>
+                Chat
+            </a>
+
+        </div>
+
+
+        <!-- DESKTOP BUTTONS -->
+
+        <div class="hidden md:flex items-center gap-2">
+
+            <button
+                type="button"
+                onclick="openLoginModal()"
+                class="px-4 py-2 border border-amber-400
+                       text-amber-400 font-bold rounded-xl
+                       text-xs hover:bg-amber-400
+                       hover:text-gray-950 transition">
+                Login
+            </button>
+
+            <button
+                type="button"
+                onclick="openRegistrationFlow()"
+                class="px-4 py-2 bg-amber-400
+                       text-gray-950 font-black
+                       rounded-xl text-xs">
+                Join IOIS
+            </button>
+
+        </div>
+
+
+        <!-- MOBILE BUTTON -->
+
+        <button
+            type="button"
+            onclick="toggleMobileMenu()"
+            class="md:hidden text-2xl
+                   text-amber-400 p-1">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- MOBILE MENU -->
+
+    <div
+        id="mobile-menu"
+        class="hidden md:hidden
+               bg-[#0e1938] px-4 py-4
+               border-t border-gray-800
+               space-y-3 font-medium text-xs">
+
+        <a href="index.html"
+           class="block text-amber-400">
+            <i class="fa-solid fa-house mr-2"></i>
+            Home
+        </a>
+
+        <a href="membership.html"
+           class="block text-gray-300">
+            <i class="fa-solid fa-layer-group mr-2"></i>
+            All Membership Plans
+        </a>
+
+        <a href="#services"
+           class="block text-gray-300">
+            <i class="fa-solid fa-toolbox mr-2"></i>
+            Services
+        </a>
+
+        <a href="#examples"
+           class="block text-gray-300">
+            <i class="fa-solid fa-chart-line mr-2"></i>
+            Referral Examples
+        </a>
+
+        <a href="news.html"
+           class="block text-gray-300">
+            <i class="fa-solid fa-newspaper mr-2"></i>
+            समाचार
+        </a>
+
+        <a href="jobs.html"
+           class="block text-gray-300">
+            <i class="fa-solid fa-briefcase mr-2"></i>
+            Jobs
+        </a>
+
+        <a href="chat.html"
+           class="block text-gray-300">
+            <i class="fa-solid fa-comments mr-2"></i>
+            Community Chat
+        </a>
+
+        <div class="pt-3 border-t border-gray-700
+                    flex flex-col gap-2">
+
+            <button
+                type="button"
+                onclick="openLoginModal()"
+                class="w-full py-2 border
+                       border-amber-400
+                       text-amber-400
+                       font-bold rounded-xl text-xs">
+                Login
+            </button>
+
+            <button
+                type="button"
+                onclick="openRegistrationFlow()"
+                class="w-full py-2
+                       bg-amber-400
+                       text-gray-950
+                       font-bold rounded-xl text-xs">
+                Register
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     IMMERSIVE ROOM / CLOCK / WEATHER
+===================================================== -->
+
+<section class="py-6 px-4 max-w-7xl mx-auto">
+
+    <div class="room-wall rounded-3xl p-4 md:p-6
+                grid grid-cols-1 lg:grid-cols-3
+                gap-6 items-center">
+
+        <!-- CLOCK -->
+
+        <div class="digit-clock-box p-4 rounded-2xl text-center h-full">
+
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] text-amber-400 font-bold tracking-widest uppercase">
+                    <i class="fa-solid fa-clock mr-1"></i> IOIS Live Clock
+                </span>
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            </div>
+
+            <div id="room-12digit-clock"
+                 class="text-amber-400 font-mono text-lg md:text-xl font-black tracking-wider bg-black/60 py-3 rounded-xl border border-amber-500/30 mb-3">
+                12:00:00 AM
+            </div>
+
+            <div class="analog-clock" aria-label="IOIS live analog clock">
+                <div class="clock-number">
+                    <span class="n12">12</span><span class="n1">1</span><span class="n2">2</span>
+                    <span class="n3">3</span><span class="n4">4</span><span class="n5">5</span>
+                    <span class="n6">6</span><span class="n7">7</span><span class="n8">8</span>
+                    <span class="n9">9</span><span class="n10">10</span><span class="n11">11</span>
+                </div>
+                <div id="wall-hour" class="clock-hand hour-hand"></div>
+                <div id="wall-min" class="clock-hand minute-hand"></div>
+                <div id="wall-sec" class="clock-hand second-hand"></div>
+                <div class="clock-center"></div>
+            </div>
+
+            <div id="iois-date" class="text-xs text-gray-400 mt-2">Loading date...</div>
+
+        </div>
+
+
+        <!-- WEATHER -->
+
+        <div
+            class="window-frame p-3 rounded-2xl
+                   relative overflow-hidden
+                   flex flex-col
+                   items-center text-center h-52">
+
+            <div
+                class="absolute top-2 left-2 z-10
+                       bg-black/70 px-3 py-1
+                       rounded-md text-[10px]
+                       text-teal-300 font-bold">
+
+                <i class="fa-solid fa-satellite
+                          text-yellow-400"></i>
+
+                <span id="weather-location-label">
+                    GPS Satellite View
+                </span>
+
+            </div>
+
+
+            <div
+                class="w-full h-full rounded-xl
+                       bg-gradient-to-b
+                       from-sky-500
+                       via-sky-300
+                       to-amber-200
+                       relative overflow-hidden
+                       flex flex-col
+                       items-center
+                       justify-center
+                       mt-4">
+
+                <div
+                    class="absolute inset-0
+                           flex items-center
+                           justify-center
+                           opacity-40">
+
+                    <div
+                        class="w-40 h-40
+                               border border-white/40
+                               rounded-full
+                               solar-orbit relative">
+
+                        <div
+                            class="absolute -top-1
+                                   left-1/2
+                                   w-3 h-3
+                                   bg-yellow-400
+                                   rounded-full">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="z-10 bg-black/60
+                           px-5 py-3
+                           rounded-xl">
+
+                    <div
+                        id="weather-temp-display"
+                        class="text-amber-400
+                               font-black text-xl">
+                        --°C
+                    </div>
+
+                    <div
+                        id="weather-status-display"
+                        class="text-white font-bold text-[11px]">
+                        ☀️ मौसम जानकारी लोड हो रही है...
+                    </div>
+                    <div id="weather-location-display" class="text-teal-300 text-[10px] mt-1">Location खोजी जा रही है...</div>
+                    <div id="weather-extra-display" class="text-gray-200 text-[10px] mt-1">Humidity --% · Wind -- km/h</div>
+                    <a href="panchang.html"
+                       class="mt-2 inline-block px-4 py-2 bg-amber-400 text-gray-950 font-black text-[10px] rounded-lg hover:bg-amber-300 transition">
+                        <i class="fa-solid fa-calendar-days mr-1"></i> पंचांग देखें
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SMART ALMARI -->
+
+        <div
+            class="bg-[#111c38]
+                   border-2 border-amber-500/40
+                   p-4 rounded-2xl
+                   h-full flex flex-col
+                   justify-between">
+
+            <div>
+
+                <div
+                    class="flex items-center
+                           justify-between mb-3">
+
+                    <h4
+                        class="text-xs font-bold
+                               text-amber-400
+                               uppercase">
+
+                        <i class="fa-solid
+                                  fa-box-archive mr-1"></i>
+
+                        Smart Almari
+
+                    </h4>
+
+                    <span
+                        class="bg-amber-400
+                               text-gray-950
+                               font-extrabold
+                               text-[9px]
+                               px-2 py-1
+                               rounded">
+
+                        IOIS
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="bg-[#080d1e]
+                           p-3 rounded-xl
+                           border border-gray-700
+                           text-[11px]
+                           space-y-2">
+
+                    <p class="text-teal-300 font-bold">
+                        ✨ आज का शुभ रंग:
+                        <span class="text-white">
+                            पीला & केसरिया
+                        </span>
+                    </p>
+
+                    <p class="text-amber-300 font-bold">
+                        ⏰ शुभ समय:
+                        <span class="text-white">
+                            सुबह 08:15 से 10:30
+                        </span>
+                    </p>
+
+                    <p class="text-gray-300">
+                        IOIS Platform पर
+                        Digital Resources,
+                        Career Tools और
+                        Membership Plans उपलब्ध हैं।
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="panchang.html"
+                class="mt-3 block text-center
+                       py-2 bg-amber-400
+                       text-gray-950
+                       font-bold text-[11px]
+                       rounded-lg">
+
+                पंचांग / मौसम देखें
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- SMART TV -->
+
+    <div
+        class="mt-6
+               bg-gradient-to-r
+               from-gray-900
+               via-[#111c38]
+               to-gray-900
+               border-4 border-gray-800
+               rounded-3xl p-4
+               shadow-2xl max-w-4xl
+               mx-auto">
+
+        <div
+            class="flex flex-wrap
+                   justify-between
+                   items-center gap-2 mb-3">
+
+            <span
+                class="text-xs font-bold
+                       text-amber-400">
+
+                <i class="fa-solid fa-tv mr-1"></i>
+                IOIS Smart TV
+
+            </span>
+
+
+            <div class="flex gap-2">
+
+                <button
+                    onclick="playTvMode('youtube')"
+                    class="px-3 py-1
+                           bg-red-600
+                           text-white
+                           font-bold
+                           text-[10px]
+                           rounded-lg">
+
+                    YouTube
+
+                </button>
+
+                <button
+                    onclick="playTvMode('chrome')"
+                    class="px-3 py-1
+                           bg-blue-600
+                           text-white
+                           font-bold
+                           text-[10px]
+                           rounded-lg">
+
+                    Browser
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="w-full aspect-video
+                   bg-black rounded-2xl
+                   overflow-hidden
+                   border-4 border-gray-900">
+
+            <iframe
+                id="tv-iframe"
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/0gYd3mIxksc?autoplay=1&mute=1&loop=1&playlist=0gYd3mIxksc"
+                title="IOIS Smart TV"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    class="px-4 py-14 md:py-20
+           text-center">
+
+    <div
+        class="max-w-6xl mx-auto
+               glass-card
+               rounded-3xl
+               p-8 md:p-14
+               hero-glow">
+
+        <span
+            class="inline-block
+                   bg-amber-500/10
+                   text-amber-400
+                   text-xs font-bold
+                   uppercase px-4 py-2
+                   rounded-full
+                   border border-amber-500/30
+                   mb-5">
+
+            🇮🇳 Indian Digital Platform
+
+        </span>
+
+
+        <h1
+            class="text-4xl md:text-6xl
+                   font-black
+                   leading-tight mb-5">
+
+            <span class="tiranga-text">
+                Indian Online Income
+                Supporting System
+            </span>
+
+        </h1>
+
+
+        <p
+            class="max-w-3xl mx-auto
+                   text-gray-300
+                   text-sm md:text-lg
+                   leading-relaxed">
+
+            IOIS एक digital platform है जो
+            students, job seekers और digital
+            creators को affordable digital
+            resources, career tools और
+            creator-supporting products
+            उपलब्ध कराने के लिए बनाया गया है।
+
+        </p>
+
+
+        <div
+            class="flex flex-col
+                   sm:flex-row
+                   justify-center
+                   gap-3 mt-8">
+
+            <button
+                onclick="openRegistrationFlow()"
+                class="px-7 py-3.5
+                       bg-gradient-to-r
+                       from-amber-400
+                       to-teal-400
+                       text-gray-950
+                       font-black
+                       rounded-xl
+                       shadow-xl
+                       hover:scale-105
+                       transition">
+
+                <i class="fa-solid fa-rocket mr-2"></i>
+                Join IOIS @ ₹10
+
+            </button>
+
+
+            <button
+                onclick="scrollToPlans()"
+                class="px-7 py-3.5
+                       border border-amber-400
+                       text-amber-400
+                       font-black
+                       rounded-xl
+                       hover:bg-amber-400
+                       hover:text-gray-950
+                       transition">
+
+                <i class="fa-solid fa-layer-group mr-2"></i>
+                View 7 Plans
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHAT IS IOIS
+===================================================== -->
+
+<section class="px-4 py-14">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-amber-400
+                       text-xs font-bold
+                       uppercase tracking-widest">
+                About IOIS
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+                IOIS क्या है?
+            </h2>
+
+        </div>
+
+
+        <div
+            class="grid md:grid-cols-2
+                   gap-6">
+
+            <div
+                class="glass-card
+                       rounded-2xl p-6">
+
+                <div
+                    class="w-12 h-12
+                           bg-amber-400
+                           text-gray-950
+                           rounded-xl
+                           flex items-center
+                           justify-center
+                           text-xl mb-4">
+
+                    <i class="fa-solid fa-building"></i>
+
+                </div>
+
+                <h3
+                    class="text-xl font-black
+                           text-amber-400 mb-3">
+
+                    Digital Business Platform
+
+                </h3>
+
+                <p
+                    class="text-gray-300
+                           text-sm leading-7">
+
+                    IOIS का उद्देश्य students,
+                    job seekers और digital
+                    promoters को affordable
+                    digital assets और
+                    practical creator resources
+                    उपलब्ध कराना है।
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="glass-card
+                       rounded-2xl p-6">
+
+                <div
+                    class="w-12 h-12
+                           bg-teal-400
+                           text-gray-950
+                           rounded-xl
+                           flex items-center
+                           justify-center
+                           text-xl mb-4">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+                <h3
+                    class="text-xl font-black
+                           text-teal-400 mb-3">
+
+                    Digital Products
+
+                </h3>
+
+                <p
+                    class="text-gray-300
+                           text-sm leading-7">
+
+                    उपलब्ध resources में CV
+                    templates, cover letters,
+                    ChatGPT prompts, social
+                    media resources, useful
+                    website links, digital ID
+                    cards और AI/freelancing
+                    guides शामिल हैं।
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section
+    id="services"
+    class="px-4 py-14
+           bg-[#080d1e]">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-teal-400
+                       text-xs font-bold
+                       uppercase">
+                Main Services
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+
+                IOIS की मुख्य सेवाएं
+
+            </h2>
+
+        </div>
+
+
+        <div
+            class="grid grid-cols-2
+                   md:grid-cols-3
+                   lg:grid-cols-6
+                   gap-4">
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-file-lines
+                         text-3xl text-amber-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    CV / Resume
+                </h3>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-envelope
+                         text-3xl text-teal-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    Cover Letters
+                </h3>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-robot
+                         text-3xl text-purple-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    AI Prompts
+                </h3>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-share-nodes
+                         text-3xl text-pink-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    Social Media
+                </h3>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-id-card
+                         text-3xl text-blue-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    Digital ID
+                </h3>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5 text-center">
+
+                <i class="fa-solid fa-laptop-code
+                         text-3xl text-green-400">
+                </i>
+
+                <h3 class="font-bold mt-3 text-sm">
+                    AI & Freelancing
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     7 PLANS
+===================================================== -->
+
+<section
+    id="plans"
+    class="px-4 py-16">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-12">
+
+            <span
+                class="text-amber-400
+                       text-xs font-bold
+                       uppercase">
+                Membership
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+
+                IOIS 7 Master Plans
+
+            </h2>
+
+            <p
+                class="text-gray-400
+                       text-sm mt-3">
+
+                ₹10 से ₹999 तक के digital
+                membership options
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="grid grid-cols-1
+                   sm:grid-cols-2
+                   lg:grid-cols-4
+                   gap-5">
+
+
+            <!-- PLAN 1 -->
+
+            <div class="plan-card glass-card rounded-2xl p-6">
+
+                <span class="text-xs text-amber-400 font-bold">
+                    PLAN 01
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Alpha Starter Pass
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹10
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ Digital ID Pass</li>
+                    <li>✓ 3 CV Templates</li>
+                    <li>✓ 2 Cover Letters</li>
+                    <li>✓ 10 ChatGPT Prompts</li>
+                    <li>✓ Useful Website Links</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct Payout: ₹7
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Tiranga Silver Card (₹10)')"
+                    class="w-full py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹10
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 2 -->
+
+            <div class="plan-card glass-card rounded-2xl p-6">
+
+                <span class="text-xs text-amber-400 font-bold">
+                    PLAN 02
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Nexus Pro Creator Kit
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹49
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ Pro Creator Badge</li>
+                    <li>✓ 15+ Bio-data</li>
+                    <li>✓ 50+ Social Posts</li>
+                    <li>✓ Smartphone Website Guide</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct Payout: ₹35
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Tiranga Gold Card (₹49)')"
+                    class="w-full py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹49
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 3 -->
+
+            <div class="plan-card glass-card rounded-2xl p-6">
+
+                <span class="text-xs text-amber-400 font-bold">
+                    PLAN 03
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Apex Executive Pass
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹99
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ Executive Business Pass</li>
+                    <li>✓ 100+ Branding Templates</li>
+                    <li>✓ Logos</li>
+                    <li>✓ Business Card Bundle</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct Payout: ₹70
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Tiranga Platinum Card (₹99)')"
+                    class="w-full py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹99
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 4 -->
+
+            <div
+                class="plan-card
+                       rounded-2xl p-6
+                       bg-gradient-to-br
+                       from-purple-950
+                       via-[#111c38]
+                       to-[#111c38]
+                       border border-purple-400/50">
+
+                <span class="text-xs text-purple-300 font-bold">
+                    PLAN 04
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Zenith VIP Creator
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹199
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ VIP Creator Card</li>
+                    <li>✓ Mobile Design Masterclass</li>
+                    <li>✓ 300+ Marketing Banners</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct: ₹120 | L2: ₹20
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Tiranga Crystal Card (₹199)')"
+                    class="w-full py-2.5
+                           bg-gradient-to-r
+                           from-purple-400
+                           to-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹199
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 5 -->
+
+            <div class="plan-card glass-card rounded-2xl p-6">
+
+                <span class="text-xs text-green-400 font-bold">
+                    PLAN 05
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Govt Exam & Student
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹299
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ Student ID Card</li>
+                    <li>✓ Govt Job Alert Sheet</li>
+                    <li>✓ GK & Exam Notes</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct: ₹220 | L2: ₹20
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Govt Exam & Student Pass (₹299)')"
+                    class="w-full py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹299
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 6 -->
+
+            <div class="plan-card glass-card rounded-2xl p-6">
+
+                <span class="text-xs text-cyan-400 font-bold">
+                    PLAN 06
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    Diamond Business Agency
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹499
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ Diamond Agency Card</li>
+                    <li>✓ 1000+ Graphic Assets</li>
+                    <li>✓ Video Assets</li>
+                    <li>✓ Agency Manual</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct: ₹375 | L2: ₹25
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('Tiranga Diamond Agency Pass (₹499)')"
+                    class="w-full py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join ₹499
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAN 7 -->
+
+            <div
+                class="plan-card
+                       rounded-2xl p-6
+                       bg-gradient-to-br
+                       from-purple-950
+                       via-[#111c38]
+                       to-[#111c38]
+                       border-2
+                       border-purple-400">
+
+                <span class="text-xs text-purple-300 font-bold">
+                    PLAN 07 • VIP
+                </span>
+
+                <h3 class="text-lg font-black mt-2">
+                    VIP Mastermind & AI
+                </h3>
+
+                <div class="text-4xl font-black
+                            text-amber-400 my-4">
+                    ₹999
+                </div>
+
+                <ul class="text-xs text-gray-300 space-y-2 mb-5">
+
+                    <li>✓ VIP Elite Card</li>
+                    <li>✓ ChatGPT / Canva AI Mastery</li>
+                    <li>✓ Freelancing Blueprint</li>
+
+                </ul>
+
+                <div class="text-teal-400 font-bold text-xs mb-4">
+                    Direct: ₹750 | L2: ₹50
+                </div>
+
+                <button
+                    onclick="openRegistrationFlowWithTier('VIP Mastermind Freelancing & AI Pass (₹999)')"
+                    class="w-full py-2.5
+                           bg-gradient-to-r
+                           from-purple-400
+                           to-amber-400
+                           text-gray-950
+                           font-black
+                           rounded-lg text-xs">
+
+                    Join VIP ₹999
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REFERRAL CHART
+===================================================== -->
+
+<section
+    class="px-4 py-16
+           bg-[#080d1e]">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-teal-400
+                       text-xs font-bold
+                       uppercase">
+                Referral Structure
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+
+                Direct Referral Payout Chart
+
+            </h2>
+
+        </div>
+
+
+        <div
+            class="grid grid-cols-2
+                   md:grid-cols-4
+                   lg:grid-cols-7
+                   gap-3">
+
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹10</div>
+                <div class="text-2xl font-black text-amber-400">₹7</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹49</div>
+                <div class="text-2xl font-black text-amber-400">₹35</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹99</div>
+                <div class="text-2xl font-black text-amber-400">₹70</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹199</div>
+                <div class="text-2xl font-black text-amber-400">₹120</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹299</div>
+                <div class="text-2xl font-black text-amber-400">₹220</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹499</div>
+                <div class="text-2xl font-black text-amber-400">₹375</div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl text-center">
+                <div class="text-gray-400 text-xs">₹999</div>
+                <div class="text-2xl font-black text-amber-400">₹750</div>
+            </div>
+
+        </div>
+
+
+        <div
+            class="mt-8
+                   border border-amber-400/30
+                   bg-amber-400/5
+                   rounded-2xl p-6
+                   text-center">
+
+            <i
+                class="fa-solid fa-bolt
+                       text-amber-400
+                       text-3xl">
+            </i>
+
+            <h3
+                class="font-black text-xl
+                       text-amber-400 mt-3">
+
+                Cross-Level Example
+
+            </h3>
+
+            <p
+                class="text-gray-300
+                       text-sm mt-2">
+
+                Source material के अनुसार,
+                ₹10 plan वाला promoter
+                ₹999 का plan refer करने पर
+                ₹750 direct payout example
+                प्राप्त कर सकता है।
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     21 EXAMPLES
+===================================================== -->
+
+<section
+    id="examples"
+    class="px-4 py-16">
+
+    <div class="max-w-5xl mx-auto">
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-amber-400
+                       text-xs font-bold
+                       uppercase">
+                Practical Examples
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+
+                21 Detailed Referral Examples
+
+            </h2>
+
+            <p class="text-gray-400 text-sm mt-2">
+                दिए गए Master Presentation के practical examples
+            </p>
+
+        </div>
+
+
+        <div class="space-y-3">
+
+
+            <!-- 1 -->
+
+            <details
+                class="glass-card rounded-xl p-4">
+
+                <summary
+                    class="cursor-pointer
+                           font-bold text-amber-400">
+
+                    उदाहरण 1 — ₹10 Alpha Starter
+
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने राहुल को जोड़ा।
+                    राहुल ने ₹10 दिए, तो सुनील को
+                    ₹7 का direct payout मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 2 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 2 — ₹10 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    अमित ने रमेश को kit share की।
+                    रमेश के payment के बाद अमित को
+                    ₹7 प्राप्त हुए।
+                </p>
+
+            </details>
+
+
+            <!-- 3 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 3 — ₹10 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    विक्रम ने दीपक को refer किया।
+                    दीपक द्वारा ₹10 payment करने पर
+                    विक्रम को ₹7 commission मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 4 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 4 — ₹10 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    मनोज ने नेहा को अपना code दिया।
+                    नेहा के register करने पर
+                    मनोज को ₹7 मिले।
+                </p>
+
+            </details>
+
+
+            <!-- 5 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 5 — ₹10 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    रोहित ने अजय को plan समझाया।
+                    अजय के जुड़ने पर रोहित को
+                    ₹7 payout प्राप्त हुआ।
+                </p>
+
+            </details>
+
+
+            <!-- 6 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 6 — ₹49 Nexus Pro
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने राजू को Nexus Pro kit share की।
+                    राजू ने ₹49 दिए और सुनील को ₹35 मिले।
+                </p>
+
+            </details>
+
+
+            <!-- 7 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 7 — ₹49 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    अमित ने प्रिया को जोड़ा।
+                    ₹49 payment के बाद अमित को
+                    ₹35 commission मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 8 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 8 — ₹49 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    विक्रम ने करण को refer किया।
+                    करण के kit लेने पर विक्रम को
+                    ₹35 प्राप्त हुए।
+                </p>
+
+            </details>
+
+
+            <!-- 9 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 9 — ₹49 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    मनोज ने पूजा को kit दी।
+                    Payment के बाद मनोज को
+                    ₹35 मिले।
+                </p>
+
+            </details>
+
+
+            <!-- 10 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 10 — ₹49 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    रोहित ने आशीष को जोड़ा।
+                    ₹49 payment पर रोहित को
+                    ₹35 transfer हुए।
+                </p>
+
+            </details>
+
+
+            <!-- 11 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 11 — ₹99 Apex
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने विकास को Apex pass share किया।
+                    ₹99 payment पर ₹70 direct payout मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 12 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 12 — ₹99 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    अमित ने सोनिया को जोड़ा।
+                    Payment के बाद अमित को
+                    ₹70 payout मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 13 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 13 — ₹99 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    विक्रम ने अनिल को refer किया।
+                    Anil के जुड़ने पर ₹70 प्राप्त हुए।
+                </p>
+
+            </details>
+
+
+            <!-- 14 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 14 — ₹99 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    मनोज ने नेहा को pass दिलाया।
+                    Payment के बाद ₹70 commission मिला।
+                </p>
+
+            </details>
+
+
+            <!-- 15 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 15 — ₹99 Referral
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    रोहित ने दीपक को जोड़ा।
+                    ₹99 payment पर ₹70 transfer हुए।
+                </p>
+
+            </details>
+
+
+            <!-- 16 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-purple-300">
+                    उदाहरण 16 — ₹199 Zenith VIP
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने मनीष को Zenith pass दिया।
+                    ₹199 payment पर source example के अनुसार
+                    ₹120 direct और ₹20 L2 income दी गई है।
+                </p>
+
+            </details>
+
+
+            <!-- 17 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-green-300">
+                    उदाहरण 17 — ₹299 Student Pass
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने अमन को Student Pass दिया।
+                    ₹299 payment पर source example में
+                    ₹220 direct payout बताया गया है।
+                </p>
+
+            </details>
+
+
+            <!-- 18 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-cyan-300">
+                    उदाहरण 18 — ₹499 Diamond Agency
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने संजय को Agency Pass share किया।
+                    ₹499 payment पर ₹375 direct payout
+                    source example में दिया गया है।
+                </p>
+
+            </details>
+
+
+            <!-- 19 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-purple-300">
+                    उदाहरण 19 — ₹999 VIP Mastermind
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    सुनील ने आकाश को Mastermind Pass दिया।
+                    ₹999 payment पर ₹750 direct payout
+                    source example में दिया गया है।
+                </p>
+
+            </details>
+
+
+            <!-- 20 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 20 — ₹10 से ₹999 Cross-Level Sale
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    विक्रम ₹10 plan से शुरू हुआ।
+                    Source presentation के अनुसार उसने
+                    ₹999 VIP Mastermind & AI Pass sale की,
+                    जिसके लिए ₹750 direct commission example
+                    दिया गया है।
+                </p>
+
+            </details>
+
+
+            <!-- 21 -->
+
+            <details class="glass-card rounded-xl p-4">
+
+                <summary class="cursor-pointer font-bold text-amber-400">
+                    उदाहरण 21 — ₹49 से ₹499 Agency Sale
+                </summary>
+
+                <p class="text-gray-300 text-sm mt-3">
+                    अमित ₹49 Nexus Pro Kit से शुरू हुआ।
+                    Source presentation के अनुसार उसने
+                    ₹499 Diamond Business Agency Pass की
+                    sale की और ₹375 direct commission का
+                    example दिया गया है।
+                </p>
+
+            </details>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IOIS WORKS
+===================================================== -->
+
+<section
+    class="px-4 py-16
+           bg-[#080d1e]">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-teal-400
+                       text-xs font-bold
+                       uppercase">
+                Simple Process
+            </span>
+
+            <h2
+                class="text-3xl md:text-4xl
+                       font-black mt-2">
+
+                IOIS कैसे काम करता है?
+
+            </h2>
+
+        </div>
+
+
+        <div
+            class="grid grid-cols-1
+                   md:grid-cols-4 gap-5">
+
+
+            <div class="glass-card rounded-2xl p-6 text-center">
+
+                <div
+                    class="mx-auto w-12 h-12
+                           rounded-full
+                           bg-amber-400
+                           text-gray-950
+                           flex items-center
+                           justify-center
+                           font-black">
+
+                    1
+
+                </div>
+
+                <h3 class="font-black mt-4">
+                    Plan चुनें
+                </h3>
+
+                <p class="text-xs text-gray-400 mt-2">
+                    अपनी जरूरत के अनुसार
+                    membership plan चुनें।
+                </p>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-6 text-center">
+
+                <div
+                    class="mx-auto w-12 h-12
+                           rounded-full
+                           bg-teal-400
+                           text-gray-950
+                           flex items-center
+                           justify-center
+                           font-black">
+
+                    2
+
+                </div>
+
+                <h3 class="font-black mt-4">
+                    Digital Resources
+                </h3>
+
+                <p class="text-xs text-gray-400 mt-2">
+                    अपने selected digital
+                    resources प्राप्त करें।
+                </p>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-6 text-center">
+
+                <div
+                    class="mx-auto w-12 h-12
+                           rounded-full
+                           bg-purple-400
+                           text-gray-950
+                           flex items-center
+                           justify-center
+                           font-black">
+
+                    3
+
+                </div>
+
+                <h3 class="font-black mt-4">
+                    Share / Promote
+                </h3>
+
+                <p class="text-xs text-gray-400 mt-2">
+                    Platform और products को
+                    लोगों तक पहुँचाएँ।
+                </p>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-6 text-center">
+
+                <div
+                    class="mx-auto w-12 h-12
+                           rounded-full
+                           bg-green-400
+                           text-gray-950
+                           flex items-center
+                           justify-center
+                           font-black">
+
+                    4
+
+                </div>
+
+                <h3 class="font-black mt-4">
+                    Referral Payout
+                </h3>
+
+                <p class="text-xs text-gray-400 mt-2">
+                    Source plan के अनुसार
+                    direct payout structure।
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="px-4 py-16">
+
+    <div
+        class="max-w-5xl mx-auto
+               text-center
+               rounded-3xl
+               p-8 md:p-14
+               bg-gradient-to-r
+               from-amber-500/10
+               via-teal-500/10
+               to-purple-500/10
+               border border-amber-400/30">
+
+        <div
+            class="w-16 h-16
+                   mx-auto
+                   rounded-2xl
+                   bg-amber-400
+                   text-gray-950
+                   flex items-center
+                   justify-center
+                   text-2xl
+                   pulse-ring">
+
+            <i class="fa-solid fa-rocket"></i>
+
+        </div>
+
+
+        <h2
+            class="text-3xl md:text-4xl
+                   font-black mt-6">
+
+            IOIS Platform से शुरुआत करें
+
+        </h2>
+
+
+        <p
+            class="text-gray-300
+                   text-sm md:text-base
+                   max-w-2xl
+                   mx-auto mt-4">
+
+            अपनी जरूरत के अनुसार digital
+            membership plan चुनें और IOIS
+            ecosystem का हिस्सा बनें।
+
+        </p>
+
+
+        <button
+            onclick="openRegistrationFlow()"
+            class="mt-7
+                   px-8 py-3.5
+                   bg-gradient-to-r
+                   from-amber-400
+                   to-teal-400
+                   text-gray-950
+                   font-black
+                   rounded-xl
+                   shadow-xl
+                   hover:scale-105
+                   transition">
+
+            Join IOIS Now @ ₹10
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTRATION MODAL
+===================================================== -->
+
+<div
+    id="reg-modal"
+    class="fixed inset-0
+           bg-black/85
+           flex items-center
+           justify-center
+           p-4
+           hidden
+           z-50
+           overflow-y-auto">
+
+    <div
+        class="bg-[#111c38]
+               border border-amber-500/50
+               rounded-2xl
+               max-w-lg
+               w-full
+               p-6
+               relative
+               shadow-2xl">
+
+        <button
+            type="button"
+            onclick="closeModals()"
+            class="absolute top-4 right-4
+                   text-gray-400
+                   hover:text-white
+                   text-xl">
+
+            &times;
+
+        </button>
+
+
+        <div class="text-center">
+
+            <div
+                class="mx-auto w-14 h-14
+                       rounded-2xl
+                       bg-amber-400
+                       text-gray-950
+                       flex items-center
+                       justify-center
+                       text-xl">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+            </div>
+
+
+            <h3
+                class="text-xl font-black
+                       text-amber-400 mt-4">
+
+                IOIS Member Registration
+
+            </h3>
+
+        </div>
+
+
+        <form
+            id="reg-form"
+            onsubmit="handleDetailsSubmit(event)"
+            class="space-y-4 mt-6">
+
+
+            <div>
+
+                <label
+                    class="block text-xs
+                           text-amber-400
+                           font-bold mb-1">
+
+                    Select Membership Plan *
+
+                </label>
+
+
+                <select
+                    id="reg-card-tier"
+                    class="w-full
+                           bg-[#080d1e]
+                           border border-amber-500
+                           rounded-lg
+                           p-3
+                           text-xs
+                           text-white
+                           font-bold
+                           outline-none">
+
+                    <option value="Tiranga Silver Card (₹10)">
+                        1. Alpha Starter Pass (₹10)
+                    </option>
+
+                    <option value="Tiranga Gold Card (₹49)"
+                            selected>
+                        2. Nexus Pro Creator Kit (₹49)
+                    </option>
+
+                    <option value="Tiranga Platinum Card (₹99)">
+                        3. Apex Executive Pass (₹99)
+                    </option>
+
+                    <option value="Tiranga Crystal Card (₹199)">
+                        4. Zenith VIP Creator Pass (₹199)
+                    </option>
+
+                    <option value="Govt Exam & Student Pass (₹299)">
+                        5. Govt Exam & Student Pass (₹299)
+                    </option>
+
+                    <option value="Tiranga Diamond Agency Pass (₹499)">
+                        6. Diamond Business Agency Pass (₹499)
+                    </option>
+
+                    <option value="VIP Mastermind Freelancing & AI Pass (₹999)">
+                        7. VIP Mastermind & AI Pass (₹999)
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label
+                    class="block text-xs
+                           text-gray-300
+                           mb-1">
+
+                    Full Name
+
+                </label>
+
+                <input
+                    type="text"
+                    id="reg-name"
+                    placeholder="अपना पूरा नाम"
+                    required
+                    class="w-full
+                           bg-[#080d1e]
+                           border border-gray-700
+                           rounded-lg
+                           p-3
+                           text-xs
+                           text-white
+                           outline-none
+                           focus:border-amber-400">
+
+            </div>
+
+
+            <div>
+
+                <label
+                    class="block text-xs
+                           text-gray-300
+                           mb-1">
+
+                    WhatsApp Number
+
+                </label>
+
+                <input
+                    type="tel"
+                    id="reg-phone"
+                    placeholder="10-digit WhatsApp Number"
+                    maxlength="10"
+                    required
+                    class="w-full
+                           bg-[#080d1e]
+                           border border-gray-700
+                           rounded-lg
+                           p-3
+                           text-xs
+                           text-white
+                           outline-none
+                           focus:border-amber-400">
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="w-full py-3.5
+                       bg-gradient-to-r
+                       from-amber-400
+                       to-teal-400
+                       text-gray-950
+                       font-black
+                       rounded-xl
+                       text-xs
+                       uppercase">
+
+                Proceed
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer
+    class="bg-[#020617]
+           border-t border-gray-800
+           px-4 py-10">
+
+    <div
+        class="max-w-7xl mx-auto
+               grid grid-cols-1
+               md:grid-cols-3
+               gap-8">
+
+        <div>
+
+            <div
+                class="text-xl font-black
+                       tiranga-text">
+
+                IOIS PLATFORM
+
+            </div>
+
+            <p
+                class="text-gray-400
+                       text-xs leading-6 mt-3">
+
+                Indian Online Income
+                Supporting System
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3 class="font-bold text-amber-400">
+                Quick Links
+            </h3>
+
+            <div
+                class="text-xs
+                       text-gray-400
+                       space-y-2 mt-3">
+
+                <a href="membership.html"
+                   class="block hover:text-amber-400">
+                    Membership
+                </a>
+
+                <a href="jobs.html"
+                   class="block hover:text-amber-400">
+                    Jobs
+                </a>
+
+                <a href="news.html"
+                   class="block hover:text-amber-400">
+                    News
+                </a>
+
+                <a href="chat.html"
+                   class="block hover:text-amber-400">
+                    Community Chat
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <h3 class="font-bold text-amber-400">
+                IOIS
+            </h3>
+
+            <p
+                class="text-xs
+                       text-gray-500
+                       leading-6 mt-3">
+
+                Digital resources,
+                creator tools and
+                career-supporting products.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="max-w-7xl mx-auto
+               border-t border-gray-800
+               mt-8 pt-5
+               text-center">
+
+        <p
+            class="text-[11px]
+                   text-gray-500">
+
+            © 2026 IOIS PLATFORM.
+            All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     IOIS LIVE CLOCK + LIVE WEATHER
+===================================================== -->
+<script>
+(function () {
+    "use strict";
+
+    function updateIOISClock() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const hour12 = hours % 12 || 12;
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const pad = value => String(value).padStart(2, "0");
+
+        const digital = document.getElementById("room-12digit-clock");
+        if (digital) digital.textContent = `${pad(hour12)}:${pad(minutes)}:${pad(seconds)} ${ampm}`;
+
+        const dateEl = document.getElementById("iois-date");
+        if (dateEl) {
+            dateEl.textContent = now.toLocaleDateString("hi-IN", {
+                weekday: "long", day: "numeric", month: "long", year: "numeric"
+            });
+        }
+
+        const hourHand = document.getElementById("wall-hour");
+        const minuteHand = document.getElementById("wall-min");
+        const secondHand = document.getElementById("wall-sec");
+        const secondDegree = seconds * 6;
+        const minuteDegree = minutes * 6 + seconds * 0.1;
+        const hourDegree = (hour12 % 12) * 30 + minutes * 0.5;
+
+        if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourDegree}deg)`;
+        if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minuteDegree}deg)`;
+        if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secondDegree}deg)`;
+    }
+
+    updateIOISClock();
+    setInterval(updateIOISClock, 1000);
+
+    const weatherText = code => {
+        if (code === 0) return "साफ मौसम ☀️";
+        if (code <= 3) return "आंशिक बादल ⛅";
+        if (code <= 48) return "कोहरा 🌫️";
+        if (code <= 67) return "बारिश 🌧️";
+        if (code <= 77) return "बर्फ / ओले ❄️";
+        if (code <= 82) return "तेज बारिश 🌧️";
+        return "तूफानी मौसम ⛈️";
+    };
+
+    async function loadIOISWeather(latitude, longitude) {
+        const temp = document.getElementById("weather-temp-display");
+        const status = document.getElementById("weather-status-display");
+        const location = document.getElementById("weather-location-display");
+        const extra = document.getElementById("weather-extra-display");
+        try {
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Weather request failed");
+            const data = await response.json();
+            const current = data.current;
+            if (temp) temp.textContent = `${Math.round(current.temperature_2m)}°C`;
+            if (status) status.textContent = weatherText(current.weather_code);
+            if (location) location.textContent = `📍 ${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`;
+            if (extra) extra.textContent = `Humidity ${current.relative_humidity_2m}% · Wind ${Math.round(current.wind_speed_10m)} km/h`;
+        } catch (error) {
+            console.error("IOIS Weather:", error);
+            if (status) status.textContent = "मौसम जानकारी उपलब्ध नहीं है";
+            if (location) location.textContent = "Live weather connection unavailable";
+        }
+    }
+
+    function startIOISWeather() {
+        if (!navigator.geolocation) {
+            loadIOISWeather(25.86, 85.78);
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            position => loadIOISWeather(position.coords.latitude, position.coords.longitude),
+            () => loadIOISWeather(25.86, 85.78),
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+        );
+    }
+
+    startIOISWeather();
+    setInterval(startIOISWeather, 600000);
+})();
+</script>
+
+<!-- =====================================================
+     MAIN JAVASCRIPT
+===================================================== -->
+<script src="script.js"></script>
+
+</body>
+</html>
