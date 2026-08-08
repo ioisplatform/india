@@ -188,6 +188,20 @@
             display: block;
         }
 
+        /* IOIS LIVE UPDATE TICKER */
+        .iois-live-bar { flex: 1; overflow: hidden; white-space: nowrap; }
+        .iois-live-ticker {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ioisTicker 22s linear infinite;
+            will-change: transform;
+        }
+        .iois-live-ticker:hover { animation-play-state: paused; }
+        @keyframes ioisTicker {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
     </style>
 
 </head>
@@ -208,11 +222,15 @@
         LIVE UPDATE
     </span>
 
-    <div class="overflow-hidden whitespace-nowrap">
-        🔥 IOIS PLATFORM —
-        ₹10 से शुरुआत करें और Digital Resources प्राप्त करें!
-        &nbsp;&nbsp;&nbsp;
-        🚀 ₹49 से ₹999 तक Membership Plans उपलब्ध हैं!
+    <div class="iois-live-bar">
+        <div class="iois-live-ticker">
+            🔥 IOIS PLATFORM —
+            ₹10 से शुरुआत करें और Digital Resources प्राप्त करें!
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            🚀 ₹49 से ₹999 तक Membership Plans उपलब्ध हैं!
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            🇮🇳 IOIS — Indian Online Income Supporting System
+        </div>
     </div>
 
 </div>
@@ -696,7 +714,7 @@
             <div class="flex gap-2">
 
                 <button
-                    onclick="playTvMode('youtube')"
+                    onclick="window.open('https://www.youtube.com/watch?v=0gYd3mIxksc&autoplay=1', '_blank')"
                     class="px-3 py-1
                            bg-red-600
                            text-white
@@ -709,7 +727,7 @@
                 </button>
 
                 <button
-                    onclick="playTvMode('chrome')"
+                    onclick="window.open('https://www.youtube.com/watch?v=0gYd3mIxksc&autoplay=1', '_blank')"
                     class="px-3 py-1
                            bg-blue-600
                            text-white
