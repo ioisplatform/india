@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>IOIS - 21 FAQs Support</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0f172a; color: white; padding: 20px; margin:0; }
+        .gold { color: #d4af37; }
+        .faq-item { background: #1e293b; border: 1px solid #334155; padding: 12px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div style="background:#1a202c; padding:15px; border-bottom:2px solid #d4af37; margin-bottom:20px;">
+        <h2 class="gold" style="margin:0;">IOIS PLATFORM - 21 FAQs</h2>
+        <small>INDIAN ONLINE INCOME SUPPORTING SYSTEM - बदलते भारत की शान.....</small>
+        <br><br><a href="index.html" style="color:#d4af37; text-decoration:none;">← Return to Main Home Page</a>
+    </div>
+
+    <div id="faqList"></div>
+
+    <script>
+        const faqs = [
+            "1. IOIS Platform क्या है?", "2. नया अकाउंट कैसे बनाएं?", "3. Telegram Approval कितना समय लेता है?", 
+            "4. यूटीआर (UTR) नंबर क्या है?", "5. रेफरल लिंक का उपयोग कैसे करें?", "6. पासवर्ड भूल जाने पर क्या करें?", 
+            "7. वीडियो कैसे डाउनलोड करें?", "8. फ्री स्टडी मटेरियल कैसे प्राप्त करें?", "9. समाचार पत्र कैसे पढ़ें?",
+            "10. क्या यह प्लेटफ़ॉर्म सुरक्षित है?", "11. लॉगिन समस्या का समाधान?", "12. मोबाइल बैंकिंग सपोर्ट?",
+            "13. दैनिक पंचांग अपडेट समय?", "14. मौसम अलर्ट कहाँ दिखेगा?", "15. रेफर एंड अर्न बोनस कैसे मिलता है?",
+            "16. एडमिन सपोर्ट टाइमिंग?", "17. खाता रिजेक्ट होने पर क्या करें?", "18. क्या कोई छिपा शुल्क है?",
+            "19. रिफंड पॉलिसी क्या है?", "20. डैशबोर्ड फ़ीचर्स क्या हैं?", "21. क्या BSEB बुक्स फ्री हैं?"
+        ];
+        const cont = document.getElementById('faqList');
+        faqs.forEach(q => {
+            cont.innerHTML += `<div class="faq-item"><strong class="gold">${q}</strong><p style="margin:5px 0 0 0; font-size:13px; color:#cbd5e1;">उत्तर: विस्तृत जानकारी हेतु ऑफिशियल सपोर्ट से संपर्क करें।</p></div>`;
+        });
+    </script>
+</body>
+</html>
