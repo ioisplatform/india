@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IOIS | My Downloads</title>
+
+    <meta name="description"
+          content="IOIS Platform Member Downloads - Digital Resources, Certificates, ID Cards and Membership Files.">
+
+    <meta name="theme-color" content="#030712">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+    <!-- Existing IOIS CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #030712;
+            color: #fff;
+        }
+
+        .tiranga-text {
+            background: linear-gradient(
+                90deg,
+                #f97316 0%,
+                #ffffff 50%,
+                #10b981 100%
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, .78);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(245, 158, 11, .18);
+        }
+
+        .download-card {
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(245, 158, 11, .6);
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34,197,94,.7);
+        }
+
+        .resource-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245,158,11,.12);
+            border: 1px solid rgba(245,158,11,.25);
+        }
+
+        .locked {
+            opacity: .55;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="sticky top-0 z-50 bg-[#030712]/95 backdrop-blur-xl border-b border-gray-800">
+
+    <div class="max-w-7xl mx-auto px-4 py-3
+                flex items-center justify-between">
+
+        <!-- LOGO -->
+
+        <a href="index.html"
+           class="flex items-center gap-3">
+
+            <img
+                src="assets/logo.png"
+                alt="IOIS Logo"
+                onerror="this.style.display='none'"
+                class="w-10 h-10 rounded-full
+                       border-2 border-amber-400
+                       object-cover"
+            >
+
+            <div>
+
+                <div class="text-lg font-black
+                            tracking-wider tiranga-text">
+
+                    IOIS PLATFORM
+
+                </div>
+
+                <div class="text-[8px]
+                            text-teal-400
+                            tracking-widest
+                            uppercase">
+
+                    Indian Online Income Supporting System
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <!-- NAV -->
+
+        <nav class="hidden md:flex items-center gap-5
+                    text-xs text-gray-300">
+
+            <a href="index.html"
+               class="hover:text-amber-400">
+
+                <i class="fa-solid fa-house mr-1"></i>
+                Home
+
+            </a>
+
+            <a href="membership.html"
+               class="hover:text-amber-400">
+
+                <i class="fa-solid fa-layer-group mr-1"></i>
+                Membership
+
+            </a>
+
+            <a href="dashboard.html"
+               class="hover:text-amber-400">
+
+                <i class="fa-solid fa-gauge mr-1"></i>
+                Dashboard
+
+            </a>
+
+            <a href="downloads.html"
+               class="text-amber-400">
+
+                <i class="fa-solid fa-download mr-1"></i>
+                Downloads
+
+            </a>
+
+        </nav>
+
+
+        <button
+            onclick="logoutUser()"
+            class="px-4 py-2
+                   border border-red-500
+                   text-red-400
+                   rounded-lg
+                   text-xs font-bold
+                   hover:bg-red-500
+                   hover:text-white
+                   transition">
+
+            <i class="fa-solid fa-right-from-bracket mr-1"></i>
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="min-h-screen">
+
+    <!-- PAGE HEADER -->
+
+    <section class="max-w-7xl mx-auto
+                    px-4 pt-10 pb-6">
+
+        <div class="glass-card
+                    rounded-3xl
+                    p-6 md:p-8">
+
+            <div class="flex flex-col
+                        md:flex-row
+                        md:items-center
+                        md:justify-between
+                        gap-5">
+
+                <div>
+
+                    <span class="text-amber-400
+                                 text-xs font-black
+                                 uppercase tracking-widest">
+
+                        Member Area
+
+                    </span>
+
+                    <h1 class="text-3xl md:text-4xl
+                               font-black mt-2">
+
+                        My Downloads
+
+                    </h1>
+
+                    <p class="text-gray-400
+                              text-sm mt-2">
+
+                        आपके membership के अनुसार
+                        उपलब्ध सभी digital resources यहाँ मिलेंगे।
+
+                    </p>
+
+                </div>
+
+
+                <div class="bg-[#080d1e]
+                            border border-gray-700
+                            rounded-2xl
+                            px-5 py-4">
+
+                    <div class="text-[10px]
+                                text-gray-500
+                                uppercase">
+
+                        Account Status
+
+                    </div>
+
+                    <div class="mt-1
+                                text-green-400
+                                text-sm
+                                font-bold">
+
+                        <span class="status-dot mr-2"></span>
+                        Verified Member
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MEMBER INFORMATION -->
+
+    <section class="max-w-7xl mx-auto px-4 py-4">
+
+        <div class="grid
+                    grid-cols-1
+                    md:grid-cols-3
+                    gap-4">
+
+            <div class="glass-card rounded-2xl p-5">
+
+                <div class="text-[10px]
+                            text-gray-500
+                            uppercase">
+
+                    Member Name
+
+                </div>
+
+                <div id="member-name"
+                     class="text-lg
+                            font-black
+                            text-amber-400
+                            mt-1">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5">
+
+                <div class="text-[10px]
+                            text-gray-500
+                            uppercase">
+
+                    Unique User ID
+
+                </div>
+
+                <div id="member-user-id"
+                     class="text-lg
+                            font-black
+                            text-teal-400
+                            mt-1">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+
+            <div class="glass-card rounded-2xl p-5">
+
+                <div class="text-[10px]
+                            text-gray-500
+                            uppercase">
+
+                    Active Plan
+
+                </div>
+
+                <div id="member-plan"
+                     class="text-lg
+                            font-black
+                            text-purple-400
+                            mt-1">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOWNLOAD RESOURCES -->
+
+    <section class="max-w-7xl mx-auto px-4 py-8">
+
+        <div class="flex items-center
+                    justify-between mb-6">
+
+            <div>
+
+                <span class="text-teal-400
+                             text-xs font-bold
+                             uppercase">
+
+                    Digital Resources
+
+                </span>
+
+                <h2 class="text-2xl
+                           md:text-3xl
+                           font-black mt-1">
+
+                    Available Files
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="downloads-container"
+             class="grid
+                    grid-cols-1
+                    md:grid-cols-2
+                    lg:grid-cols-3
+                    gap-5">
+
+
+            <!-- RESUME -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="flex
+                            items-start
+                            justify-between">
+
+                    <div class="resource-icon">
+
+                        <i class="fa-solid
+                                  fa-file-user
+                                  text-amber-400
+                                  text-xl"></i>
+
+                    </div>
+
+                    <span class="text-[9px]
+                                 bg-green-500/10
+                                 text-green-400
+                                 px-2 py-1
+                                 rounded">
+
+                        AVAILABLE
+
+                    </span>
+
+                </div>
+
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    Professional Resume Templates
+
+                </h3>
+
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    Mobile-friendly professional
+                    CV / Resume templates.
+
+                </p>
+
+
+                <button
+                    onclick="downloadResource('resume')"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-amber-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-download mr-1"></i>
+                    Download
+
+                </button>
+
+            </div>
+
+
+            <!-- COVER LETTER -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="resource-icon">
+
+                    <i class="fa-solid
+                              fa-envelope
+                              text-teal-400
+                              text-xl"></i>
+
+                </div>
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    Cover Letter Templates
+
+                </h3>
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    Professional job application
+                    cover letter resources.
+
+                </p>
+
+                <button
+                    onclick="downloadResource('cover-letter')"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-teal-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-download mr-1"></i>
+                    Download
+
+                </button>
+
+            </div>
+
+
+            <!-- AI PROMPTS -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="resource-icon">
+
+                    <i class="fa-solid
+                              fa-robot
+                              text-purple-400
+                              text-xl"></i>
+
+                </div>
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    ChatGPT Smart Prompts
+
+                </h3>
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    Job, email, career और
+                    productivity prompts.
+
+                </p>
+
+                <button
+                    onclick="downloadResource('ai-prompts')"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-purple-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-download mr-1"></i>
+                    Download
+
+                </button>
+
+            </div>
+
+
+            <!-- ID CARD -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="resource-icon">
+
+                    <i class="fa-solid
+                              fa-id-card
+                              text-blue-400
+                              text-xl"></i>
+
+                </div>
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    IOIS Digital ID Card
+
+                </h3>
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    आपका verified IOIS digital
+                    membership identity card.
+
+                </p>
+
+                <button
+                    onclick="openIDCard()"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-blue-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-eye mr-1"></i>
+                    View ID Card
+
+                </button>
+
+            </div>
+
+
+            <!-- CERTIFICATE -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="resource-icon">
+
+                    <i class="fa-solid
+                              fa-certificate
+                              text-yellow-400
+                              text-xl"></i>
+
+                </div>
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    Membership Certificate
+
+                </h3>
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    Active membership का
+                    digital certificate.
+
+                </p>
+
+                <button
+                    onclick="openCertificate()"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-yellow-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-certificate mr-1"></i>
+                    View Certificate
+
+                </button>
+
+            </div>
+
+
+            <!-- USEFUL LINKS -->
+
+            <div class="download-card
+                        glass-card
+                        rounded-2xl
+                        p-5">
+
+                <div class="resource-icon">
+
+                    <i class="fa-solid
+                              fa-link
+                              text-green-400
+                              text-xl"></i>
+
+                </div>
+
+                <h3 class="font-black
+                           text-lg mt-4">
+
+                    Important Website Links
+
+                </h3>
+
+                <p class="text-gray-400
+                          text-xs
+                          leading-5 mt-2">
+
+                    Government, career और
+                    useful digital websites.
+
+                </p>
+
+                <button
+                    onclick="downloadResource('website-links')"
+                    class="w-full mt-5
+                           py-2.5
+                           bg-green-400
+                           text-gray-950
+                           rounded-lg
+                           font-black
+                           text-xs">
+
+                    <i class="fa-solid fa-download mr-1"></i>
+                    Download
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY NOTICE -->
+
+    <section class="max-w-5xl mx-auto
+                    px-4 pb-12">
+
+        <div class="glass-card
+                    rounded-2xl
+                    p-5
+                    border border-teal-500/20">
+
+            <div class="flex gap-4">
+
+                <div class="text-teal-400
+                            text-2xl">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <div>
+
+                    <h3 class="font-black
+                               text-teal-400">
+
+                        IOIS Secure Member Area
+
+                    </h3>
+
+                    <p class="text-gray-400
+                              text-xs
+                              leading-6 mt-2">
+
+                        Downloads आपके authenticated
+                        account और membership access
+                        के आधार पर नियंत्रित किए जाते हैं।
+                        Unique User ID को edit या delete
+                        करने का विकल्प उपलब्ध नहीं है।
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="border-t border-gray-800
+               bg-[#020617]">
+
+    <div class="max-w-7xl mx-auto
+                px-4 py-6
+                text-center">
+
+        <div class="text-lg
+                    font-black
+                    tiranga-text">
+
+            IOIS PLATFORM
+
+        </div>
+
+        <p class="text-[10px]
+                  text-gray-500 mt-2">
+
+            Indian Online Income Supporting System
+
+        </p>
+
+        <p class="text-[10px]
+                  text-gray-600 mt-3">
+
+            © 2026 IOIS PLATFORM.
+            All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =========================================================
+     IOIS CONFIG
+========================================================= -->
+
+<script src="supabase-config.js"></script>
+
+
+<!-- =========================================================
+     DOWNLOAD PAGE LOGIC
+========================================================= -->
+
+<script>
+
+let currentUser = null;
+let currentProfile = null;
+
+
+/* =========================================================
+   AUTH CHECK
+========================================================= */
+
+async function checkMemberAuth() {
+
+    try {
+
+        if (
+            typeof supabase === "undefined" ||
+            !supabase.auth
+        ) {
+
+            console.error(
+                "Supabase client is not initialized."
+            );
+
+            return;
+
+        }
+
+
+        const {
+            data: {
+                session
+            },
+            error
+        } = await supabase.auth.getSession();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!session) {
+
+            window.location.href =
+                "login.html?redirect=downloads.html";
+
+            return;
+
+        }
+
+
+        currentUser = session.user;
+
+        await loadMemberProfile();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+        window.location.href =
+            "login.html?redirect=downloads.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD MEMBER PROFILE
+========================================================= */
+
+async function loadMemberProfile() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", currentUser.id)
+            .single();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        currentProfile = data;
+
+
+        document.getElementById(
+            "member-name"
+        ).textContent =
+            data.full_name ||
+            "IOIS Member";
+
+
+        document.getElementById(
+            "member-user-id"
+        ).textContent =
+            data.user_id ||
+            "IOIS-MEMBER";
+
+
+        document.getElementById(
+            "member-plan"
+        ).textContent =
+            data.membership_plan ||
+            "Active Membership";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Profile loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESOURCE DOWNLOAD
+========================================================= */
+
+function downloadResource(type) {
+
+    const resources = {
+
+        "resume":
+            "assets/downloads/resume-templates.pdf",
+
+        "cover-letter":
+            "assets/downloads/cover-letters.pdf",
+
+        "ai-prompts":
+            "assets/downloads/chatgpt-prompts.pdf",
+
+        "website-links":
+            "assets/downloads/important-website-links.pdf"
+
+    };
+
+
+    const file =
+        resources[type];
+
+
+    if (!file) {
+
+        alert(
+            "यह resource अभी उपलब्ध नहीं है।"
+        );
+
+        return;
+
+    }
+
+
+    const link =
+        document.createElement("a");
+
+    link.href = file;
+
+    link.download = "";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+}
+
+
+/* =========================================================
+   ID CARD
+========================================================= */
+
+function openIDCard() {
+
+    window.location.href =
+        "idcard.html";
+
+}
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+function openCertificate() {
+
+    window.location.href =
+        "certificate.html";
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser() {
+
+    try {
+
+        const {
+            error
+        } = await supabase.auth.signOut();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        alert(
+            "Logout नहीं हो पाया। कृपया दोबारा प्रयास करें।"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    checkMemberAuth
+);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+(function(){const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=()=>{window.supabaseClient=supabase.createClient(IOIS_CONFIG.SUPABASE_URL,IOIS_CONFIG.SUPABASE_PUBLISHABLE_KEY);document.dispatchEvent(new Event('iois-ready'))};document.head.appendChild(s)})();

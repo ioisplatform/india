@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IOIS Digital ID Card</title>
+
+    <meta name="description"
+          content="IOIS Platform Digital Membership ID Card">
+
+    <meta name="theme-color"
+          content="#030712">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #172554 0%,
+                    #030712 45%,
+                    #020617 100%
+                );
+            color: white;
+            min-height: 100vh;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        .tiranga-text {
+            background:
+                linear-gradient(
+                    90deg,
+                    #f97316 0%,
+                    #ffffff 48%,
+                    #10b981 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, .78);
+            border: 1px solid rgba(245, 158, 11, .22);
+            backdrop-filter: blur(15px);
+        }
+
+        /* =========================================
+           ID CARD
+        ========================================= */
+
+        .id-card-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .iois-id-card {
+
+            width: min(92vw, 430px);
+            min-height: 650px;
+
+            position: relative;
+            overflow: hidden;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111827 0%,
+                    #0f172a 45%,
+                    #020617 100%
+                );
+
+            border: 2px solid #f59e0b;
+
+            box-shadow:
+                0 0 30px rgba(245,158,11,.18),
+                0 25px 70px rgba(0,0,0,.65);
+        }
+
+        .id-card-wrapper.print-mode
+        .iois-id-card {
+
+            width: 430px;
+            min-height: 650px;
+
+            box-shadow: none;
+        }
+
+        .id-card-glow {
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(245,158,11,.18),
+                    transparent 70%
+                );
+
+            top: -110px;
+            right: -100px;
+
+            pointer-events: none;
+        }
+
+        .id-card-glow-2 {
+
+            position: absolute;
+
+            width: 240px;
+            height: 240px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(16,185,129,.13),
+                    transparent 70%
+                );
+
+            bottom: -100px;
+            left: -100px;
+
+            pointer-events: none;
+        }
+
+        .id-header {
+
+            position: relative;
+            z-index: 2;
+
+            padding: 22px 20px 16px;
+
+            border-bottom:
+                1px solid
+                rgba(245,158,11,.22);
+        }
+
+        .logo-box {
+
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            border: 2px solid #fbbf24;
+
+            overflow: hidden;
+
+            background: #020617;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .verified {
+
+            display: inline-flex;
+
+            align-items: center;
+            gap: 5px;
+
+            padding: 4px 8px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(16,185,129,.12);
+
+            border:
+                1px solid
+                rgba(16,185,129,.35);
+
+            color: #34d399;
+
+            font-size: 9px;
+            font-weight: 900;
+
+            text-transform: uppercase;
+        }
+
+        .profile-section {
+
+            position: relative;
+            z-index: 2;
+
+            padding: 24px 20px 10px;
+
+            text-align: center;
+        }
+
+        .profile-photo {
+
+            width: 118px;
+            height: 118px;
+
+            margin: 0 auto;
+
+            border-radius: 50%;
+
+            overflow: hidden;
+
+            border:
+                4px solid
+                #f59e0b;
+
+            background: #020617;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(245,158,11,.10),
+                0 0 25px
+                rgba(245,158,11,.20);
+        }
+
+        .profile-photo img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 45px;
+
+            color: #64748b;
+        }
+
+        .member-name {
+
+            margin-top: 14px;
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            color: #fff;
+
+            word-break: break-word;
+        }
+
+        .member-plan {
+
+            margin-top: 6px;
+
+            color: #fbbf24;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            text-transform: uppercase;
+        }
+
+        .member-badge {
+
+            display: inline-block;
+
+            margin-top: 9px;
+
+            padding: 5px 12px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f59e0b,
+                    #fbbf24
+                );
+
+            color: #020617;
+
+            font-size: 9px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+        .details {
+
+            position: relative;
+            z-index: 2;
+
+            padding: 18px 20px;
+        }
+
+        .detail-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 0;
+
+            border-bottom:
+                1px solid
+                rgba(148,163,184,.12);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-icon {
+
+            width: 34px;
+            height: 34px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background:
+                rgba(245,158,11,.10);
+
+            border:
+                1px solid
+                rgba(245,158,11,.20);
+
+            color: #fbbf24;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+        }
+
+        .detail-label {
+
+            font-size: 8px;
+
+            color: #64748b;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+        }
+
+        .detail-value {
+
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: #e2e8f0;
+
+            font-weight: 700;
+
+            word-break: break-word;
+        }
+
+        .id-footer {
+
+            position: relative;
+            z-index: 2;
+
+            margin-top: 4px;
+
+            padding: 14px 20px 20px;
+
+            border-top:
+                1px solid
+                rgba(245,158,11,.18);
+
+            text-align: center;
+        }
+
+        .unique-id {
+
+            font-family:
+                monospace;
+
+            color: #fbbf24;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            word-break: break-all;
+        }
+
+        .qr-box {
+
+            width: 100px;
+            height: 100px;
+
+            margin: 12px auto;
+
+            padding: 5px;
+
+            background: white;
+
+            border-radius: 10px;
+        }
+
+        .qr-box img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+        }
+
+        .card-note {
+
+            font-size: 8px;
+
+            color: #64748b;
+
+            line-height: 1.5;
+        }
+
+        .status-active {
+
+            color: #34d399;
+
+            font-weight: 900;
+        }
+
+        .status-pending {
+
+            color: #fbbf24;
+
+            font-weight: 900;
+        }
+
+        .status-rejected {
+
+            color: #f87171;
+
+            font-weight: 900;
+        }
+
+        /* =========================================
+           LOADER
+        ========================================= */
+
+        .loader {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            border:
+                4px solid
+                rgba(255,255,255,.10);
+
+            border-top-color:
+                #f59e0b;
+
+            animation:
+                spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width:480px) {
+
+            .iois-id-card {
+                min-height: 620px;
+            }
+
+            .member-name {
+                font-size: 20px;
+            }
+
+            .profile-photo {
+                width: 105px;
+                height: 105px;
+            }
+
+        }
+
+        /* =========================================
+           PRINT
+        ========================================= */
+
+        @media print {
+
+            body {
+                background: white !important;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #id-card-print-area,
+            #id-card-print-area * {
+                visibility: visible;
+            }
+
+            #id-card-print-area {
+
+                position: absolute;
+
+                left: 0;
+                top: 0;
+
+                width: 100%;
+
+                display: flex;
+
+                justify-content: center;
+
+                background: white;
+            }
+
+            .iois-id-card {
+
+                box-shadow: none !important;
+
+                width: 430px !important;
+                min-height: 650px !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="sticky top-0 z-50
+               bg-[#030712]/95
+               backdrop-blur-xl
+               border-b border-amber-500/20">
+
+    <div class="max-w-7xl mx-auto
+                px-4 py-3
+                flex items-center
+                justify-between">
+
+        <a href="index.html"
+           class="flex items-center gap-3">
+
+            <div class="w-10 h-10
+                        rounded-full overflow-hidden
+                        border-2 border-amber-400">
+
+                <img
+                    src="assets/logo.png"
+                    alt="IOIS Logo"
+                    class="w-full h-full object-cover"
+                    onerror="this.style.display='none'"
+                >
+
+            </div>
+
+            <div>
+
+                <div class="text-lg font-black
+                            tiranga-text">
+
+                    IOIS PLATFORM
+
+                </div>
+
+                <div class="text-[8px]
+                            text-teal-400
+                            font-bold
+                            tracking-widest">
+
+                    INDIAN ONLINE INCOME
+                    SUPPORTING SYSTEM
+
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <a href="dashboard.html"
+           class="px-4 py-2
+                  border border-amber-400
+                  text-amber-400
+                  rounded-xl
+                  text-xs font-bold
+                  hover:bg-amber-400
+                  hover:text-gray-950
+                  transition">
+
+            <i class="fa-solid fa-user mr-1"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="max-w-7xl mx-auto
+             px-4 py-8">
+
+    <div class="text-center mb-8">
+
+        <span class="text-amber-400
+                     text-xs font-black
+                     uppercase tracking-widest">
+
+            IOIS Member Area
+
+        </span>
+
+        <h1 class="text-3xl md:text-4xl
+                   font-black mt-2">
+
+            Digital Membership ID Card
+
+        </h1>
+
+        <p class="text-gray-400
+                  text-xs mt-3">
+
+            आपका official IOIS digital membership card
+
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         LOADING
+    ================================================== -->
+
+    <div id="loading-state"
+         class="flex flex-col
+                items-center
+                justify-center
+                py-16">
+
+        <div class="loader"></div>
+
+        <p class="text-gray-400
+                  text-xs mt-4">
+
+            Member information
+            load हो रही है...
+
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         LOGIN REQUIRED
+    ================================================== -->
+
+    <div id="login-state"
+         class="hidden
+                max-w-md
+                mx-auto
+                glass
+                rounded-3xl
+                p-8
+                text-center">
+
+        <div class="w-16 h-16
+                    mx-auto
+                    rounded-2xl
+                    bg-amber-400
+                    text-gray-950
+                    flex items-center
+                    justify-center
+                    text-2xl">
+
+            <i class="fa-solid fa-lock"></i>
+
+        </div>
+
+        <h2 class="text-xl
+                   font-black
+                   mt-5">
+
+            Login Required
+
+        </h2>
+
+        <p class="text-gray-400
+                  text-xs leading-6
+                  mt-3">
+
+            Digital ID Card देखने के लिए
+            पहले अपने IOIS account में login करें।
+
+        </p>
+
+        <a href="login.html"
+           class="inline-block
+                  mt-6
+                  px-7 py-3
+                  bg-amber-400
+                  text-gray-950
+                  rounded-xl
+                  font-black
+                  text-xs">
+
+            <i class="fa-solid fa-right-to-bracket mr-2"></i>
+
+            Login
+
+        </a>
+
+    </div>
+
+
+    <!-- =================================================
+         CARD AREA
+    ================================================== -->
+
+    <div id="card-section"
+         class="hidden">
+
+        <div id="id-card-print-area"
+             class="id-card-wrapper">
+
+            <div class="iois-id-card">
+
+                <div class="id-card-glow"></div>
+
+                <div class="id-card-glow-2"></div>
+
+
+                <!-- HEADER -->
+
+                <div class="id-header">
+
+                    <div class="flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex
+                                    items-center
+                                    gap-3">
+
+                            <div class="logo-box">
+
+                                <img
+                                    src="assets/logo.png"
+                                    alt="IOIS"
+                                    onerror="this.style.display='none'"
+                                >
+
+                            </div>
+
+                            <div>
+
+                                <div class="text-xl
+                                            font-black
+                                            tiranga-text">
+
+                                    IOIS
+
+                                </div>
+
+                                <div class="text-[8px]
+                                            text-gray-400
+                                            font-bold">
+
+                                    INDIAN ONLINE INCOME
+                                    SUPPORTING SYSTEM
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="verified">
+
+                            <i class="fa-solid
+                                      fa-circle-check"></i>
+
+                            Verified
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="profile-section">
+
+                    <div class="profile-photo">
+
+                        <img
+                            id="member-photo"
+                            src=""
+                            alt="Member Photo"
+                            style="display:none"
+                        >
+
+                        <div id="photo-placeholder"
+                             class="profile-placeholder">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="member-name"
+                         class="member-name">
+
+                        Member Name
+
+                    </div>
+
+
+                    <div id="member-plan"
+                         class="member-plan">
+
+                        IOIS MEMBER
+
+                    </div>
+
+
+                    <div id="member-badge"
+                         class="member-badge">
+
+                        IOIS MEMBER
+
+                    </div>
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="details">
+
+
+                    <!-- USER ID -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid
+                                      fa-fingerprint"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="detail-label">
+                                Unique Member ID
+                            </div>
+
+                            <div id="member-user-id"
+                                 class="detail-value">
+
+                                IOIS-XXXXXX
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PLAN -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid
+                                      fa-layer-group"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="detail-label">
+                                Membership Plan
+                            </div>
+
+                            <div id="member-plan-detail"
+                                 class="detail-value">
+
+                                --
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- JOIN DATE -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid
+                                      fa-calendar-days"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="detail-label">
+                                Membership Date
+                            </div>
+
+                            <div id="member-join-date"
+                                 class="detail-value">
+
+                                --
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="detail-row">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid
+                                      fa-shield-halved"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="detail-label">
+                                Account Status
+                            </div>
+
+                            <div id="member-status"
+                                 class="detail-value status-active">
+
+                                ACTIVE
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- QR -->
+
+                <div class="id-footer">
+
+                    <div class="text-[9px]
+                                text-gray-500
+                                font-bold
+                                uppercase">
+
+                        Member Verification
+
+                    </div>
+
+
+                    <div class="qr-box">
+
+                        <img
+                            id="member-qr"
+                            src=""
+                            alt="Member QR Code"
+                        >
+
+                    </div>
+
+
+                    <div id="member-unique-id"
+                         class="unique-id">
+
+                        IOIS-XXXXXX
+
+                    </div>
+
+
+                    <p class="card-note mt-3">
+
+                        यह digital ID card केवल
+                        IOIS membership verification
+                        के लिए है।
+
+                    </p>
+
+                    <p class="card-note">
+
+                        © 2026 IOIS PLATFORM
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="no-print
+                    max-w-md
+                    mx-auto
+                    mt-7
+                    grid grid-cols-2
+                    gap-3">
+
+            <button
+                onclick="copyMemberID()"
+                class="py-3
+                       bg-amber-400
+                       text-gray-950
+                       rounded-xl
+                       font-black
+                       text-xs">
+
+                <i class="fa-solid
+                          fa-copy mr-1"></i>
+
+                Copy ID
+
+            </button>
+
+
+            <button
+                onclick="printIDCard()"
+                class="py-3
+                       border border-amber-400
+                       text-amber-400
+                       rounded-xl
+                       font-black
+                       text-xs">
+
+                <i class="fa-solid
+                          fa-print mr-1"></i>
+
+                Print / Save PDF
+
+            </button>
+
+        </div>
+
+
+        <!-- SHARE / VERIFICATION -->
+
+        <div class="no-print
+                    max-w-md
+                    mx-auto
+                    mt-4
+                    glass
+                    rounded-2xl
+                    p-5
+                    text-center">
+
+            <div class="text-amber-400
+                        text-xs
+                        font-black">
+
+                <i class="fa-solid
+                          fa-share-nodes mr-1"></i>
+
+                Member ID
+
+            </div>
+
+            <p class="text-gray-400
+                      text-[10px]
+                      mt-2">
+
+                अपना Unique Member ID
+                सुरक्षित रखें। यह ID
+                आपकी membership पहचान के लिए
+                इस्तेमाल होगी।
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div id="error-state"
+         class="hidden
+                max-w-md
+                mx-auto
+                glass
+                rounded-3xl
+                p-8
+                text-center">
+
+        <div class="w-16 h-16
+                    mx-auto
+                    rounded-2xl
+                    bg-red-500/10
+                    text-red-400
+                    border border-red-500/20
+                    flex items-center
+                    justify-center
+                    text-2xl">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </div>
+
+        <h2 class="text-xl
+                   font-black
+                   mt-5">
+
+            Member Data नहीं मिली
+
+        </h2>
+
+        <p id="error-message"
+           class="text-gray-400
+                  text-xs leading-6
+                  mt-3">
+
+            कृपया दोबारा login करें।
+
+        </p>
+
+        <a href="dashboard.html"
+           class="inline-block
+                  mt-6
+                  px-7 py-3
+                  bg-amber-400
+                  text-gray-950
+                  rounded-xl
+                  font-black
+                  text-xs">
+
+            Dashboard पर जाएँ
+
+        </a>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="border-t
+               border-gray-800
+               mt-10
+               py-6
+               text-center">
+
+    <div class="text-sm
+                font-black
+                tiranga-text">
+
+        IOIS PLATFORM
+
+    </div>
+
+    <p class="text-[10px]
+              text-gray-500
+              mt-2">
+
+        Indian Online Income Supporting System
+
+    </p>
+
+    <p class="text-[9px]
+              text-gray-600
+              mt-2">
+
+        © 2026 IOIS PLATFORM.
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   IOIS ID CARD
+   Supabase Integration
+===================================================== */
+
+
+/*
+   IMPORTANT:
+
+   यहाँ वही PUBLIC Supabase URL और
+   ANON/PUBLISHABLE KEY रखें जो आपने
+   अपनी existing IOIS frontend configuration
+   में इस्तेमाल किया है।
+
+   SERVICE ROLE KEY कभी यहाँ नहीं डालना है।
+*/
+
+const IOIS_SUPABASE_URL =
+    window.IOIS_SUPABASE_URL ||
+    "https://hrvwzviprlnpkhrgzdrc.supabase.co";
+
+const IOIS_SUPABASE_ANON_KEY =
+    window.IOIS_SUPABASE_ANON_KEY ||
+    "sb_publishable_tXoFuC0rz0JeDOQvmpjz7w_ZAJhKOVF";
+
+
+let supabaseClient = null;
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeSupabase() {
+
+    if (
+        IOIS_SUPABASE_URL === "https://hrvwzviprlnpkhrgzdrc.supabase.co" ||
+        IOIS_SUPABASE_ANON_KEY === "sb_publishable_tXoFuC0rz0JeDOQvmpjz7w_ZAJhKOVF"
+    ) {
+
+        console.warn(
+            "IOIS Supabase configuration not found."
+        );
+
+        return false;
+    }
+
+
+    supabaseClient =
+        window.supabase.createClient(
+            IOIS_SUPABASE_URL,
+            IOIS_SUPABASE_ANON_KEY
+        );
+
+    return true;
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function showOnly(id) {
+
+    const ids = [
+        "loading-state",
+        "login-state",
+        "card-section",
+        "error-state"
+    ];
+
+    ids.forEach(item => {
+
+        const element =
+            document.getElementById(item);
+
+        if (element) {
+
+            element.classList.toggle(
+                "hidden",
+                item !== id
+            );
+
+        }
+
+    });
+
+}
+
+
+function escapeHTML(value) {
+
+    if (value === null ||
+        value === undefined) {
+
+        return "";
+    }
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "--";
+    }
+
+    const date =
+        new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) {
+        return "--";
+    }
+
+    return date.toLocaleDateString(
+        "hi-IN",
+        {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function setStatus(status) {
+
+    const element =
+        document.getElementById(
+            "member-status"
+        );
+
+    if (!element) {
+        return;
+    }
+
+    const normalized =
+        String(status || "active")
+        .toLowerCase();
+
+    element.className =
+        "detail-value";
+
+
+    if (
+        normalized === "approved" ||
+        normalized === "active" ||
+        normalized === "verified"
+    ) {
+
+        element.textContent =
+            "ACTIVE / VERIFIED";
+
+        element.classList.add(
+            "status-active"
+        );
+
+        return;
+    }
+
+
+    if (
+        normalized === "pending" ||
+        normalized === "review"
+    ) {
+
+        element.textContent =
+            "PENDING VERIFICATION";
+
+        element.classList.add(
+            "status-pending"
+        );
+
+        return;
+    }
+
+
+    if (
+        normalized === "rejected" ||
+        normalized === "blocked"
+    ) {
+
+        element.textContent =
+            "REJECTED / BLOCKED";
+
+        element.classList.add(
+            "status-rejected"
+        );
+
+        return;
+    }
+
+
+    element.textContent =
+        String(status).toUpperCase();
+
+}
+
+
+/* =====================================================
+   QR CODE
+===================================================== */
+
+function createMemberQR(userId) {
+
+    const qr =
+        document.getElementById(
+            "member-qr"
+        );
+
+    if (!qr || !userId) {
+        return;
+    }
+
+
+    const verificationURL =
+        window.location.origin +
+        "/verify.html?id=" +
+        encodeURIComponent(userId);
+
+
+    qr.src =
+        "https://api.qrserver.com/v1/create-qr-code/?" +
+        "size=200x200&data=" +
+        encodeURIComponent(
+            verificationURL
+        );
+}
+
+
+/* =====================================================
+   FIND PROFILE
+===================================================== */
+
+async function loadMemberProfile(user) {
+
+    if (!supabaseClient) {
+
+        throw new Error(
+            "Supabase configuration missing."
+        );
+
+    }
+
+
+    /*
+       Existing IOIS project में profile table
+       का नाम profiles माना गया है।
+
+       User ID को frontend से edit नहीं किया जाता।
+       Profile photo/name/email आदि database
+       से पढ़े जाते हैं।
+    */
+
+    const { data, error } =
+        await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+        throw error;
+    }
+
+
+    if (!data) {
+
+        throw new Error(
+            "आपकी IOIS profile अभी उपलब्ध नहीं है।"
+        );
+
+    }
+
+
+    return data;
+}
+
+
+/* =====================================================
+   LOAD MEMBERSHIP
+===================================================== */
+
+async function loadMembership(userId) {
+
+    /*
+       Membership table अलग हो सकती है।
+       इसलिए पहले common IOIS structure
+       के अनुसार membership records पढ़े जाते हैं।
+    */
+
+    const { data, error } =
+        await supabaseClient
+        .from("memberships")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", {
+            ascending: false
+        })
+        .limit(1)
+        .maybeSingle();
+
+
+    if (error) {
+
+        /*
+           अगर membership table में record
+           नहीं है तो ID card पूरी तरह fail
+           नहीं किया जाएगा।
+        */
+
+        console.warn(
+            "Membership lookup:",
+            error.message
+        );
+
+        return null;
+    }
+
+
+    return data;
+}
+
+
+/* =====================================================
+   RENDER CARD
+===================================================== */
+
+function renderIDCard(
+    user,
+    profile,
+    membership
+) {
+
+    const name =
+        profile.full_name ||
+        profile.name ||
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "IOIS Member";
+
+
+    const userId =
+        profile.user_id ||
+        profile.unique_user_id ||
+        profile.member_id ||
+        profile.iois_id ||
+        membership?.user_id ||
+        "IOIS-" +
+        String(user.id)
+        .substring(0, 8)
+        .toUpperCase();
+
+
+    const plan =
+        membership?.plan_name ||
+        membership?.membership_plan ||
+        profile.plan_name ||
+        profile.membership_plan ||
+        "IOIS Member";
+
+
+    const joinDate =
+        membership?.created_at ||
+        profile.created_at ||
+        user.created_at;
+
+
+    const status =
+        membership?.status ||
+        profile.status ||
+        "active";
+
+
+    const photo =
+        profile.profile_photo_url ||
+        profile.avatar_url ||
+        profile.photo_url ||
+        user.user_metadata?.avatar_url ||
+        "";
+
+
+    /* NAME */
+
+    document.getElementById(
+        "member-name"
+    ).textContent = name;
+
+
+    /* PLAN */
+
+    document.getElementById(
+        "member-plan"
+    ).textContent = plan;
+
+
+    document.getElementById(
+        "member-plan-detail"
+    ).textContent = plan;
+
+
+    /* USER ID */
+
+    document.getElementById(
+        "member-user-id"
+    ).textContent = userId;
+
+
+    document.getElementById(
+        "member-unique-id"
+    ).textContent = userId;
+
+
+    /* DATE */
+
+    document.getElementById(
+        "member-join-date"
+    ).textContent =
+        formatDate(joinDate);
+
+
+    /* STATUS */
+
+    setStatus(status);
+
+
+    /* BADGE */
+
+    document.getElementById(
+        "member-badge"
+    ).textContent =
+        "IOIS " +
+        String(plan)
+        .substring(0, 25)
+        .toUpperCase();
+
+
+    /* PHOTO */
+
+    if (photo) {
+
+        const image =
+            document.getElementById(
+                "member-photo"
+            );
+
+        const placeholder =
+            document.getElementById(
+                "photo-placeholder"
+            );
+
+        image.src = photo;
+
+        image.style.display =
+            "block";
+
+        placeholder.style.display =
+            "none";
+
+        image.onerror = function () {
+
+            image.style.display =
+                "none";
+
+            placeholder.style.display =
+                "flex";
+
+        };
+
+    }
+
+
+    /* QR */
+
+    createMemberQR(userId);
+
+
+    /* SHOW CARD */
+
+    showOnly("card-section");
+}
+
+
+/* =====================================================
+   LOAD CURRENT USER
+===================================================== */
+
+async function loadCurrentMember() {
+
+    showOnly("loading-state");
+
+
+    if (!initializeSupabase()) {
+
+        /*
+           यदि configuration अभी existing
+           global config file से आती है,
+           तो उससे client initialize किया जा सकता है।
+        */
+
+        showOnly("error-state");
+
+        document.getElementById(
+            "error-message"
+        ).textContent =
+            "Supabase configuration उपलब्ध नहीं है। अपनी existing IOIS Supabase configuration जोड़ें।";
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            data: {
+                session
+            },
+            error
+        } =
+            await supabaseClient
+            .auth
+            .getSession();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            !session ||
+            !session.user
+        ) {
+
+            showOnly("login-state");
+
+            return;
+        }
+
+
+        const user =
+            session.user;
+
+
+        const profile =
+            await loadMemberProfile(
+                user
+            );
+
+
+        const membership =
+            await loadMembership(
+                user.id
+            );
+
+
+        renderIDCard(
+            user,
+            profile,
+            membership
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "IOIS ID Card Error:",
+            error
+        );
+
+
+        showOnly("error-state");
+
+
+        document.getElementById(
+            "error-message"
+        ).textContent =
+            error.message ||
+            "Member information load नहीं हो सकी।";
+    }
+
+}
+
+
+/* =====================================================
+   COPY MEMBER ID
+===================================================== */
+
+async function copyMemberID() {
+
+    const element =
+        document.getElementById(
+            "member-unique-id"
+        );
+
+
+    if (!element) {
+        return;
+    }
+
+
+    const userId =
+        element.textContent.trim();
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            userId
+        );
+
+
+        alert(
+            "✅ IOIS Member ID copied:\n\n" +
+            userId
+        );
+
+    }
+
+    catch (error) {
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+        textarea.value =
+            userId;
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+        textarea.remove();
+
+
+        alert(
+            "✅ IOIS Member ID copied:\n\n" +
+            userId
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PRINT / SAVE PDF
+===================================================== */
+
+function printIDCard() {
+
+    window.print();
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+function listenForAuthChanges() {
+
+    if (!supabaseClient) {
+        return;
+    }
+
+
+    supabaseClient
+    .auth
+    .onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+            if (
+                event === "SIGNED_OUT" ||
+                !session
+            ) {
+
+                showOnly(
+                    "login-state"
+                );
+
+                return;
+            }
+
+
+            if (
+                event === "SIGNED_IN" ||
+                event === "TOKEN_REFRESHED"
+            ) {
+
+                loadCurrentMember();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadCurrentMember();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

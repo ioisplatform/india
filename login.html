@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#030712"
+    >
+
+    <meta
+        name="robots"
+        content="index,follow"
+    >
+
+    <title>
+        IOIS Login | Indian Online Income Supporting System
+    </title>
+
+    <meta
+        name="description"
+        content="IOIS Member Login - Securely access your IOIS account."
+    >
+
+
+    <!-- =====================================================
+         TAILWIND
+    ====================================================== -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         SUPABASE JS
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =====================================================
+         IOIS CONFIG
+    ====================================================== -->
+
+    <script src="config.js"></script>
+
+
+    <!-- =====================================================
+         IOIS AUTH SYSTEM
+    ====================================================== -->
+
+    <script src="auth.js"></script>
+
+
+    <!-- =====================================================
+         PAGE CSS
+    ====================================================== -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(245,158,11,.12),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(20,184,166,.10),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(37,99,235,.08),
+                    transparent 35%
+                ),
+
+                #030712;
+
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* =================================================
+           GLASS
+        ================================================== */
+
+        .glass {
+
+            background:
+                rgba(15,23,42,.82);
+
+            border:
+                1px solid
+                rgba(245,158,11,.20);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
+            box-shadow:
+
+                0 25px 80px
+                rgba(0,0,0,.45),
+
+                inset 0 0 35px
+                rgba(15,23,42,.35);
+        }
+
+
+        /* =================================================
+           TRICOLOR TEXT
+        ================================================== */
+
+        .tiranga-text {
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #f97316 0%,
+                    #ffffff 50%,
+                    #10b981 100%
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+        }
+
+
+        /* =================================================
+           INPUT
+        ================================================== */
+
+        .input-box {
+
+            width: 100%;
+
+            background:
+                rgba(2,6,23,.82);
+
+            border:
+                1px solid
+                rgba(100,116,139,.55);
+
+            color: white;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .input-box:hover {
+
+            border-color:
+                rgba(148,163,184,.75);
+        }
+
+
+        .input-box:focus {
+
+            outline: none;
+
+            border-color:
+                #f59e0b;
+
+            background:
+                rgba(2,6,23,.95);
+
+            box-shadow:
+
+                0 0 0 3px
+                rgba(245,158,11,.10);
+        }
+
+
+        .input-box::placeholder {
+
+            color:
+                #64748b;
+        }
+
+
+        /* =================================================
+           LOGIN BUTTON
+        ================================================== */
+
+        .login-btn {
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #fbbf24,
+                    #14b8a6
+                );
+
+            color:
+                #020617;
+
+            transition:
+
+                transform .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
+        }
+
+
+        .login-btn:hover:not(:disabled) {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 15px 35px
+                rgba(20,184,166,.22);
+        }
+
+
+        .login-btn:active:not(:disabled) {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .login-btn:disabled {
+
+            cursor:
+                not-allowed;
+
+            opacity:
+                .65;
+        }
+
+
+        /* =================================================
+           LOGO PULSE
+        ================================================== */
+
+        .logo-pulse {
+
+            animation:
+                logoPulse 2.2s infinite;
+        }
+
+
+        @keyframes logoPulse {
+
+            0% {
+
+                box-shadow:
+                    0 0 0 0
+                    rgba(245,158,11,.35);
+
+            }
+
+            70% {
+
+                box-shadow:
+                    0 0 0 13px
+                    rgba(245,158,11,0);
+
+            }
+
+            100% {
+
+                box-shadow:
+                    0 0 0 0
+                    rgba(245,158,11,0);
+
+            }
+
+        }
+
+
+        /* =================================================
+           SPINNER
+        ================================================== */
+
+        .spinner {
+
+            width:
+                18px;
+
+            height:
+                18px;
+
+            border:
+                2px solid
+                rgba(2,6,23,.25);
+
+            border-top-color:
+                #020617;
+
+            border-radius:
+                50%;
+
+            animation:
+                spin .7s linear infinite;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+
+        }
+
+
+        /* =================================================
+           MODAL
+        ================================================== */
+
+        .modal-backdrop {
+
+            background:
+                rgba(0,0,0,.75);
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+        }
+
+
+        /* =================================================
+           PAGE LOADER
+        ================================================== */
+
+        #page-loader {
+
+            transition:
+                opacity .3s ease;
+        }
+
+
+        /* =================================================
+           MESSAGE
+        ================================================== */
+
+        .message {
+
+            border-radius:
+                12px;
+
+            padding:
+                12px 14px;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+        }
+
+
+        .message-error {
+
+            background:
+                rgba(127,29,29,.25);
+
+            border:
+                1px solid
+                rgba(239,68,68,.30);
+
+            color:
+                #fca5a5;
+        }
+
+
+        .message-success {
+
+            background:
+                rgba(20,83,45,.25);
+
+            border:
+                1px solid
+                rgba(34,197,94,.30);
+
+            color:
+                #86efac;
+        }
+
+
+        .message-info {
+
+            background:
+                rgba(7,47,73,.25);
+
+            border:
+                1px solid
+                rgba(14,165,233,.30);
+
+            color:
+                #7dd3fc;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     INITIAL LOADER
+========================================================== -->
+
+<div
+    id="page-loader"
+    class="
+        fixed
+        inset-0
+        z-[99999]
+        bg-gray-950
+        flex
+        items-center
+        justify-center
+    "
+>
+
+    <div class="text-center">
+
+        <img
+            src="assets/logo.png"
+            alt="IOIS"
+            class="
+                w-20
+                h-20
+                mx-auto
+                rounded-2xl
+                object-cover
+                shadow-2xl
+            "
+        >
+
+        <div
+            class="
+                mt-5
+                w-5
+                h-5
+                mx-auto
+                rounded-full
+                border-2
+                border-white/20
+                border-t-amber-400
+                animate-spin
+            "
+        ></div>
+
+        <p
+            class="
+                mt-4
+                text-xs
+                text-gray-500
+            "
+        >
+            Secure Login System Loading...
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HEADER
+========================================================== -->
+
+<header
+    class="
+        sticky
+        top-0
+        z-40
+        border-b
+        border-white/10
+        bg-gray-950/90
+        backdrop-blur-xl
+    "
+>
+
+    <div
+        class="
+            max-w-7xl
+            mx-auto
+            px-4
+            sm:px-6
+            py-3
+            flex
+            items-center
+            justify-between
+        "
+    >
+
+        <!-- BRAND -->
+
+        <a
+            href="index.html"
+            class="
+                flex
+                items-center
+                gap-3
+            "
+        >
+
+            <img
+                src="assets/logo.png"
+                alt="IOIS Logo"
+                class="
+                    w-11
+                    h-11
+                    rounded-full
+                    object-cover
+                    border-2
+                    border-amber-400
+                "
+            >
+
+
+            <div>
+
+                <div
+                    class="
+                        text-lg
+                        sm:text-xl
+                        font-black
+                        tracking-wide
+                        tiranga-text
+                    "
+                >
+                    IOIS PLATFORM
+                </div>
+
+
+                <div
+                    class="
+                        text-[7px]
+                        sm:text-[8px]
+                        text-teal-400
+                        font-bold
+                        uppercase
+                        tracking-widest
+                    "
+                >
+                    Indian Online Income Supporting System
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <!-- HOME -->
+
+        <a
+            href="index.html"
+            class="
+                px-3
+                py-2
+                rounded-xl
+                text-xs
+                text-gray-300
+                hover:text-amber-400
+                hover:bg-white/5
+                transition
+            "
+        >
+
+            <i
+                class="
+                    fa-solid
+                    fa-house
+                    mr-1
+                "
+            ></i>
+
+            Home
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================== -->
+
+<main
+    class="
+        min-h-[calc(100vh-70px)]
+        flex
+        items-center
+        justify-center
+        px-4
+        py-10
+    "
+>
+
+    <div
+        class="
+            w-full
+            max-w-md
+        "
+    >
+
+
+        <!-- =================================================
+             BRAND / TITLE
+        ================================================== -->
+
+        <div
+            class="
+                text-center
+                mb-7
+            "
+        >
+
+            <img
+                src="assets/logo.png"
+                alt="IOIS Logo"
+                class="
+                    logo-pulse
+                    mx-auto
+                    w-20
+                    h-20
+                    rounded-2xl
+                    object-cover
+                    border
+                    border-amber-400/50
+                "
+            >
+
+
+            <div
+                class="
+                    mt-5
+                    inline-flex
+                    items-center
+                    gap-2
+                    px-3
+                    py-1.5
+                    rounded-full
+                    bg-green-500/10
+                    border
+                    border-green-500/20
+                    text-green-400
+                    text-[10px]
+                    font-bold
+                "
+            >
+
+                <i
+                    class="
+                        fa-solid
+                        fa-shield-halved
+                    "
+                ></i>
+
+                SECURE MEMBER ACCESS
+
+            </div>
+
+
+            <h1
+                class="
+                    text-3xl
+                    sm:text-4xl
+                    font-black
+                    mt-5
+                "
+            >
+                IOIS Member Login
+            </h1>
+
+
+            <p
+                class="
+                    text-gray-400
+                    text-xs
+                    mt-2
+                    leading-5
+                "
+            >
+                अपने IOIS Member Account में
+                सुरक्षित Login करें।
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOGIN CARD
+        ================================================== -->
+
+        <div
+            class="
+                glass
+                rounded-3xl
+                p-6
+                sm:p-8
+            "
+        >
+
+
+            <!-- STATUS MESSAGE -->
+
+            <div
+                id="status-message"
+                class="
+                    hidden
+                    message
+                    mb-5
+                "
+                role="alert"
+                aria-live="polite"
+            ></div>
+
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                id="login-form"
+                class="space-y-5"
+                novalidate
+            >
+
+
+                <!-- EMAIL -->
+
+                <div>
+
+                    <label
+                        for="login-email"
+                        class="
+                            block
+                            text-xs
+                            text-amber-400
+                            font-bold
+                            mb-2
+                        "
+                    >
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-id-card
+                                mr-1
+                            "
+                        ></i>
+
+                        Registered Email *
+
+                    </label>
+
+
+                    <div
+                        class="
+                            relative
+                        "
+                    >
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-id-card
+                                absolute
+                                left-4
+                                top-1/2
+                                -translate-y-1/2
+                                text-gray-500
+                                text-sm
+                            "
+                        ></i>
+
+
+                        <input
+                            id="login-email"
+                            name="email"
+                            type="email"
+                            autocomplete="email"
+                            required
+                            inputmode="email"
+                            spellcheck="false"
+                            placeholder="Enter your registered email"
+                            class="
+                                input-box
+                                rounded-xl
+                                py-3.5
+                                pl-11
+                                pr-4
+                                text-sm
+                            "
+                        >
+
+                    </div>
+
+
+                    <p
+                        class="
+                            mt-2
+                            text-[10px]
+                            text-gray-500
+                        "
+                    >
+                        अपने IOIS account में registered Email डालें।
+                        IOIS account registered है।
+                    </p>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div>
+
+                    <div
+                        class="
+                            flex
+                            items-center
+                            justify-between
+                            mb-2
+                        "
+                    >
+
+                        <label
+                            for="login-password"
+                            class="
+                                text-xs
+                                text-amber-400
+                                font-bold
+                            "
+                        >
+
+                            <i
+                                class="
+                                    fa-solid
+                                    fa-lock
+                                    mr-1
+                                "
+                            ></i>
+
+                            Password *
+
+                        </label>
+
+
+                        <button
+                            id="forgot-password-btn"
+                            type="button"
+                            class="
+                                text-[11px]
+                                text-teal-400
+                                hover:text-amber-400
+                                font-bold
+                                transition
+                            "
+                        >
+                            Forgot User ID / Password?
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            relative
+                        "
+                    >
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-lock
+                                absolute
+                                left-4
+                                top-1/2
+                                -translate-y-1/2
+                                text-gray-500
+                                text-sm
+                            "
+                        ></i>
+
+
+                        <input
+                            id="login-password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            required
+                            minlength="8"
+                            placeholder="Enter your password"
+                            class="
+                                input-box
+                                rounded-xl
+                                py-3.5
+                                pl-11
+                                pr-12
+                                text-sm
+                            "
+                        >
+
+
+                        <button
+                            id="toggle-password"
+                            type="button"
+                            aria-label="Show password"
+                            class="
+                                absolute
+                                right-4
+                                top-1/2
+                                -translate-y-1/2
+                                text-gray-500
+                                hover:text-amber-400
+                                transition
+                            "
+                        >
+
+                            <i
+                                id="password-icon"
+                                class="
+                                    fa-solid
+                                    fa-eye
+                                "
+                            ></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REMEMBER + SECURITY -->
+
+                <div
+                    class="
+                        flex
+                        items-center
+                        justify-between
+                        gap-3
+                        text-[11px]
+                    "
+                >
+
+                    <label
+                        class="
+                            flex
+                            items-center
+                            gap-2
+                            text-gray-400
+                            cursor-pointer
+                        "
+                    >
+
+                        <input
+                            id="remember-me"
+                            type="checkbox"
+                            class="
+                                w-4
+                                h-4
+                                accent-amber-400
+                            "
+                        >
+
+                        Remember this device
+
+                    </label>
+
+
+                    <span
+                        class="
+                            text-green-400
+                            font-bold
+                            whitespace-nowrap
+                        "
+                    >
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-shield-halved
+                                mr-1
+                            "
+                        ></i>
+
+                        Secure
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    id="login-btn"
+                    type="submit"
+                    class="
+                        login-btn
+                        w-full
+                        rounded-xl
+                        py-3.5
+                        font-black
+                        text-sm
+                        flex
+                        items-center
+                        justify-center
+                        gap-2
+                    "
+                >
+
+                    <span id="login-btn-text">
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-right-to-bracket
+                                mr-1
+                            "
+                        ></i>
+
+                        Login to IOIS
+
+                    </span>
+
+
+                    <span
+                        id="login-spinner"
+                        class="
+                            spinner
+                            hidden
+                        "
+                    ></span>
+
+                </button>
+
+            </form>
+
+
+
+            <!-- =================================================
+                 DIVIDER
+            ================================================== -->
+
+            <div
+                class="
+                    flex
+                    items-center
+                    gap-3
+                    my-6
+                "
+            >
+
+                <div
+                    class="
+                        h-px
+                        flex-1
+                        bg-white/10
+                    "
+                ></div>
+
+                <span
+                    class="
+                        text-[10px]
+                        text-gray-500
+                        font-bold
+                    "
+                >
+                    OR
+                </span>
+
+                <div
+                    class="
+                        h-px
+                        flex-1
+                        bg-white/10
+                    "
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REGISTER
+            ================================================== -->
+
+            <div
+                class="
+                    text-center
+                "
+            >
+
+                <p
+                    class="
+                        text-xs
+                        text-gray-400
+                    "
+                >
+                    अभी IOIS Member नहीं हैं?
+                </p>
+
+
+                <a
+                    href="register.html"
+                    class="
+                        inline-flex
+                        items-center
+                        justify-center
+                        mt-3
+                        px-6
+                        py-2.5
+                        rounded-xl
+                        border
+                        border-amber-400
+                        text-amber-400
+                        text-xs
+                        font-black
+                        hover:bg-amber-400
+                        hover:text-gray-950
+                        transition
+                    "
+                >
+
+                    <i
+                        class="
+                            fa-solid
+                            fa-user-plus
+                            mr-2
+                        "
+                    ></i>
+
+                    Register Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SECURITY INFORMATION
+        ================================================== -->
+
+        <div
+            class="
+                glass
+                rounded-2xl
+                p-4
+                mt-5
+            "
+        >
+
+            <div
+                class="
+                    flex
+                    gap-3
+                    items-start
+                "
+            >
+
+                <div
+                    class="
+                        w-9
+                        h-9
+                        shrink-0
+                        rounded-xl
+                        bg-green-500/10
+                        flex
+                        items-center
+                        justify-center
+                        text-green-400
+                    "
+                >
+
+                    <i
+                        class="
+                            fa-solid
+                            fa-shield-halved
+                        "
+                    ></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3
+                        class="
+                            text-xs
+                            font-bold
+                            text-green-400
+                        "
+                    >
+                        सुरक्षित Account Access
+                    </h3>
+
+
+                    <p
+                        class="
+                            text-[10px]
+                            text-gray-500
+                            leading-5
+                            mt-1
+                        "
+                    >
+                        आपका Password इस page में
+                        plain text के रूप में save नहीं किया जाता।
+                        Authentication Supabase Auth द्वारा
+                        handle किया जाता है।
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <div
+            class="
+                text-center
+                mt-6
+                text-[10px]
+                text-gray-600
+            "
+        >
+
+            ©
+            <span id="current-year"></span>
+            IOIS Platform
+
+            <span class="mx-1">•</span>
+
+            Secure Authentication
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     FORGOT PASSWORD MODAL
+========================================================== -->
+
+<div
+    id="forgot-modal"
+    class="
+        hidden
+        fixed
+        inset-0
+        z-[9990]
+        modal-backdrop
+        items-center
+        justify-center
+        p-4
+    "
+>
+
+    <div
+        class="
+            glass
+            rounded-3xl
+            w-full
+            max-w-md
+            p-6
+            sm:p-8
+        "
+    >
+
+        <div
+            class="
+                flex
+                items-center
+                justify-between
+                gap-4
+                mb-6
+            "
+        >
+
+            <div>
+
+                <div
+                    class="
+                        text-lg
+                        font-black
+                    "
+                >
+                    Forgot Password
+                </div>
+
+                <div
+                    class="
+                        text-[10px]
+                        text-gray-500
+                        mt-1
+                    "
+                >
+                    Registered Email पर standard password reset link भेजा जाएगा।
+                </div>
+
+            </div>
+
+
+            <button
+                id="close-forgot-modal"
+                type="button"
+                class="
+                    w-9
+                    h-9
+                    rounded-xl
+                    bg-white/5
+                    text-gray-400
+                    hover:text-white
+                "
+            >
+
+                <i
+                    class="
+                        fa-solid
+                        fa-xmark
+                    "
+                ></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- FORGOT FORM -->
+
+        <form
+            id="forgot-password-form"
+            class="space-y-5"
+        >
+
+            <div>
+
+                <label
+                    for="forgot-email"
+                    class="
+                        block
+                        text-xs
+                        text-amber-400
+                        font-bold
+                        mb-2
+                    "
+                >
+
+                    Registered Email
+
+                </label>
+
+
+                <div class="relative">
+
+                    <i
+                        class="
+                            fa-solid
+                            fa-id-card
+                            absolute
+                            left-4
+                            top-1/2
+                            -translate-y-1/2
+                            text-gray-500
+                        "
+                    ></i>
+
+
+                    <input
+                        id="forgot-email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                        placeholder="Enter registered email"
+                        class="
+                            input-box
+                            rounded-xl
+                            py-3.5
+                            pl-11
+                            pr-4
+                            text-sm
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="
+                    login-btn
+                    w-full
+                    rounded-xl
+                    py-3.5
+                    font-black
+                    text-sm
+                "
+            >
+
+                <i
+                    class="
+                        fa-solid
+                        fa-paper-plane
+                        mr-2
+                    "
+                ></i>
+
+                Forgot Password
+
+            </button>
+
+        </form>
+
+
+        <div
+            class="
+                mt-5
+                p-3
+                rounded-xl
+                bg-blue-500/5
+                border
+                border-blue-500/10
+                text-[10px]
+                text-gray-500
+                leading-5
+            "
+        >
+
+            <i
+                class="
+                    fa-solid
+                    fa-circle-info
+                    text-blue-400
+                    mr-1
+                "
+            ></i>
+
+            Password reset के लिए अपना registered email डालें।
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     LOGIN PAGE HELPERS
+     
+     Authentication itself is handled by auth.js.
+========================================================== -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* =====================================================
+       CURRENT YEAR
+    ====================================================== */
+
+    const year =
+        document.getElementById(
+            "current-year"
+        );
+
+    if (year) {
+
+        year.textContent =
+            new Date().getFullYear();
+
+    }
+
+
+    /* =====================================================
+       PASSWORD SHOW / HIDE
+    ====================================================== */
+
+    const password =
+        document.getElementById(
+            "login-password"
+        );
+
+    const toggle =
+        document.getElementById(
+            "toggle-password"
+        );
+
+    const icon =
+        document.getElementById(
+            "password-icon"
+        );
+
+
+    if (
+        password &&
+        toggle &&
+        icon
+    ) {
+
+        toggle.addEventListener(
+            "click",
+            function () {
+
+                const isPassword =
+                    password.type ===
+                    "password";
+
+
+                password.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+
+                icon.className =
+                    isPassword
+                        ? "fa-solid fa-eye-slash"
+                        : "fa-solid fa-eye";
+
+
+                toggle.setAttribute(
+                    "aria-label",
+                    isPassword
+                        ? "Hide password"
+                        : "Show password"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       FORGOT PASSWORD MODAL
+    ====================================================== */
+
+    const forgotButton =
+        document.getElementById(
+            "forgot-password-btn"
+        );
+
+    const modal =
+        document.getElementById(
+            "forgot-modal"
+        );
+
+    const closeModal =
+        document.getElementById(
+            "close-forgot-modal"
+        );
+
+    const forgotEmail =
+        document.getElementById(
+            "forgot-email"
+        );
+
+    const loginEmail =
+        document.getElementById(
+            "login-email"
+        );
+
+
+    function openForgotModal() {
+        window.location.href = "recovery.html";
+    }
+
+
+    function closeForgotModal() {
+
+        if (!modal) {
+            return;
+        }
+
+
+        modal.classList.add(
+            "hidden"
+        );
+
+        modal.classList.remove(
+            "flex"
+        );
+
+    }
+
+
+    if (forgotButton) {
+
+        forgotButton.addEventListener(
+            "click",
+            openForgotModal
+        );
+
+    }
+
+
+    if (closeModal) {
+
+        closeModal.addEventListener(
+            "click",
+            closeForgotModal
+        );
+
+    }
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeForgotModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeForgotModal();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       LOGIN BUTTON UX
+       
+       auth.js handles actual authentication.
+    ====================================================== */
+
+    const form =
+        document.getElementById(
+            "login-form"
+        );
+
+    const loginBtn =
+        document.getElementById(
+            "login-btn"
+        );
+
+    const loginText =
+        document.getElementById(
+            "login-btn-text"
+        );
+
+    const loginSpinner =
+        document.getElementById(
+            "login-spinner"
+        );
+
+
+    if (form) {
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                if (
+                    !loginBtn ||
+                    !loginText ||
+                    !loginSpinner
+                ) {
+                    return;
+                }
+
+
+                loginBtn.disabled =
+                    true;
+
+
+                loginText.classList.add(
+                    "hidden"
+                );
+
+
+                loginSpinner.classList.remove(
+                    "hidden"
+                );
+
+            },
+            true
+        );
+
+    }
+
+
+
+    /* =====================================================
+       AUTH READY
+       
+       auth.js automatically:
+       - initializes Supabase
+       - connects login form
+       - checks session
+       - handles redirects
+    ====================================================== */
+
+    window.addEventListener(
+        "iois-auth-ready",
+        function () {
+
+            const loader =
+                document.getElementById(
+                    "page-loader"
+                );
+
+
+            if (!loader) {
+                return;
+            }
+
+
+            loader.style.opacity =
+                "0";
+
+
+            setTimeout(
+                function () {
+
+                    loader.remove();
+
+                },
+                300
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       FALLBACK LOADER REMOVE
+    ====================================================== */
+
+    setTimeout(
+        function () {
+
+            const loader =
+                document.getElementById(
+                    "page-loader"
+                );
+
+
+            if (loader) {
+
+                loader.style.opacity =
+                    "0";
+
+
+                setTimeout(
+                    function () {
+
+                        if (loader) {
+                            loader.remove();
+                        }
+
+                    },
+                    300
+                );
+
+            }
+
+        },
+        5000
+    );
+
+
+})();
+
+</script>
+
+
+<script src="login-guard.js"></script>
+</body>
+
+</html>

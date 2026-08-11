@@ -1,0 +1,26 @@
+IOIS V10 FINAL AUDIT
+=====================
+Architecture: Standard Supabase Email + Password
+Custom login function: removed from frontend
+Custom recovery function: removed from frontend
+Email reset: standard Supabase resetPasswordForEmail -> reset-password.html
+Logo asset: assets/logo.png
+Obsolete userlogin.html: removed
+Obsolete V7 setup/audit documents: removed
+JS files:
+payment.js: 2661 bytes
+supabase.js: 317 bytes
+admin.js: 31330 bytes
+login.js: 85 bytes
+dashboard.js: 5709 bytes
+login-guard.js: 382 bytes
+register.js: 18134 bytes
+membership.js: 603 bytes
+registration.js: 434 bytes
+chat.js: 6267 bytes
+config.js: 998 bytes
+auth.js: 7478 bytes
+script.js: 9862 bytes
+supabase-config.js: 5162 bytes
+
+No service-role key or Telegram bot token is included in the frontend configuration.

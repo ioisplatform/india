@@ -1,0 +1,21 @@
+IOIS TELEGRAM SECURE SETUP
+
+The website never contains the Telegram Bot Token.
+
+Supabase Edge Function:
+  supabase/functions/iois-registration-notification/index.ts
+
+Set these Supabase secrets:
+  TELEGRAM_BOT_TOKEN = your Telegram bot token
+  TELEGRAM_CHAT_ID   = your private/group/channel chat id
+
+Deploy:
+  supabase functions deploy iois-registration-notification
+
+The website calls:
+  https://hrvwzviprlnpkhrgzdrc.supabase.co/functions/v1/iois-registration-notification
+
+Community chat database:
+  supabase/sql/iois-community-chat.sql
+
+Run the SQL once in Supabase SQL Editor before using Community Chat.
