@@ -1,389 +1,73 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Multi-Utility Portal</title>
-    <style>
-        :root { --gold-color: #d4af37; --bg-dark: #0f172a; --card-bg: #1e293b; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: var(--bg-dark); color: white; }
+<!doctype html><html lang="hi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IOIS PLATFORM | Indian Online Income Supporting System</title>
+<meta name="description" content="IOIS single page digital resources, learning, membership and referral platform">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050b14;--card:#0c1726;--card2:#101f32;--line:#223750;--text:#f8fafc;--muted:#9fb0c4;--gold:#f6c453;--green:#27d3ae;--blue:#6b8cff;--danger:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 10% 0,#17375b 0,transparent 28%),radial-gradient(circle at 90% 20%,#103c35 0,transparent 24%),var(--bg);color:var(--text);line-height:1.55}a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}.ticker{height:38px;background:#03070d;border-bottom:1px solid #1d3046;display:flex;align-items:center;gap:14px;font-size:11px;font-weight:800;overflow:hidden}.live{color:#ff8fa0;padding:5px 8px;border:1px solid #652b38;border-radius:999px}.ticker span:last-child{color:#c4d0df}
+header{position:sticky;top:0;z-index:100;background:#07101ceb;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}.head{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px}.logo{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-weight:1000;color:#06101a;background:linear-gradient(135deg,#ff9d2e,#fff,#1fb77d)}.brand b{display:block}.brand small{color:var(--green);font-size:9px;font-weight:800}.nav{display:flex;gap:6px}.nav a{padding:9px 10px;border-radius:9px;color:#c8d4e3;font-size:12px;font-weight:800}.nav a:hover{background:#12263c;color:#fff}.actions{display:flex;gap:8px}.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:900;cursor:pointer;display:inline-flex;justify-content:center;align-items:center}.primary{background:linear-gradient(135deg,#ffd66d,#efb42c);color:#101820}.outline{background:#0b1828;border:1px solid #36506c;color:#fff}.green{background:#119c88;color:#fff}.mobile{display:none}
+.hero{padding:64px 0 38px}.heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}.eyebrow{display:inline-block;border:1px solid #63542a;color:var(--gold);padding:6px 10px;border-radius:999px;font-size:10px;font-weight:900}.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;margin:16px 0}.tricolor{background:linear-gradient(90deg,#ff9933,#fff,#138808);-webkit-background-clip:text;color:transparent}.hero p{font-size:16px;color:var(--muted);max-width:700px}.card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:20px}.heroPanel{overflow:hidden}.panelHead{padding:18px;background:linear-gradient(135deg,#173b68,#10453c)}.panelBody{padding:18px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px;border-radius:13px;border:1px solid var(--line);background:#071321}.stat small{display:block;color:var(--muted)}.stat b{font-size:20px}.section{padding:60px 0}.heading{text-align:center;max-width:760px;margin:0 auto 26px}.heading h2{font-size:32px;margin:4px 0}.heading p{color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.icon{width:38px;height:38px;display:grid;place-items:center;background:#17334f;border-radius:12px}.feature{display:flex;gap:12px}.muted{color:var(--muted)}.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.plan{position:relative}.plan.hot{border-color:#c99a37;box-shadow:0 0 0 1px #c99a3722}.tag{position:absolute;right:12px;top:12px;background:var(--gold);color:#111;padding:4px 7px;border-radius:99px;font-size:9px;font-weight:1000}.price{font-size:34px;color:var(--gold);font-weight:1000}.plan ul{min-height:130px;padding-left:18px;color:#cbd6e2;font-size:13px}.reward{padding:10px;border-radius:10px;background:#072a24;color:#71efd9;text-align:center;font-weight:1000}.examples{display:grid;grid-template-columns:1fr 1fr;gap:12px}.example{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}.person{padding:13px;border:1px solid var(--line);background:#071321;border-radius:13px}.arrow{color:var(--gold);font-size:20px}.big{font-size:18px;color:#71efd9;font-weight:1000}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step b{width:38px;height:38px;border-radius:50%;background:#173654;color:var(--gold);display:grid;place-items:center}.form{max-width:850px;margin:auto}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:12px;font-weight:900;margin-bottom:5px;color:#c9d4e1}.field input,.field select,.field textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #2b425b;background:#061220;color:#fff;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#6d91ba}.preview{display:none;max-width:90px;border-radius:10px;margin-top:8px}.notice{border-left:4px solid var(--gold);padding:13px 15px;background:#171910;border-radius:10px;color:#d7d5bf;font-size:13px}.contact{display:grid;grid-template-columns:1fr 1fr;gap:14px}.contact a{display:block}.faq details{background:#0a1726;border:1px solid var(--line);border-radius:11px;padding:12px;margin:8px 0}.faq summary{cursor:pointer;font-weight:900}footer{border-top:1px solid var(--line);padding:30px 0 45px;color:#94a6ba}.modalBg{display:none;position:fixed;inset:0;background:#000b;z-index:2000;align-items:center;justify-content:center;padding:15px}.modal{width:min(500px,100%);max-height:92vh;overflow:auto;background:#0c1929;border:1px solid #34516d;border-radius:20px;padding:22px;box-shadow:0 30px 90px #000}.close{float:right;background:none;border:0;color:#a9b8c8;font-size:26px;cursor:pointer}.toast{position:fixed;right:18px;bottom:18px;background:#0b1827;border:1px solid #3a5670;padding:12px 15px;border-radius:11px;display:none;z-index:3000}
+@media(max-width:1000px){.nav{display:none}.mobile{display:block}.heroGrid,.plans{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.heroGrid,.plans,.grid3,.examples,.steps,.fields,.contact{grid-template-columns:1fr}.hero{padding-top:38px}.hero h1{font-size:42px}.actions .btn{width:100%}.example{grid-template-columns:1fr;text-align:center}.arrow{transform:rotate(90deg)}}
+</style></head><body>
+<div class="ticker"><div class="container" style="display:flex;align-items:center;gap:12px"><span class="live">🔴 LIVE</span><span>🇮🇳 IOIS — ₹10 से ₹999 तक Membership Plans • Digital Resources • Referral Examples</span></div></div>
+<header><div class="container head"><a class="brand" href="#home"><span class="logo">IO</span><span><b>IOIS PLATFORM</b><small>INDIAN ONLINE INCOME SUPPORTING SYSTEM</small></span></a><nav class="nav"><a href="#home">Home</a><a href="#services">Services</a><a href="#plans">Plans</a><a href="#referral">Referral</a><a href="#learning">Learning</a><a href="#help">Help</a></nav><div class="actions"><button class="btn outline" onclick="openModal('login')">Login</button><button class="btn primary" onclick="openModal('register')">Join IOIS</button></div><button class="mobile btn outline" onclick="document.querySelector('.nav').style.display=document.querySelector('.nav').style.display==='flex'?'none':'flex'">☰</button></div></header>
 
-        /* Header & Navigation */
-        header { background: #1a202c; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold-color); sticky: top; }
-        .gold-text { color: var(--gold-color); font-weight: bold; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
-        .logo { font-size: 24px; letter-spacing: 1px; }
-        nav { display: flex; gap: 8px; flex-wrap: wrap; }
-        nav button { background: transparent; border: 1px solid var(--gold-color); color: var(--gold-color); padding: 6px 12px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        nav button:hover { background: var(--gold-color); color: black; }
+<main id="home">
+<section class="hero"><div class="container heroGrid"><div><span class="eyebrow">🇮🇳 SINGLE-PAGE IOIS SYSTEM</span><h1>एक ही जगह पर <span class="tricolor">सीखें, जुड़ें और आगे बढ़ें।</span></h1><p>IOIS का homepage, services, membership, referral examples, registration, login, learning और help system — सब एक ही page पर।</p><div class="actions"><a class="btn primary" href="#plans">💳 Plans देखें</a><a class="btn outline" href="#referral">🔗 Referral समझें</a><a class="btn green" href="#help">💬 Help</a></div><div class="notice">Referral reward को refund या guaranteed income नहीं माना जाएगा। Actual eligibility और verification लागू होंगे।</div></div>
+<div class="card heroPanel"><div class="panelHead"><small>IOIS SMART SYSTEM</small><h2 style="margin:4px 0">आज की जानकारी</h2></div><div class="panelBody"><div class="stats"><div class="stat"><small>🕐 Digital Time</small><b id="time">--:--:--</b></div><div class="stat"><small>📅 Date</small><b id="date">--</b></div><div class="stat"><small>💳 Plans</small><b>7</b></div><div class="stat"><small>🔗 Referral</small><b>Active</b></div></div><div class="card" style="margin-top:12px"><b>Quick Access</b><div class="actions" style="margin-top:10px"><a class="btn outline" href="#learning">💻 Computer</a><a class="btn outline" href="#updates">📰 Updates</a><a class="btn outline" href="#register">📝 Register</a></div></div></div></div></div></section>
 
-        /* Clocks & Quick Widgets Bar */
-        .widget-bar { display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center; background: var(--card-bg); padding: 15px; margin: 15px; border-radius: 10px; border: 1px solid #334155; }
-        .clock-box { text-align: center; font-size: 16px; font-weight: bold; color: var(--gold-color); }
-        .analog-clock { width: 70px; height: 70px; border: 3px solid var(--gold-color); border-radius: 50%; position: relative; background: #0f172a; margin: 0 auto 5px; }
-        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: var(--gold-color); border-radius: 2px; }
-        .hour { width: 4px; height: 20px; }
-        .minute { width: 3px; height: 30px; background: #fff; }
-        .second { width: 1px; height: 32px; background: red; }
+<section id="services" class="section"><div class="container"><div class="heading"><span class="eyebrow">SERVICES</span><h2>IOIS की मुख्य सेवाएँ</h2><p>नए user को जरूरी digital resources और information एक जगह मिले।</p></div><div class="grid3">
+<div class="card feature"><div class="icon">📄</div><div><h3>CV / Resume</h3><p class="muted">Professional resume templates और job-ready resources.</p></div></div>
+<div class="card feature"><div class="icon">✉️</div><div><h3>Cover Letters</h3><p class="muted">Job applications के लिए ready resources.</p></div></div>
+<div class="card feature"><div class="icon">🤖</div><div><h3>AI Prompts</h3><p class="muted">ChatGPT और productivity prompts.</p></div></div>
+<div class="card feature"><div class="icon">💻</div><div><h3>Computer Knowledge</h3><p class="muted">10th–12th level से practical digital skills.</p></div></div>
+<div class="card feature"><div class="icon">💼</div><div><h3>Job Alerts</h3><p class="muted">Job information और application resources.</p></div></div>
+<div class="card feature"><div class="icon">📰</div><div><h3>Daily Updates</h3><p class="muted">News, useful links और daily information.</p></div></div>
+</div></div></section>
 
-        /* Section Routing */
-        .page-section { display: none; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .page-section.active { display: block; }
+<section id="plans" class="section"><div class="container"><div class="heading"><span class="eyebrow">MEMBERSHIP</span><h2>IOIS 7 Plans</h2><p>आपके final pricing structure के अनुसार ₹10 से ₹999 तक।</p></div><div id="plansGrid" class="plans"></div></div></section>
 
-        /* Cards & Grid Systems */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: var(--card-bg); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid var(--gold-color); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .card button { background: var(--gold-color); color: black; border: none; padding: 10px 15px; border-radius: 5px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
+<section id="referral" class="section"><div class="container"><div class="heading"><span class="eyebrow">REFERRAL SYSTEM</span><h2>सीधा और साफ़ Referral Example</h2><p>आपके तय किए हुए fixed reward examples.</p></div><div id="examples" class="examples"></div><div class="notice" style="margin-top:16px"><b>ध्यान दें:</b> ₹7/₹35/₹70 आदि referral reward examples हैं; यह member payment का refund नहीं है। Payout eligibility, verification और final business rules पर निर्भर करेगा।</div></div></section>
 
-        /* Pricing Table */
-        .plan-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--card-bg); border: 1px solid var(--gold-color); }
-        .plan-table th, .plan-table td { border: 1px solid #334155; padding: 12px; text-align: center; }
-        .plan-table th { background: var(--gold-color); color: black; }
+<section id="learning" class="section"><div class="container"><div class="heading"><span class="eyebrow">LEARNING</span><h2>Computer & Digital Learning</h2><p>नए लोगों के लिए basic से practical skills.</p></div><div class="grid3">
+<div class="card"><h3>🖥️ Computer Basics</h3><p class="muted">Files, folders, keyboard, typing और basic troubleshooting.</p></div><div class="card"><h3>📄 MS Word</h3><p class="muted">Documents, resume, tables और PDF workflow.</p></div><div class="card"><h3>📊 Excel</h3><p class="muted">Basic formulas, data और reports.</p></div><div class="card"><h3>📧 Internet & Email</h3><p class="muted">Professional email, forms और safe browsing.</p></div><div class="card"><h3>🤖 AI Basics</h3><p class="muted">Prompt writing और responsible AI use.</p></div><div class="card"><h3>🧑‍💼 Job Ready</h3><p class="muted">Resume, cover letter और application basics.</p></div>
+</div></div></section>
 
-        /* Forms & Inputs */
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--gold-color); }
-        .form-group input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid var(--gold-color); background: #0f172a; color: white; border-radius: 4px; }
+<section id="updates" class="section"><div class="container"><div class="heading"><span class="eyebrow">INFORMATION</span><h2>Daily Information Center</h2><p>इन sections को बाद में trusted APIs/data sources से connect किया जा सकता है।</p></div><div class="grid3"><div class="card"><h3>📰 Daily News</h3><p class="muted">Current news के लिए dedicated area.</p></div><div class="card"><h3>💼 Job Alerts</h3><p class="muted">Vacancy, eligibility और official links.</p></div><div class="card"><h3>🌤️ Weather</h3><p class="muted">Location-based weather widget area.</p></div><div class="card"><h3>🔮 राशिफल</h3><p class="muted">Daily rashifal information section.</p></div><div class="card"><h3>📅 पंचांग</h3><p class="muted">तिथि, वार और related information.</p></div><div class="card"><h3>🕐 Analog + Digital Clock</h3><p class="muted">India time के अनुसार live clock.</p></div></div></div></section>
 
-        /* Accordion for FAQ */
-        .faq-item { background: var(--card-bg); border: 1px solid #334155; border-radius: 5px; margin-bottom: 10px; padding: 12px; text-align: left; }
-        .faq-title { font-weight: bold; color: var(--gold-color); cursor: pointer; }
+<section id="register" class="section"><div class="container"><div class="heading"><span class="eyebrow">REGISTRATION</span><h2>IOIS Member Registration</h2><p>नाम, mobile, email, plan, referral और photo भेजें।</p></div><div class="card form"><form id="regForm" enctype="multipart/form-data"><div class="fields">
+<div class="field"><label>पूरा नाम *</label><input name="name" required placeholder="पूरा नाम"></div><div class="field"><label>Mobile *</label><input name="mobile" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10 digit mobile"></div><div class="field"><label>Email *</label><input name="email" type="email" required placeholder="Email"></div><div class="field"><label>Plan *</label><select name="plan" id="planSelect" required></select></div><div class="field"><label>Referral Code</label><input name="referral" id="referral" readonly placeholder="Direct Join"></div><div class="field"><label>UTR / Transaction ID</label><input name="utr" placeholder="Payment reference"></div><div class="field"><label>Photo</label><input name="photo" id="photo" type="file" accept="image/*"><img id="preview" class="preview"></div><div class="field"><label>Note</label><textarea name="note" rows="3" placeholder="Optional"></textarea></div></div><div class="actions" style="margin-top:16px"><button class="btn primary" type="submit">📨 Registration भेजें</button><a class="btn green" href="https://wa.me/918877490845" target="_blank">💬 WhatsApp</a></div></form></div></div></section>
 
-        footer { background: #1a202c; color: white; text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid var(--gold-color); }
-        footer a { color: var(--gold-color); margin: 0 8px; text-decoration: none; cursor: pointer; }
-    </style>
-</head>
-<body>
+<section class="section"><div class="container"><div class="heading"><span class="eyebrow">REFERRAL LINK</span><h2>अपना Referral Link बनाएँ</h2></div><div class="card form"><div class="fields"><div class="field"><label>User ID</label><input id="userId" placeholder="जैसे IOIS1234"></div><div class="field"><label>Referral Link</label><input id="refLink" readonly></div></div><div class="actions" style="margin-top:14px"><button class="btn primary" onclick="genRef()">Generate</button><button class="btn outline" onclick="copyRef()">Copy</button><button class="btn green" onclick="shareRef()">Share</button></div></div></div></section>
 
-    <!-- Main Header -->
-    <header>
-        <div class="logo gold-text">IOIS PLATFORM</div>
-        <nav>
-            <button onclick="showSection('home-section')">Home</button>
-            <button onclick="showSection('membership-section')">Plans</button>
-            <button onclick="showSection('newspaper-section')">News</button>
-            <button onclick="showSection('video-downloader-section')">Downloader</button>
-            <button onclick="showSection('faq-section')">FAQ</button>
-            <button onclick="showSection('login-section')" id="nav-login-btn">Login</button>
-            <button onclick="showSection('dashboard-section')" id="nav-dash-btn" style="display:none;">Dashboard</button>
-        </nav>
-    </header>
+<section id="help" class="section"><div class="container"><div class="heading"><span class="eyebrow">HELP</span><h2>सीधी सहायता</h2></div><div class="contact"><a class="card" href="https://wa.me/918877490845" target="_blank"><h3>💬 WhatsApp</h3><p class="muted">+91 8877490845</p></a><a class="card" href="mailto:ioisplatform@gmail.com"><h3>📧 Email</h3><p class="muted">ioisplatform@gmail.com</p></a></div></div></section>
 
-    <!-- Top Widgets Bar -->
-    <div class="widget-bar">
-        <div class="clock-box">
-            <div class="analog-clock">
-                <div class="hand hour" id="ahour"></div>
-                <div class="hand minute" id="aminute"></div>
-                <div class="hand second" id="asecond"></div>
-            </div>
-            <span>Analog Clock</span>
-        </div>
-        <div class="clock-box">
-            <div id="digitalClock" style="font-size:22px; margin-top:12px;">00:00:00 AM</div>
-            <span>Digital Time</span>
-        </div>
-        <div>
-            <button onclick="showSection('utility-weather')" style="background:var(--gold-color); border:none; padding:8px 12px; font-weight:bold; cursor:pointer; border-radius:4px;">🌤️ Weather</button>
-            <button onclick="showSection('utility-panchang')" style="background:var(--gold-color); border:none; padding:8px 12px; font-weight:bold; cursor:pointer; border-radius:4px; margin-left:5px;">📅 Panchang</button>
-        </div>
-    </div>
+<section class="section"><div class="container"><div class="heading"><span class="eyebrow">PROCESS</span><h2>IOIS कैसे काम करता है?</h2></div><div class="steps"><div class="card step"><b>1</b><h3>Plan चुनें</h3><p class="muted">अपनी जरूरत का plan चुनें.</p></div><div class="card step"><b>2</b><h3>Register</h3><p class="muted">अपनी details और photo भेजें.</p></div><div class="card step"><b>3</b><h3>Verify</h3><p class="muted">Admin payment/details verify करेगा.</p></div><div class="card step"><b>4</b><h3>Use & Refer</h3><p class="muted">Services का उपयोग करें और eligible referrals share करें.</p></div></div></div></section>
 
-    <!-- ================= 1. HOME SECTION ================= -->
-    <section id="home-section" class="page-section active">
-        <h2 class="gold-text" style="text-align: center;">Welcome to IOIS Digital Services Portal</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3 class="gold-text">User Registration</h3>
-                <p>नए यूज़र पोर्टल जॉइन करने के लिए यहाँ रजिस्टर करें।</p>
-                <button onclick="showSection('register-section')">Register Now</button>
-            </div>
-            <div class="card">
-                <h3 class="gold-text">Membership Plans</h3>
-                <p>सभी 21 मेंबरशिप प्लान्स का चार्ट देखें।</p>
-                <button onclick="showSection('membership-section')">View Plans</button>
-            </div>
-            <div class="card">
-                <h3 class="gold-text">Daily Newspaper PDF</h3>
-                <p>दैनिक मुख्य हिंदी समाचार पत्र पढ़ें।</p>
-                <button onclick="showSection('newspaper-section')">Read News</button>
-            </div>
-            <div class="card">
-                <h3 class="gold-text">Media Downloader</h3>
-                <p>वीडियो और मीडिया डाउनलोड टूल।</p>
-                <button onclick="showSection('video-downloader-section')">Open Tool</button>
-            </div>
-        </div>
-    </section>
+<section class="section faq"><div class="container"><div class="heading"><h2>FAQ</h2></div><details><summary>क्या यह single-page website है?</summary><p class="muted">हाँ, मुख्य user experience एक ही index.html page में है और Registration/Login modal के रूप में खुलते हैं.</p></details><details><summary>क्या referral reward refund है?</summary><p class="muted">नहीं. इसे referral reward कहा जाएगा.</p></details><details><summary>क्या login real है?</summary><p class="muted">यह package login UI और server endpoint structure देता है. Production में secure persistent authentication/database जोड़ना जरूरी है; GitHub Pages अकेले secure account database नहीं चला सकता.</p></details></div></section>
+</main>
+<footer><div class="container"><b>IOIS PLATFORM</b><p>Indian Online Income Supporting System</p><p>UPI: 8877490845@spicepay · WhatsApp: +91 8877490845 · Email: ioisplatform@gmail.com</p><p>© 2026 IOIS Platform</p></div></footer>
 
-    <!-- ================= 2. MEMBERSHIP PLANS CHART ================= -->
-    <section id="membership-section" class="page-section">
-        <h2 class="gold-text" style="text-align:center;">IOIS Membership Plans Structure (1 to 21)</h2>
-        <div style="overflow-x:auto;">
-            <table class="plan-table">
-                <thead>
-                    <tr>
-                        <th>Level</th>
-                        <th>Plan Name</th>
-                        <th>Price (₹)</th>
-                        <th>Validity</th>
-                        <th>Features & Benefits</th>
-                    </tr>
-                </thead>
-                <tbody id="membershipPlanRows">
-                    <!-- Dynamic Rows Generator in JS -->
-                </tbody>
-            </table>
-        </div>
-        <br><button onclick="showSection('register-section')" style="background:var(--gold-color); border:none; padding:10px 20px; font-weight:bold; cursor:pointer;">Join Plan Now</button>
-    </section>
-
-    <!-- ================= 3. NEWSPAPER UPDATES ================= -->
-    <section id="newspaper-section" class="page-section">
-        <h2 class="gold-text">Daily Newspaper & e-Paper Updates</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>📰 Dainik Jagran</h3>
-                <p>आज का दैनिक जागरण ई-पेपर (PDF)</p>
-                <button onclick="alert('आज का दैनिक पत्र लोड हो रहा है...')">Download PDF</button>
-            </div>
-            <div class="card">
-                <h3>📰 Dainik Bhaskar</h3>
-                <p>आज का दैनिक भास्कर ई-पेपर</p>
-                <button onclick="alert('भास्कर पत्र लोड हो रहा है...')">Download PDF</button>
-            </div>
-            <div class="card">
-                <h3>📰 Amar Ujala</h3>
-                <p>अमर उजाला मुख्य संस्करण</p>
-                <button onclick="alert('अमर उजाला लोड हो रहा है...')">Download PDF</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= 4. VIDEO DOWNLOADER & MEDIA UTILITY ================= -->
-    <section id="video-downloader-section" class="page-section">
-        <h2 class="gold-text">Video Downloader & Ad-Free Player</h2>
-        <div class="card" style="max-width:600px; margin:0 auto; text-align:left;">
-            <label class="gold-text">Paste Video Link (YouTube / Social Media):</label>
-            <input type="text" id="videoLinkInput" placeholder="https://..." style="width:100%; padding:10px; margin:10px 0; background:#0f172a; color:white; border:1px solid var(--gold-color);">
-            <div style="display:flex; gap:10px;">
-                <button onclick="processDownload()" style="flex:1;">Fetch Download Link</button>
-                <button onclick="playAdFreeVideo()" style="flex:1;">Stream Ad-Free</button>
-            </div>
-        </div>
-        <div id="playerContainer" style="margin-top:20px; display:none;">
-            <iframe id="mediaPlayer" width="100%" height="380" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <!-- ================= 5. FAQ (FREQUENTLY ASKED QUESTIONS) ================= -->
-    <section id="faq-section" class="page-section">
-        <h2 class="gold-text">अक्सर पूछे जाने वाले सवाल (FAQ)</h2>
-        <div id="faqContainer">
-            <!-- 21 FAQs populated dynamically -->
-        </div>
-    </section>
-
-    <!-- ================= 6. ABOUT US ================= -->
-    <section id="about-section" class="page-section">
-        <h2 class="gold-text">About IOIS Platform</h2>
-        <div class="card" style="text-align:left;">
-            <p><strong>IOIS Platform</strong> एक आधुनिक डिजिटल सेवा पोर्टल है, जो यूजर्स को ऑनलाइन यूटिलिटीज, एजुकेशन सपोर्ट, डेली अपडेट्स, और मेंबरशिप रिवार्ड्स प्रदान करता है।</p>
-            <p>हमारा उद्देश्य डिजिटल सेवाओं को हर गाँव और शहर तक आसानी से पहुँचाना है।</p>
-        </div>
-    </section>
-
-    <!-- ================= 7. PRIVACY POLICY ================= -->
-    <section id="privacy-section" class="page-section">
-        <h2 class="gold-text">Privacy Policy & Terms of Service</h2>
-        <div class="card" style="text-align:left;">
-            <h4>1. सूचना संग्रह (Information Collection)</h4>
-            <p>हम यूजर की गोपनीयता का पूर्ण ध्यान रखते हैं। रजिस्ट्रेशन के समय ली जाने वाली जानकारी सुरक्षित रहती है।</p>
-            <h4>2. भुगतान एवं सत्यापन (Payments)</h4>
-            <p>सभी लेनदेन UTR नंबर और मैनुअल/टेलीग्राम एडमिन अप्रूवल के माध्यम से सत्यापित किए जाते हैं।</p>
-        </div>
-    </section>
-
-    <!-- ================= 8. REGISTRATION & LOGIN ================= -->
-    <section id="register-section" class="page-section">
-        <h2 class="gold-text">User Registration Form</h2>
-        <form id="regForm" onsubmit="handleRegistration(event)" style="max-width:500px; margin:0 auto;">
-            <div class="form-group">
-                <label>Name:</label>
-                <input type="text" id="reg_name" required placeholder="अपना पूरा नाम लिखें">
-            </div>
-            <div class="form-group">
-                <label>Mobile Number:</label>
-                <input type="tel" id="reg_phone" required placeholder="10-digit Phone Number">
-            </div>
-            <div class="form-group">
-                <label>UTR Number (Payment Reference):</label>
-                <input type="text" id="reg_utr" required placeholder="Enter UTR / Transaction No.">
-            </div>
-            <div class="form-group">
-                <label>Referral Code (Auto Filled):</label>
-                <input type="text" id="reg_referral" placeholder="Direct Join">
-            </div>
-            <button type="submit" style="width:100%; background:var(--gold-color); color:black; border:none; padding:12px; font-weight:bold; cursor:pointer; border-radius:5px;">Submit Application</button>
-        </form>
-    </section>
-
-    <section id="login-section" class="page-section">
-        <h2 class="gold-text">User Login</h2>
-        <div style="max-width:400px; margin:0 auto;">
-            <div class="form-group">
-                <label>User ID:</label>
-                <input type="text" id="login_userid" placeholder="e.g. IOIS1234" required>
-            </div>
-            <button onclick="handleLogin()" style="width:100%; background:var(--gold-color); color:black; border:none; padding:12px; font-weight:bold; cursor:pointer; border-radius:5px;">Login to Portal</button>
-        </div>
-    </section>
-
-    <!-- ================= 9. DASHBOARD ================= -->
-    <section id="dashboard-section" class="page-section">
-        <h2 class="gold-text">User Dashboard</h2>
-        <p>User ID: <span id="dash_user_id" class="gold-text">-</span> | Status: <strong style="color:#22c55e;">Approved ✅</strong></p>
-        
-        <div style="background:var(--card-bg); border: 2px dashed var(--gold-color); padding:15px; border-radius:8px; text-align:center; margin-bottom:20px;">
-            <h3 class="gold-text">🔗 आपका रेफरल लिंक (Refer & Earn)</h3>
-            <input type="text" id="myRefLink" readonly style="width: 70%; padding: 8px; background:#0f172a; color:white; border:1px solid var(--gold-color);">
-            <button onclick="navigator.clipboard.writeText(document.getElementById('myRefLink').value); alert('लिंक कॉपी हुआ!');" style="padding: 8px 15px; background: #22c55e; color: white; border: none; cursor: pointer;">Copy Link</button>
-        </div>
-    </section>
-
-    <!-- ================= 10. OTHER UTILITIES ================= -->
-    <section id="utility-weather" class="page-section">
-        <h2 class="gold-text">मौसम जानकारी (Mausam)</h2>
-        <div class="card"><h3>आज का तापमान: 28°C</h3><p>मौसम स्थिति: साफ़ एवं सामान्य</p></div>
-    </section>
-
-    <section id="utility-panchang" class="page-section">
-        <h2 class="gold-text">पंचांग एवं राशिफल</h2>
-        <div class="card"><h3>📅 आज की तिथि एवं शुभ मुहूर्त</h3><p>शुभ समय और पंचांग विवरण।</p></div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <a onclick="showSection('about-section')">About Us</a> | 
-        <a onclick="showSection('privacy-section')">Privacy Policy</a> | 
-        <a onclick="showSection('faq-section')">FAQs</a>
-        <p class="gold-text">© 2026 IOIS Platform. All rights reserved.</p>
-    </footer>
-
-    <!-- JAVASCRIPT SYSTEM ENGINE -->
-    <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwooTGhRp8aVR172fCP6nScc2c3f83wHytjONH-HjMBhH5UqRW1u1xQ1_6Gs-Yd2RRM/exec";
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        // Clocks Engine
-        function updateClocks() {
-            const now = new Date();
-            document.getElementById('digitalClock').innerText = now.toLocaleTimeString();
-            const sec = now.getSeconds() * 6, min = now.getMinutes() * 6, hr = (now.getHours() % 12) * 30 + min / 12;
-            document.getElementById('asecond').style.transform = `rotate(${sec}deg)`;
-            document.getElementById('aminute').style.transform = `rotate(${min}deg)`;
-            document.getElementById('ahour').style.transform = `rotate(${hr}deg)`;
-        }
-        setInterval(updateClocks, 1000); updateClocks();
-
-        // Populate 21 Membership Plans
-        const plansContainer = document.getElementById('membershipPlanRows');
-        for(let i=1; i<=21; i++) {
-            plansContainer.innerHTML += `
-                <tr>
-                    <td>Level ${i}</td>
-                    <td>Plan ${i} ${i===1?'Basic':i===21?'VIP Master':'Pro'}</td>
-                    <td>₹${i * 100}</td>
-                    <td>${i*30} Days</td>
-                    <td>All Services + Level ${i} Access</td>
-                </tr>`;
-        }
-
-        // Populate FAQs
-        const faqContainer = document.getElementById('faqContainer');
-        const faqs = [
-            "1. IOIS Platform क्या है?", "2. नया अकाउंट कैसे बनाएं?", "3. Telegram Approval कितना समय लेता है?", 
-            "4. यूटीआर (UTR) नंबर क्या है?", "5. रेफरल लिंक का उपयोग कैसे करें?", "6. पासवर्ड भूल जाने पर क्या करें?", 
-            "7. वीडियो कैसे डाउनलोड करें?", "8. मेंबरशिप प्लान कैसे अपग्रेड करें?", "9. समाचार पत्र कैसे पढ़ें?",
-            "10. क्या यह प्लेटफ़ॉर्म सुरक्षित है?", "11. लॉगिन समस्या का समाधान?", "12. मोबाइल बैंकिंग सपोर्ट?",
-            "13. दैनिक पंचांग अपडेट समय?", "14. मौसम अलर्ट कहाँ दिखेगा?", "15. रेफर एंड अर्न बोनस कैसे मिलता है?",
-            "16. एडमिन सपोर्ट टाइमिंग?", "17. खाता रिजेक्ट होने पर क्या करें?", "18. क्या कोई छिपा शुल्क है?",
-            "19. रिफंड पॉलिसी क्या है?", "20. डैशबोर्ड फ़ीचर्स क्या हैं?", "21. क्या एक डिवाइस पर दो खाते चला सकते हैं?"
-        ];
-        faqs.forEach((q, idx) => {
-            faqContainer.innerHTML += `
-                <div class="faq-item">
-                    <div class="faq-title">${q}</div>
-                    <p style="margin-top:5px; font-size:14px; color:#cbd5e1;">उत्तर: इस प्रश्न की विस्तृत जानकारी के लिए सपोर्ट या गाइडलाइंस सेक्शन देखें।</p>
-                </div>`;
-        });
-
-        // Video Downloader & Ad-Free Player Logic
-        function playAdFreeVideo() {
-            const link = document.getElementById('videoLinkInput').value;
-            if(!link) return alert('Link भरें');
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = link.match(regExp);
-            const id = (match && match[2].length === 11) ? match[2] : link;
-            document.getElementById('mediaPlayer').src = `https://www.youtube-nocookie.com/embed/${id}`;
-            document.getElementById('playerContainer').style.display = 'block';
-        }
-
-        function processDownload() {
-            const link = document.getElementById('videoLinkInput').value;
-            if(!link) return alert('Link भरें');
-            window.open(`https://y2mate.is/`, '_blank');
-        }
-
-        // Referral Engine
-        window.addEventListener('DOMContentLoaded', () => {
-            const refCode = new URLSearchParams(window.location.search).get('ref');
-            if (refCode && document.getElementById('reg_referral')) {
-                document.getElementById('reg_referral').value = refCode;
-                document.getElementById('reg_referral').readOnly = true;
-            }
-        });
-
-        // Registration & Login
-        async function handleRegistration(e) {
-            e.preventDefault();
-            const payload = {
-                userId: "IOIS" + Math.floor(1000 + Math.random() * 9000),
-                name: document.getElementById('reg_name').value,
-                phone: document.getElementById('reg_phone').value,
-                utr: document.getElementById('reg_utr').value,
-                referral: document.getElementById('reg_referral').value || "Direct"
-            };
-            alert("फॉर्म सबमिट हो रहा है...");
-            try {
-                await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-                alert("सबमिट हुआ! User ID: " + payload.userId + "\nTelegram Approve होने के बाद लॉगिन करें।");
-                showSection('login-section');
-            } catch (err) { alert("त्रुटि आई!"); }
-        }
-
-        async function handleLogin() {
-            const userId = document.getElementById('login_userid').value;
-            if(!userId) return alert("User ID भरें");
-            try {
-                const res = await fetch(`${WEB_APP_URL}?userId=${userId}`);
-                const data = await res.json();
-                if (data.status === "Approved") {
-                    alert("लॉगिन सफल!");
-                    document.getElementById('dash_user_id').innerText = userId;
-                    document.getElementById('myRefLink').value = window.location.origin + window.location.pathname + "?ref=" + userId;
-                    document.getElementById('nav-login-btn').style.display = 'none';
-                    document.getElementById('nav-dash-btn').style.display = 'inline-block';
-                    showSection('dashboard-section');
-                } else if (data.status === "Pending") { alert("Telegram Approval पेंडिंग है।"); }
-                else if (data.status === "Rejected") { alert("आवेदन निरस्त हुआ।"); }
-                else { alert("ID नहीं मिली!"); }
-            } catch (e) { alert("वेरिफिकेशन एरर!"); }
-        }
-    </script>
-</body>
-</html>
+<div id="modalBg" class="modalBg" onclick="closeModal(event)"><div id="loginModal" class="modal" onclick="event.stopPropagation()" style="display:none"><button class="close" onclick="closeModal()">×</button><h2>🔐 IOIS Member Login</h2><form id="loginForm"><div class="field"><label>Mobile / Email</label><input name="identifier" required></div><div class="field" style="margin-top:10px"><label>Password</label><input name="password" type="password" required></div><button class="btn primary" style="width:100%;margin-top:15px">Login</button></form><p class="muted" style="font-size:12px">Secure production authentication के लिए persistent backend/database जरूरी है.</p></div>
+<div id="regModal" class="modal" onclick="event.stopPropagation()" style="display:none"><button class="close" onclick="closeModal()">×</button><h2>🚀 Quick Registration</h2><p class="muted">नीचे form section पर जाएँ और पूरी details भरें.</p><button class="btn primary" style="width:100%" onclick="closeModal();document.querySelector('#register').scrollIntoView({behavior:'smooth'})">Full Registration खोलें</button></div></div>
+<div id="toast" class="toast"></div>
+<script>
+const PLANS=[["Starter",10,7,["3 Resume/CV Templates","10 AI Prompts","Useful Links"]],["Basic",49,35,["Starter benefits","Cover Letters","Computer Basics","PDF Resources"]],["Plus",99,70,["Basic benefits","MS Word","Excel","Job/Exam Resources"]],["Smart",199,140,["Plus benefits","PowerPoint","Internet & Email","AI Learning"]],["Pro",299,210,["Smart benefits","Advanced Computer","Resume Resources","Job Alerts"]],["Premium",499,350,["Pro benefits","Advanced AI Tools","Digital Skills","Premium Resources"]],["Elite",999,700,["Complete Learning Hub","Advanced Digital Skills","Premium Resources","Full Platform Access"]]];
+const pg=document.getElementById("plansGrid"),ex=document.getElementById("examples"),sel=document.getElementById("planSelect");
+PLANS.forEach((p,i)=>{pg.insertAdjacentHTML("beforeend",`<article class="card plan ${p[1]===99||p[1]===999?"hot":""}">${p[1]===99?'<span class="tag">MOST POPULAR</span>':""}<h3>${p[0]}</h3><div class="price">₹${p[1]}</div><p class="muted">Membership Plan</p><ul>${p[3].map(x=>`<li>${x}</li>`).join("")}</ul><div class="reward">Referral Reward: ₹${p[2]}</div><button class="btn primary" style="width:100%;margin-top:10px" onclick="choose(${p[1]})">Choose Plan</button></article>`);sel.insertAdjacentHTML("beforeend",`<option value="₹${p[1]} — ${p[0]}">₹${p[1]} — ${p[0]}</option>`);ex.insertAdjacentHTML("beforeend",`<article class="card example"><div class="person"><b>👤 Rahul</b><span class="muted">Referral</span></div><div class="arrow">→</div><div class="person"><b>👤 Siya joins ₹${p[1]}</b><span class="big">₹${p[2]} reward*</span></div></article>`)});
+function choose(x){sel.value=PLANS.find(p=>p[1]===x)[1]?`₹${x} — ${PLANS.find(p=>p[1]===x)[0]}`:"";document.querySelector("#register").scrollIntoView({behavior:"smooth"});toast("₹"+x+" plan selected")}
+function toast(s){const t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",2500)}
+function tick(){const d=new Date(),o={timeZone:"Asia/Kolkata",hour12:false},t=d.toLocaleTimeString("en-IN",o),dt=d.toLocaleDateString("hi-IN",{timeZone:"Asia/Kolkata",day:"2-digit",month:"short",year:"numeric"});document.getElementById("time").textContent=t;document.getElementById("date").textContent=dt}setInterval(tick,1000);tick();
+function openModal(type){document.getElementById("modalBg").style.display="flex";document.getElementById("loginModal").style.display=type==="login"?"block":"none";document.getElementById("regModal").style.display=type==="register"?"block":"none"}
+function closeModal(e){if(!e||e.target.id==="modalBg")document.getElementById("modalBg").style.display="none"}
+const ref=new URLSearchParams(location.search).get("ref");if(ref)document.getElementById("referral").value=ref;
+document.getElementById("photo").addEventListener("change",e=>{const f=e.target.files[0],i=document.getElementById("preview");if(!f){i.style.display="none";return}i.src=URL.createObjectURL(f);i.style.display="block"});
+document.getElementById("regForm").addEventListener("submit",async e=>{e.preventDefault();const b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="भेजा जा रहा है...";try{const r=await fetch("/api/register",{method:"POST",body:new FormData(e.target)}),j=await r.json().catch(()=>({}));if(!r.ok)throw Error(j.message||"Registration failed");toast("Registration सफल — Telegram notification भेजी गई");e.target.reset();document.getElementById("preview").style.display="none"}catch(x){toast(x.message||"Registration भेजा नहीं जा सका")}finally{b.disabled=false;b.textContent="📨 Registration भेजें"}});
+document.getElementById("loginForm").addEventListener("submit",async e=>{e.preventDefault();const b=e.target.querySelector("button");b.disabled=true;b.textContent="Checking...";try{const r=await fetch("/api/login",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.fromEntries(new FormData(e.target)))}),j=await r.json();if(!r.ok)throw Error(j.message||"Login failed");toast("Login successful");closeModal()}catch(x){toast(x.message||"Login service unavailable")}finally{b.disabled=false;b.textContent="Login"}});
+function genRef(){const id=document.getElementById("userId").value.trim();if(!id)return toast("User ID डालें");document.getElementById("refLink").value=location.origin+location.pathname+"?ref="+encodeURIComponent(id);toast("Referral link तैयार")}
+function copyRef(){const v=document.getElementById("refLink").value;if(!v)return toast("पहले Generate करें");navigator.clipboard.writeText(v).then(()=>toast("Copied"))}
+async function shareRef(){const v=document.getElementById("refLink").value;if(!v)return toast("पहले Generate करें");if(navigator.share)await navigator.share({title:"IOIS Referral",url:v});else copyRef()}
+</script></body></html>

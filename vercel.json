@@ -1,0 +1,1 @@
+{"version":2,"functions":{"api/register.js":{"maxDuration":10},"api/login.js":{"maxDuration":10}}}

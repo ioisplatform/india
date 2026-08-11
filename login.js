@@ -1,0 +1,1 @@
+export default async function handler(req,res){if(req.method!=="POST")return res.status(405).json({message:"Method not allowed"});return res.status(501).json({message:"Secure account authentication needs a persistent database/auth provider. GitHub Pages alone cannot securely store passwords."})}
