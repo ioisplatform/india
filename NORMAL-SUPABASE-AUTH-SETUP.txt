@@ -1,0 +1,14 @@
+IOIS V8 — NORMAL SUPABASE AUTH
+
+1) Authentication -> Sign In / Providers -> Email: ON.
+2) Confirm email: OFF for immediate registration session (no verification wait).
+3) Site URL: https://ioisplatform.github.io/ioiss/
+4) Redirect URL: https://ioisplatform.github.io/ioiss/reset-password.html
+5) Password reset is standard Supabase email-link recovery.
+6) Login is standard Email + Password. No custom member-login Edge Function is used.
+7) Password reset uses reset-password.html and Supabase auth.updateUser().
+8) Registration uses auth.signUp(); then uploads documents and calls iois_finalize_registration.
+9) Storage bucket required: member-documents.
+10) Existing iois-registration-notification function can remain; it is non-blocking after registration.
+11) Never expose service_role keys or Telegram bot tokens in frontend.
+12) If Confirm email is ON, registration will wait for confirmation; turn it OFF for the requested fast flow.

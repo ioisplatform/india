@@ -24,6 +24,8 @@
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="iois-profile-fallback.js"></script>
 
     <style>
 
@@ -1309,15 +1311,10 @@ let supabaseClient = null;
 
 function initializeSupabase() {
 
-    if (
-        IOIS_SUPABASE_URL === "https://hrvwzviprlnpkhrgzdrc.supabase.co" ||
-        IOIS_SUPABASE_ANON_KEY === "sb_publishable_tXoFuC0rz0JeDOQvmpjz7w_ZAJhKOVF"
-    ) {
-
-        console.warn(
-            "IOIS Supabase configuration not found."
-        );
-
+    if (!IOIS_SUPABASE_URL || !IOIS_SUPABASE_ANON_KEY ||
+        typeof window.supabase === "undefined" ||
+        typeof window.supabase.createClient !== "function") {
+        console.warn("IOIS Supabase configuration not found.");
         return false;
     }
 
@@ -1542,34 +1539,9 @@ async function loadMemberProfile(user) {
        से पढ़े जाते हैं।
     */
 
-    const { data, error } =
-        await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .maybeSingle();
-
-
-    if (error) {
-
-        console.error(
-            "Profile error:",
-            error
-        );
-
-        throw error;
-    }
-
-
-    if (!data) {
-
-        throw new Error(
-            "आपकी IOIS profile अभी उपलब्ध नहीं है।"
-        );
-
-    }
-
-
+    window.__ioisCurrentAuthUser = user;
+    const data = await window.IOISProfile?.load(user.id, supabaseClient);
+    if (!data) throw new Error("आपकी IOIS profile अभी उपलब्ध नहीं है।");
     return data;
 }
 

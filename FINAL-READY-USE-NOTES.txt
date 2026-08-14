@@ -1,0 +1,36 @@
+IOIS FINAL READY-USE PACKAGE
+
+This package preserves the existing IOIS pages, visual design, membership content,
+clock/weather/panchang/news/jobs/chat/payment/certificate/ID-card/admin systems.
+
+AUTH/RECOVERY HARDENING INCLUDED:
+- Forgot User ID and Reset Password are separate flows.
+- User ID recovery matches registered email + mobile.
+- Password reset matches IOIS User ID + registered email and sets a new password.
+- Legacy members can be resolved from iois_member_registry when members is incomplete.
+- Existing dashboards read both members and iois_member_registry.
+- Profile updates fall back to members/registry when a profiles row is unavailable.
+- Membership plan lookup accepts the real database row id as well as plan_code/code/slug.
+- Member-login Edge Function also supports legacy registry-only mappings.
+- No email magic-link recovery is used by this package.
+
+SUPABASE:
+1. Run IOIS-SUPABASE-PRODUCTION-FIX.sql once in Supabase SQL Editor.
+2. Deploy both Edge Functions:
+   supabase functions deploy iois-account-recovery
+   supabase functions deploy iois-member-login
+3. Keep SUPABASE_SERVICE_ROLE_KEY server-side only as an Edge Function secret.
+4. If the project is configured to require email confirmation, disable that setting
+   if the intended IOIS flow is password login immediately after registration.
+
+TEST ORDER:
+A. Existing member: email + password -> Login -> Dashboard -> User ID/profile.
+B. Forgot User ID: email + mobile -> returned IOIS User ID.
+C. Reset Password: User ID + registered email -> new password -> Login.
+D. New member: register with each active plan -> Member ID -> Login -> Dashboard.
+E. Admin: login as authorized admin -> members/payments/referrals/profile data.
+
+IMPORTANT:
+Static checks cannot prove live Supabase Auth, RLS, Edge Function secrets, payment,
+Telegram, realtime chat, or hosting behavior. Those require the real project.
+Do not put service-role keys or Telegram bot tokens into frontend files.

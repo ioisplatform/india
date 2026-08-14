@@ -1187,6 +1187,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
+<script src="iois-profile-fallback.js"></script>
 
 
 <!-- =========================================================
@@ -1279,25 +1280,10 @@ async function loadCertificateProfile() {
 
     try {
 
-        const {
-            data,
-            error
-        } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", currentUser.id)
-            .single();
-
-
-        if (error) {
-
-            throw error;
-
-        }
-
-
-        currentProfile =
-            data;
+        window.__ioisCurrentAuthUser = currentUser;
+        const data = await window.IOISProfile?.load(currentUser.id, supabase);
+        if (!data) throw new Error("Member profile unavailable.");
+        currentProfile = data;
 
 
         const memberName =

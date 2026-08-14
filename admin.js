@@ -235,6 +235,7 @@
             if (
                 !data ||
                 data.active === false ||
+                data.is_active === false ||
                 (
                     data.role &&
                     ![
@@ -299,29 +300,25 @@
 
         try {
 
-            const {
-                data,
-                error
-            } = await window.ioisSupabase
-                .from("profiles")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
-                );
-
-
-            if (error) {
-                throw error;
+            const [profilesResult, membersResult, registryResult] = await Promise.all([
+                window.ioisSupabase.from("profiles").select("*").order("created_at", {ascending:false}),
+                window.ioisSupabase.from("members").select("*").order("created_at", {ascending:false}),
+                window.ioisSupabase.from("iois_member_registry").select("*").order("created_at", {ascending:false})
+            ]);
+            if (profilesResult.error && membersResult.error && registryResult.error) {
+                throw profilesResult.error || membersResult.error || registryResult.error;
             }
-
-
-            membersCache =
-                Array.isArray(data)
-                    ? data
-                    : [];
+            const map = new Map();
+            (profilesResult.data || []).forEach(row => map.set(row.id || row.user_id || crypto.randomUUID(), {...row}));
+            (membersResult.data || []).forEach(row => {
+                const key=row.auth_user_id || row.iois_user_id; const prior=map.get(key)||{};
+                map.set(key,{...prior,id:prior.id||row.id||key,user_id:prior.user_id||row.iois_user_id,unique_user_id:prior.unique_user_id||row.iois_user_id,full_name:prior.full_name||row.full_name,email:prior.email||row.email,phone:prior.phone||row.mobile,whatsapp_number:prior.whatsapp_number||row.mobile,sponsor_id:prior.sponsor_id||row.sponsor_id,status:prior.status||row.status,created_at:prior.created_at||row.created_at,plan_amount:prior.plan_amount??row.plan_amount,membership_plan:prior.membership_plan||row.selected_plan,_member_uuid:row.id});
+            });
+            (registryResult.data || []).forEach(row => {
+                const key=row.user_id || row.member_id; const prior=map.get(key)||{};
+                map.set(key,{...prior,id:prior.id||key,user_id:prior.user_id||row.member_id,unique_user_id:prior.unique_user_id||row.member_id,full_name:prior.full_name||row.full_name,email:prior.email||row.email,phone:prior.phone||row.phone,whatsapp_number:prior.whatsapp_number||row.phone,sponsor_id:prior.sponsor_id||row.sponsor_id,created_at:prior.created_at||row.created_at,plan_amount:prior.plan_amount??row.plan_amount,membership_plan:prior.membership_plan||row.plan_name||row.plan_code});
+            });
+            membersCache=Array.from(map.values());
 
 
             setText(

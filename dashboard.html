@@ -2354,46 +2354,15 @@ async function saveProfile(
          * to modify the unique member ID.
          */
 
-        const updatePayload = {
-
+        const result = await window.IOISAuth.updateProfile({
             full_name: name,
-
-            whatsapp: phone,
-
+            phone: phone,
             address: address,
-
             withdrawal_upi: upi,
-
-            bank_details: bank,
-
-            updated_at:
-                new Date().toISOString()
-        };
-
-
-        const {
-            error
-        } =
-            await supabaseClient
-                .from("profiles")
-                .update(
-                    updatePayload
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                );
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        showToast(
-            "Profile successfully updated।",
-            "success"
-        );
+            bank_details: bank
+        });
+        if (!result?.success) throw result?.error || new Error("Profile update failed।");
+        showToast("Profile successfully updated।", "success");
 
 
         await loadMemberProfile();

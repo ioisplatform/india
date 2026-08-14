@@ -902,146 +902,100 @@
        यह जानबूझकर immutable रखा गया है।
     ===================================================== */
 
-    async function updateProfile(
-        updates
-    ) {
+    async function updateProfile(updates) {
 
         const client = getClient();
+        if (!client) return { success: false };
 
-        if (!client) {
-            return {
-                success: false
-            };
-        }
-
-
-        const user =
-            await getCurrentUser();
-
+        const user = await getCurrentUser();
         if (!user) {
-
-            showMessage(
-                "पहले login करें।",
-                "warning"
-            );
-
-            return {
-                success: false
-            };
+            showMessage("पहले login करें।", "warning");
+            return { success: false };
         }
 
+        const fullName = safeText(updates.full_name);
+        const phone = normalizePhone(updates.phone);
+        const address = safeText(updates.address);
+        const avatarUrl = safeText(updates.avatar_url);
+        const sponsorName = safeText(updates.sponsor_name);
+        const withdrawalUpi = safeText(updates.withdrawal_upi);
+        const bankDetails = safeText(updates.bank_details);
 
-        const allowedFields = {
-
-            full_name:
-                safeText(updates.full_name),
-
-            phone:
-                normalizePhone(
-                    updates.phone
-                ),
-
-            address:
-                safeText(updates.address),
-
-            avatar_url:
-                safeText(
-                    updates.avatar_url
-                ),
-
-            sponsor_name:
-                safeText(
-                    updates.sponsor_name
-                ),
-
-            withdrawal_upi:
-                safeText(
-                    updates.withdrawal_upi
-                )
-        };
-
-
-        /* Remove empty optional fields */
-
-        Object.keys(
-            allowedFields
-        ).forEach(key => {
-
-            if (
-                allowedFields[key] === ""
-            ) {
-                delete allowedFields[key];
-            }
-
-        });
-
-
-        /*
-         * IMPORTANT:
-         * कभी भी id / unique_user_id / user_id
-         * client से update नहीं करेंगे।
-         */
-
+        const profileFields = {};
+        if (fullName) profileFields.full_name = fullName;
+        if (phone) profileFields.phone = phone;
+        if (address) profileFields.address = address;
+        if (avatarUrl) profileFields.avatar_url = avatarUrl;
+        if (sponsorName) profileFields.sponsor_name = sponsorName;
+        if (withdrawalUpi) profileFields.withdrawal_upi = withdrawalUpi;
+        if (bankDetails) profileFields.bank_details = bankDetails;
 
         try {
+            // Preferred source for newer accounts.
+            const profileResult = await client
+                .from("profiles")
+                .update(profileFields)
+                .eq("id", user.id)
+                .select()
+                .maybeSingle();
 
-            const {
-                data,
-                error
-            } =
-                await client
-                    .from("profiles")
-                    .update(
-                        allowedFields
-                    )
-                    .eq("id", user.id)
-                    .select()
-                    .single();
-
-
-            if (error) {
-
-                console.error(
-                    "IOIS profile update:",
-                    error
-                );
-
-                showMessage(
-                    error.message ||
-                    "Profile update failed.",
-                    "error"
-                );
-
-                return {
-                    success: false,
-                    error
-                };
+            if (!profileResult.error && profileResult.data) {
+                showMessage("Profile successfully update हो गई।", "success");
+                return { success: true, profile: profileResult.data };
             }
 
+            // Compatibility path for older members whose profile lives in
+            // members/registry and for installations without a profiles row.
+            const memberFields = {};
+            if (fullName) memberFields.full_name = fullName;
+            if (phone) memberFields.mobile = phone;
+            if (address) memberFields.address = address;
 
-            showMessage(
-                "Profile successfully update हो गई।",
-                "success"
-            );
+            let registryFields = {};
+            if (fullName) registryFields.full_name = fullName;
+            if (phone) registryFields.phone = phone;
+            if (address) registryFields.address = address;
+            if (sponsorName) registryFields.sponsor_name = sponsorName;
+            if (withdrawalUpi) registryFields.withdrawal_details = withdrawalUpi;
 
+            const operations = [];
 
-            return {
+            if (Object.keys(memberFields).length) {
+                operations.push(
+                    client.from("members")
+                        .update(memberFields)
+                        .eq("auth_user_id", user.id)
+                );
+            }
 
-                success: true,
+            if (Object.keys(registryFields).length) {
+                operations.push(
+                    client.from("iois_member_registry")
+                        .update(registryFields)
+                        .eq("user_id", user.id)
+                );
+            }
 
-                profile:
-                    data
-            };
+            if (!operations.length) {
+                showMessage("Update करने के लिए कोई बदलाव नहीं मिला।", "warning");
+                return { success: false };
+            }
 
+            const results = await Promise.all(operations);
+            const firstError = results.find(r => r?.error)?.error;
+            if (firstError) {
+                console.error("IOIS legacy profile update:", firstError);
+                showMessage(firstError.message || "Profile update failed.", "error");
+                return { success: false, error: firstError };
+            }
+
+            showMessage("Profile successfully update हो गई।", "success");
+            return { success: true, legacy: true };
 
         } catch (error) {
-
-            console.error(error);
-
-            return {
-                success: false,
-                error
-            };
+            console.error("IOIS profile update:", error);
+            showMessage(error?.message || "Profile update failed.", "error");
+            return { success: false, error };
         }
     }
 

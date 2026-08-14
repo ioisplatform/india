@@ -187,7 +187,7 @@
         throw new Error(`Selected membership plan (₹${selectedPlan.price}) is not active or does not exist in the database.`);
       }
 
-      const dbCode = data.plan_code || data.code || data.slug || data.plan_id;
+      const dbCode = data.plan_code || data.code || data.slug || data.plan_id || data.id;
       if (!dbCode) {
         throw new Error("Selected membership plan database record में plan code नहीं मिला।");
       }

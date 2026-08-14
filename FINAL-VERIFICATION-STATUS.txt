@@ -1,0 +1,14 @@
+IOIS FINAL VERIFICATION STATUS
+
+Static verification performed on this package:
+- Node syntax check: all root JavaScript files PASS.
+- Local HTML/CSS/JS asset reference scan: 0 missing local references.
+- Duplicate HTML id scan: 0 duplicates found.
+- Local HTTP smoke test: core pages returned HTTP 200.
+- Existing membership amounts preserved in frontend/database-facing code.
+- Existing clock/weather/Panchang/news/jobs/chat/payment/certificate/ID-card/admin pages preserved.
+- Legacy profile compatibility added for profiles -> members -> iois_member_registry.
+- Forgot User ID and Reset Password remain separate database-matching flows.
+- Email magic-link recovery is not used by the recovery implementation.
+
+Live Supabase Auth, RLS, Edge Function secrets, payment/storage, Telegram, realtime and hosting behavior still require deployment to the user's actual Supabase/hosting project for end-to-end verification.

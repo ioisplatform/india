@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IOIS Payment | Member Payment</title>
+<meta name="theme-color" content="#030712">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="supabase.js"></script>
+<script src="iois-profile-fallback.js"></script>
+<link rel="stylesheet" href="style.css">
+<style>body{background:#030712;color:#fff;font-family:Arial,sans-serif}.payment-wrap{max-width:720px;margin:50px auto;padding:20px}.pay-card{background:#0f172a;border:1px solid rgba(245,158,11,.25);border-radius:24px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.35)}.pay-card label{display:block;margin:14px 0 6px;color:#cbd5e1;font-size:13px}.pay-card input,.pay-card select{width:100%;background:#020617;border:1px solid #334155;color:#fff;border-radius:12px;padding:12px}.pay-card button{margin-top:18px}.upi{padding:14px;border:1px dashed rgba(245,158,11,.5);border-radius:14px;background:rgba(245,158,11,.06);margin:16px 0}.msg{margin-top:14px;color:#a7f3d0}</style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><img src="assets/logo.png" alt="IOIS" onerror="this.style.display='none'"><span><b class="tiranga-text">IOIS PLATFORM</b><small>Indian Online Income Supporting System</small></span></a><nav class="desktop-nav"><a href="dashboard.html">Dashboard</a><a href="index.html">Home</a></nav></div></header>
+<main class="payment-wrap"><div class="pay-card"><span class="eyebrow">MEMBER PAYMENT</span><h1 class="tiranga-text">Payment Submission</h1><p class="text-slate-400 text-sm">अपने selected plan का payment करने के बाद transaction details submit करें।</p><div class="upi"><strong>Payment UPI:</strong> <span id="ioisUpi">8877490845@spicepay</span><br><small>Payment Name: Vikas Kumar</small></div><form id="paymentForm"><label>Plan Amount</label><input id="amount" readonly><label>Payment Method</label><select id="method"><option value="UPI">UPI</option></select><label>UPI ID used</label><input id="upiId" required autocomplete="off"><label>Transaction Reference</label><input id="transactionReference" required autocomplete="off"><button class="btn-primary full" type="submit">Submit Payment</button><p id="message" class="msg"></p></form></div><div class="hero-buttons mt-6"><a class="btn-gradient" href="dashboard.html">← Dashboard</a><a class="btn-outline" href="index.html">Home</a></div></main>
+<script src="payment.js"></script>
+</body>
+</html>

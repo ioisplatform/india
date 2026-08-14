@@ -827,6 +827,7 @@
 ========================================================= -->
 
 <script src="supabase-config.js"></script>
+<script src="iois-profile-fallback.js"></script>
 
 
 <!-- =========================================================
@@ -913,21 +914,9 @@ async function loadMemberProfile() {
 
     try {
 
-        const {
-            data,
-            error
-        } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", currentUser.id)
-            .single();
-
-
-        if (error) {
-            throw error;
-        }
-
-
+            window.__ioisCurrentAuthUser = currentUser;
+        const data = await window.IOISProfile?.load(currentUser.id, supabase);
+        if (!data) throw new Error("Member profile unavailable.");
         currentProfile = data;
 
 

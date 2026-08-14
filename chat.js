@@ -83,8 +83,8 @@ async function getSession(){
 
 async function loadProfile(){
   if(!currentUser) return;
-  const {data}=await client.from("profiles").select("full_name,avatar_url,unique_user_id,user_id").eq("id",currentUser.id).maybeSingle();
-  currentProfile=data||null;
+  window.__ioisCurrentAuthUser=currentUser;
+  currentProfile=await window.IOISProfile?.load(currentUser.id,client) || null;
 }
 
 async function loadMessages(){

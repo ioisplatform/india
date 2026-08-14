@@ -1,0 +1,19 @@
+IOIS FINAL STATIC VERIFICATION V3
+
+Base: IOIS-FINAL-PRODUCTION-READY-V2.zip
+
+Verified:
+- All local JavaScript files pass Node syntax check.
+- No duplicate HTML IDs found.
+- Existing 7 active membership amounts are preserved in frontend: 10,49,99,199,299,499,999.
+- Existing design/page files were not replaced with a new template.
+- Legacy registration.html redirects to canonical register.html.
+- Login is handled by auth.js; no second login controller is used.
+- Old member profile fallback remains profiles -> members -> iois_member_registry.
+- Recovery UI has separate User ID and Password flows.
+- Recovery Edge Function source is included in this package.
+- Registration notification Edge Function source is included and remains non-blocking.
+
+Dynamic URL expressions such as ${job.link}, ${j.link}, ${n.url}, and ${p.url} are runtime data, not missing local files.
+
+Live Supabase/Auth/RLS/Storage/Edge Function/payment/Telegram tests still require deployment to the user's Supabase project and real accounts. This package therefore must not be described as live-proven 100% bug-free until those tests pass.

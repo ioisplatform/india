@@ -1,0 +1,48 @@
+IOIS V10 — SIMPLE SUPABASE AUTH
+================================
+
+Architecture
+------------
+• Standard Supabase Email + Password authentication only.
+• No custom login Edge Function.
+• No custom account-recovery Edge Function.
+• Password recovery uses Supabase's standard email reset link.
+• Email confirmation should be OFF if you want registration to create an immediate session.
+• Dashboard reads member data from the existing members and iois_member_registry tables.
+
+SUPABASE SETUP
+--------------
+1. Authentication → Sign In / Providers → Email: ON.
+2. Authentication → Sign In / Providers → Confirm email: OFF.
+3. Authentication → URL Configuration:
+   Site URL:
+   https://ioisplatform.github.io/ioiss/
+   Redirect URL:
+   https://ioisplatform.github.io/ioiss/reset-password.html
+4. Storage → Buckets: member-documents (existing bucket).
+5. Keep the existing database tables and RLS policies.
+6. Existing registration RPC must remain deployed:
+   iois_finalize_registration
+7. Existing Telegram notification function can remain deployed; it must not block registration.
+
+FRONTEND
+--------
+Upload the contents of this folder to the GitHub Pages repository root.
+Do not upload any Supabase service-role key or Telegram bot token.
+
+TEST ORDER
+----------
+A. Open the site in an Incognito/Private window.
+B. Register using a fresh email.
+C. Confirm that the success screen displays the generated Member ID.
+D. Log in with Email + Password.
+E. Confirm Dashboard loads member information.
+F. Test Forgot Password → email reset link → Reset Password.
+G. Log in again.
+
+IMPORTANT
+---------
+The public Supabase publishable/anon key is safe to use in browser when RLS is correctly configured.
+Never put the service-role key in config.js, HTML, or JavaScript.
+
+If a live test fails, capture the exact on-screen error and browser console message; do not repeatedly submit registration.
