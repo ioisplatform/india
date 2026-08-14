@@ -13,6 +13,18 @@
     const profile = p.status === "fulfilled" && !p.value.error ? p.value.data : null;
     const member = m.status === "fulfilled" && !m.value.error ? m.value.data : null;
     const registry = r.status === "fulfilled" && !r.value.error ? r.value.data : null;
+    // If the legacy registry row is not linked by UUID, use the
+    // SECURITY DEFINER RPC which validates the authenticated user's email
+    // server-side. Direct client-side email lookup is blocked by RLS.
+    if(!registry && window.supabase && userId){
+      try {
+        const { data: legacy } = await client.rpc("iois_get_legacy_profile");
+        if(legacy) registry = legacy;
+      } catch (e) {
+        console.warn("IOIS legacy profile RPC unavailable:", e);
+      }
+    }
+
     if(!profile && !member && !registry) return null;
     const user = window.__ioisCurrentAuthUser || null;
     return {

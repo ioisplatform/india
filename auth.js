@@ -377,7 +377,6 @@
     ===================================================== */
 
     async function loadProfile(userId = null) {
-
         const client = getClient();
         if (!client) return null;
 
@@ -386,39 +385,50 @@
         if (!id) return null;
 
         try {
-            // Primary legacy source.
-            const { data: profile, error: profileError } = await client
-                .from("profiles")
-                .select("*")
-                .eq("id", id)
-                .maybeSingle();
+            // Read all supported profile sources before deciding that a
+            // profile is missing. This preserves incomplete legacy rows.
+            const [profileResult, memberResult, registryResult] =
+                await Promise.all([
+                    client.from("profiles").select("*").eq("id", id).maybeSingle(),
+                    client.from("members").select("*").eq("auth_user_id", id).maybeSingle(),
+                    client.from("iois_member_registry").select("*").eq("user_id", id).maybeSingle()
+                ]);
 
-            if (!profileError && profile) return profile;
+            let profile = !profileResult.error ? profileResult.data : null;
+            let member = !memberResult.error ? memberResult.data : null;
+            let registry = !registryResult.error ? registryResult.data : null;
 
-            // Compatibility fallback for existing IOIS members whose
-            // authoritative record is in members/registry instead of profiles.
-            const [memberResult, registryResult] = await Promise.all([
-                client.from("members").select("*").eq("auth_user_id", id).maybeSingle(),
-                client.from("iois_member_registry").select("*").eq("user_id", id).maybeSingle()
-            ]);
+            // Level 4: use a SECURITY DEFINER RPC that validates the
+            // authenticated user's email inside Postgres. Direct email
+            // lookup is intentionally not used because RLS may block
+            // unlinked legacy rows.
+            if (!registry) {
+                try {
+                    const { data: legacy } = await client.rpc("iois_get_legacy_profile");
+                    if (legacy) registry = legacy;
+                } catch (rpcError) {
+                    console.warn("IOIS legacy profile RPC unavailable:", rpcError);
+                }
+            }
 
-            const member = memberResult?.data || null;
-            const registry = registryResult?.data || null;
-            if (!member && !registry) return null;
+            if (!profile && !member && !registry) return null;
 
+            // Merge rather than returning profiles immediately. Older/newer
+            // systems may split identity data across these sources.
             return {
                 ...(profile || {}),
                 id,
                 user_id: member?.iois_user_id || registry?.member_id || profile?.user_id || "",
                 unique_user_id: member?.iois_user_id || registry?.member_id || profile?.unique_user_id || "",
                 member_id: member?.iois_user_id || registry?.member_id || profile?.member_id || "",
-                iois_user_id: member?.iois_user_id || registry?.member_id || "",
+                iois_user_id: member?.iois_user_id || registry?.member_id || profile?.iois_user_id || "",
                 full_name: member?.full_name || registry?.full_name || profile?.full_name || user?.user_metadata?.full_name || "",
                 email: member?.email || registry?.email || profile?.email || user?.email || "",
-                whatsapp: member?.mobile || registry?.phone || profile?.whatsapp || "",
+                whatsapp: member?.mobile || registry?.phone || profile?.whatsapp || profile?.phone || "",
                 phone: member?.mobile || registry?.phone || profile?.phone || "",
                 address: member?.address || registry?.address || profile?.address || "",
                 sponsor_id: member?.sponsor_id || registry?.sponsor_id || profile?.sponsor_id || "",
+                sponsor_name: registry?.sponsor_name || member?.sponsor_name || profile?.sponsor_name || "",
                 withdrawal_upi: registry?.withdrawal_details || profile?.withdrawal_upi || "",
                 membership_plan: member?.selected_plan || registry?.plan_name || registry?.plan_code || profile?.membership_plan || "",
                 plan_name: registry?.plan_name || member?.selected_plan || profile?.plan_name || profile?.membership_name || "",
@@ -430,7 +440,6 @@
             return null;
         }
     }
-
 
     window.IOISAuth.loadProfile =
         loadProfile;

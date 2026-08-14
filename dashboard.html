@@ -1702,55 +1702,63 @@ async function initDashboard() {
 ========================================================= */
 
 async function loadMemberProfile() {
-
     try {
-        const memberResult = await supabaseClient
-            .from("members")
-            .select("*")
-            .eq("auth_user_id", currentUser.id)
-            .maybeSingle();
-
-        const registryResult = await supabaseClient
-            .from("iois_member_registry")
-            .select("*")
-            .eq("user_id", currentUser.id)
-            .maybeSingle();
-
-        const member = memberResult?.data || null;
-        const registry = registryResult?.data || null;
-
-        // Keep legacy profiles support, but never let a missing profiles row
-        // hide an existing IOIS member/registry record.
-        let profile = null;
-        try {
-            const result = await supabaseClient
+        // Query every supported source before declaring the profile missing.
+        const [memberResult, registryResult, profileResult] = await Promise.all([
+            supabaseClient
+                .from("members")
+                .select("*")
+                .eq("auth_user_id", currentUser.id)
+                .maybeSingle(),
+            supabaseClient
+                .from("iois_member_registry")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .maybeSingle(),
+            supabaseClient
                 .from("profiles")
                 .select("*")
                 .eq("id", currentUser.id)
-                .maybeSingle();
-            if (!result.error) profile = result.data || null;
-        } catch (_) {}
+                .maybeSingle()
+        ]);
+
+        const member = !memberResult?.error ? memberResult.data : null;
+        let registry = !registryResult?.error ? registryResult.data : null;
+        const profile = !profileResult?.error ? profileResult.data : null;
+
+        // Level 4 legacy compatibility: use a SECURITY DEFINER RPC
+        // which validates the authenticated user's email server-side.
+        if (!registry) {
+            try {
+                const { data: legacy } = await supabaseClient.rpc("iois_get_legacy_profile");
+                if (legacy) registry = legacy;
+            } catch (rpcError) {
+                console.warn("IOIS legacy profile RPC unavailable:", rpcError);
+            }
+        }
 
         if (!profile && !member && !registry) {
             showToast("Member profile अभी उपलब्ध नहीं है।", "error");
             return;
         }
 
+        // Merge all sources so an incomplete profiles row never hides a
+        // valid member/legacy registry record.
         currentProfile = {
             ...(profile || {}),
             id: currentUser.id,
             user_id: member?.iois_user_id || registry?.member_id || profile?.user_id || "",
             unique_user_id: member?.iois_user_id || registry?.member_id || profile?.unique_user_id || "",
             member_id: member?.iois_user_id || registry?.member_id || profile?.member_id || "",
-            iois_user_id: member?.iois_user_id || registry?.member_id || "",
-            full_name: member?.full_name || registry?.full_name || profile?.full_name || currentUser.user_metadata?.full_name || "IOIS Member",
+            iois_user_id: member?.iois_user_id || registry?.member_id || profile?.iois_user_id || "",
+            full_name: member?.full_name || registry?.full_name || profile?.full_name || currentUser.user_metadata?.full_name || "",
             email: member?.email || registry?.email || profile?.email || currentUser.email || "",
-            whatsapp: member?.mobile || registry?.phone || profile?.whatsapp || "",
+            whatsapp: member?.mobile || registry?.phone || profile?.whatsapp || profile?.phone || "",
             phone: member?.mobile || registry?.phone || profile?.phone || "",
             address: member?.address || registry?.address || profile?.address || "",
             sponsor_id: member?.sponsor_id || registry?.sponsor_id || profile?.sponsor_id || "",
+            sponsor_name: registry?.sponsor_name || member?.sponsor_name || profile?.sponsor_name || "",
             withdrawal_upi: registry?.withdrawal_details || profile?.withdrawal_upi || "",
-            bank_details: profile?.bank_details || "",
             membership_plan: member?.selected_plan || registry?.plan_name || registry?.plan_code || profile?.membership_plan || "",
             plan_name: registry?.plan_name || member?.selected_plan || profile?.plan_name || profile?.membership_name || "",
             plan_amount: member?.plan_amount ?? registry?.plan_amount ?? profile?.plan_amount ?? null,
@@ -1758,20 +1766,12 @@ async function loadMemberProfile() {
         };
 
         populateProfile(currentProfile);
-        await loadMembership(currentProfile);
-        await loadReferralStats(currentProfile);
-        updateReferralLink(currentProfile);
 
     } catch (error) {
-        console.error("Profile loading error:", error);
-        showToast("Member data load नहीं हो पाया।", "error");
+        console.error("IOIS member profile load:", error);
+        showToast("Dashboard profile load नहीं हो पाया।", "error");
     }
 }
-
-
-/* =========================================================
-   POPULATE PROFILE
-========================================================= */
 
 function populateProfile(
     profile
