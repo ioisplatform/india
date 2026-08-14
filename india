@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IOIS - Indian Online Income Supporting System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --green: #138808;
+            --navy-dark: #0A0F24;
+            --navy-card: #131B38;
+            --gold: #FFD700;
+            --text-light: #F0F4F8;
+            --text-gold: #FFDF00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 3D Dynamic Royal Navy Background */
+        body {
+            background: radial-gradient(circle at top, #1C2541 0%, #0A0F24 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Top Glowing Tiranga Border */
+        .tiranga-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--saffron), #FFFFFF, var(--green));
+            box-shadow: 0 0 15px rgba(255, 153, 51, 0.8);
+            z-index: 1000;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            max-width: 460px;
+            perspective: 1000px;
+        }
+
+        /* 3D Glassmorphism Premium Card */
+        .card-3d {
+            background: rgba(19, 27, 56, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px 22px;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: cardFloat 0.6s ease-out;
+        }
+
+        @keyframes cardFloat {
+            from { opacity: 0; transform: translateY(30px) rotateX(-10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
+        /* IOIS Logo Container (Golden Glow) */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-box {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--saffron), var(--green));
+            padding: 3px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(20px);
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: var(--navy-dark);
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(180deg, #FFFFFF, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-sub {
+            font-size: 13px;
+            color: #A0AEC0;
+            margin-top: 3px;
+        }
+
+        /* Interactive Question Box */
+        .question-card {
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(19, 136, 8, 0.15));
+            border-left: 4px solid var(--gold);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin: 20px 0 18px 0;
+            text-align: left;
+        }
+
+        .question-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        /* 3D Selection Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: left;
+        }
+
+        .option-icon {
+            font-size: 22px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .option-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            display: block;
+        }
+
+        .option-desc {
+            font-size: 11px;
+            color: #A0AEC0;
+            display: block;
+        }
+
+        /* Active Selected State */
+        .option-item input[type="radio"]:checked + .option-box {
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.25), rgba(19, 136, 8, 0.25));
+            border-color: var(--gold);
+            transform: scale(1.02) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 3D Tricolor Glowing Button */
+        .btn-3d {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--saffron) 0%, #FF6B00 50%, var(--green) 100%);
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);
+            transition: all 0.2s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .btn-3d:active {
+            transform: scale(0.97);
+            box-shadow: 0 5px 12px rgba(255, 107, 0, 0.3);
+        }
+
+        /* All-In-One Facilities Grid */
+        .services-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .service-item {
+            text-align: center;
+        }
+
+        .service-item-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .service-item-text {
+            font-size: 10px;
+            color: #CBD5E0;
+            font-weight: 500;
+        }
+
+        /* Dynamic Result Pages */
+        .portal-page {
+            display: none;
+            text-align: left;
+        }
+
+        .badge-gold {
+            background: linear-gradient(90deg, var(--gold), #FF9933);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .feature-box h4 {
+            font-size: 13px;
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        .feature-box p {
+            font-size: 10px;
+            color: #A0AEC0;
+        }
+
+        .btn-action {
+            background: #25D366;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.3);
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #A0AEC0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tiranga-top-bar"></div>
+
+    <div class="app-wrapper">
+        
+        <!-- MAIN HOMEPAGE CARD -->
+        <div id="main-card" class="card-3d">
+            
+            <!-- IOIS Logo & Header -->
+            <div class="logo-container">
+                <div class="logo-box">
+                    <!-- 👇 REPLACE 'logo.png' WITH YOUR IOIS LOGO IMAGE URL 👇 -->
+                    <img src="logo.png" alt="IOIS Logo" onerror="this.src='https://via.placeholder.com/80/0A0F24/FFD700?text=IOIS'">
+                </div>
+                <div class="brand-title">IOIS PLATFORM 🇮🇳</div>
+                <div class="brand-sub">Indian Online Income Supporting System</div>
+            </div>
+
+            <!-- Dynamic Question -->
+            <div class="question-card">
+                <h3>❓ Aap aaj IOIS Platform par kya explore karna chahte hain?</h3>
+            </div>
+
+            <!-- All Options (Earning, Games, Study, Skills) -->
+            <div class="options-grid">
+                
+                <!-- Option 1: Earning -->
+                <div class="option-item">
+                    <input type="radio" id="opt_earning" name="user_goal" value="earning">
+                    <label for="opt_earning" class="option-box">
+                        <div class="option-icon">💰</div>
+                        <div>
+                            <span class="option-title">Online Income & Work</span>
+                            <span class="option-desc">Ghar baithe mobile se kamai ke tarike</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Option 2: Games & Entertainment -->
+                <div class="option-item">
+                    <input type="radio" id="opt_games" name="user_goal" value="games">
+                    <label for="opt_games" class="option-box">
+                        <div class="option-icon">🎮</div>
+                        <div>
+                            <span class="option-title">Brain Games & Skill Contests</span>
+                            <span class="option-desc">Khel-khel mein sikhne aur jeetne ka mauka</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Option 3: Study Material & Education -->
+                <div class="option-item">
+                    <input type="radio" id="opt_study" name="user_goal" value="study">
+                    <label for="opt_study" class="option-label option-box">
+                        <div class="option-icon">📚</div>
+                        <div>
+                            <span class="option-title">Study Material & Hindi Courses</span>
+                            <span class="option-desc">Bacchon aur student ke liye aasan notes</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Option 4: Digital Skills -->
+                <div class="option-item">
+                    <input type="radio" id="opt_skills" name="user_goal" value="skills">
+                    <label for="opt_skills" class="option-box">
+                        <div class="option-icon">💻</div>
+                        <div>
+                            <span class="option-title">Website & Poster Design</span>
+                            <span class="option-desc">Mobile se design aur website banana sikhein</span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn-3d" onclick="openSelectedPortal()">EXPLORE NOW ➔</button>
+
+            <!-- All-In-One Platform Highlights -->
+            <div class="services-bar">
+                <div class="service-item">
+                    <div class="service-item-icon">🎮</div>
+                    <div class="service-item-text">Games</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">📖</div>
+                    <div class="service-item-text">Study</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">💡</div>
+                    <div class="service-item-text">Skills</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">💸</div>
+                    <div class="service-item-text">Income</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- DYNAMIC PORTAL PAGES -->
+
+        <!-- Earning Portal -->
+        <div id="portal-earning" class="card-3d portal-page">
+            <span class="badge-gold">💰 IOIS EARNING ZONE</span>
+            <h2>Work From Home Program</h2>
+            <p style="font-size: 12px; color: #A0AEC0; margin-top: 5px;">Apne smartphone ka upyog karke online income generate karein.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div>📱</div>
+                    <h4>Mobile Work</h4>
+                    <p>Sirf phone ki zaroorat</p>
+                </div>
+                <div class="feature-box">
+                    <div>🛡️</div>
+                    <h4>100% Safe</h4>
+                    <p>Verified Supporting System</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/" class="btn-action" target="_blank">📱 Start Earning Journey (WhatsApp)</a>
+            <button class="btn-secondary" onclick="goBackToHome()">Wapas Main Menu Par Jayein</button>
+        </div>
+
+        <!-- Games Portal -->
+        <div id="portal-games" class="card-3d portal-page">
+            <span class="badge-gold">🎮 BRAIN GAMES & FUN</span>
+            <h2>Mind Skill Contests</h2>
+            <p style="font-size: 12px; color: #A0AEC0; margin-top: 5px;">Khel-khel mein apna dimaag तेज karein aur rewards jeetein.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div>🧩</div>
+                    <h4>Quiz Games</h4>
+                    <p>Knowledge & GK Quiz</p>
+                </div>
+                <div class="feature-box">
+                    <div>🏆</div>
+                    <h4>Contests</h4>
+                    <p>Weekly rewards</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/" class="btn-action" target="_blank">🕹️ Play & Learn Now</a>
+            <button class="btn-secondary" onclick="goBackToHome()">Wapas Main Menu Par Jayein</button>
+        </div>
+
+        <!-- Study Material Portal -->
+        <div id="portal-study" class="card-3d portal-page">
+            <span class="badge-gold">📚 STUDY & LEARNING</span>
+            <h2>Bhartiya Shiksha Portal</h2>
+            <p style="font-size: 12px; color: #A0AEC0; margin-top: 5px;">Bacchon ke liye aasan Hindi bhasha mein notes aur guides.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div>📄</div>
+                    <h4>Free Notes</h4>
+                    <p>Aasan Hindi PDFs</p>
+                </div>
+                <div class="feature-box">
+                    <div>🎥</div>
+                    <h4>Video Lessons</h4>
+                    <p>Step-by-step guidance</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/" class="btn-action" target="_blank">📖 Download Study Material</a>
+            <button class="btn-secondary" onclick="goBackToHome()">Wapas Main Menu Par Jayein</button>
+        </div>
+
+        <!-- Skills Portal -->
+        <div id="portal-skills" class="card-3d portal-page">
+            <span class="badge-gold">💻 DIGITAL SKILLS</span>
+            <h2>Design & Tech Master</h2>
+            <p style="font-size: 12px; color: #A0AEC0; margin-top: 5px;">Poster making, logo design, aur website development sikhein.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div>🎨</div>
+                    <h4>Poster Design</h4>
+                    <p>Mobile graphic design</p>
+                </div>
+                <div class="feature-box">
+                    <div>🌐</div>
+                    <h4>Web Design</h4>
+                    <p>No-code site building</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/" class="btn-action" target="_blank">💻 Join Skill Batch</a>
+            <button class="btn-secondary" onclick="goBackToHome()">Wapas Main Menu Par Jayein</button>
+        </div>
+
+    </div>
+
+    <script>
+        function openSelectedPortal() {
+            const selected = document.querySelector('input[name="user_goal"]:checked');
+
+            if (!selected) {
+                alert("Kripya aage badhne ke liye koi ek option chuniye!");
+                return;
+            }
+
+            document.getElementById('main-card').style.display = 'none';
+
+            const choice = selected.value;
+            const targetPortal = document.getElementById('portal-' + choice);
+            if (targetPortal) {
+                targetPortal.style.display = 'block';
+            }
+        }
+
+        function goBackToHome() {
+            const portals = document.querySelectorAll('.portal-page');
+            portals.forEach(p => p.style.display = 'none');
+
+            document.getElementById('main-card').style.display = 'block';
+
+            const selected = document.querySelector('input[name="user_goal"]:checked');
+            if (selected) selected.checked = false;
+        }
+    </script>
+</body>
+</html>
