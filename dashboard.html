@@ -1647,12 +1647,23 @@ async function initDashboard() {
         }
 
 
-        supabaseClient =
-            window.supabase.createClient(
-                IOIS_SUPABASE_URL,
-                IOIS_SUPABASE_ANON_KEY
-            );
+        /*
+         * IMPORTANT: Reuse the single IOISAuth Supabase client.
+         * The old dashboard created a second client with a different
+         * storage key. That made this client see "no session" after
+         * login and redirect back to login.html, while auth.js still
+         * had a valid session. The result was a login <-> dashboard
+         * redirect loop / dashboard flicker.
+         */
+        if (!window.IOISAuth || typeof window.IOISAuth.getClient !== "function") {
+            throw new Error("IOIS_AUTH_NOT_READY");
+        }
 
+        supabaseClient = window.IOISAuth.getClient();
+
+        if (!supabaseClient) {
+            throw new Error("SUPABASE_NOT_READY");
+        }
 
         const {
             data: {
