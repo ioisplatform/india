@@ -1,186 +1,326 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#030712">
-<meta name="description" content="IOIS Platform - Indian Online Income Supporting System. Digital resources, career tools, creator resources and membership plans.">
-<title>IOIS PLATFORM | Indian Online Income Supporting System</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS - Indian Online Income & Learning System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-bottom: 70px; }
+
+        .container { 
+            width: 100%;
+            max-width: 450px; 
+            background: linear-gradient(135deg, #0f172a, #1e1b4b); 
+            border: 2px solid #fbbf24; 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(251,191,36,0.2); 
+        }
+        
+        /* Brand & Logo Section */
+        .brand-header { text-align: center; margin-bottom: 12px; }
+        .logo-wrapper {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.3));
+            border: 2.5px solid #fbbf24;
+            padding: 10px 20px;
+            border-radius: 40px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+        .logo-main-text { color: #fbbf24; font-size: 20px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; }
+        .logo-sub-text { font-size: 8.5px; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; font-weight: 700; }
+
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-anim { animation: floatEffect 3s ease-in-out infinite; }
+
+        .main-heading { text-align: center; color: #fbbf24; font-size: 19px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .sub-heading { text-align: center; color: #94a3b8; font-size: 12px; margin-bottom: 14px; font-weight: 500; line-height: 1.4; }
+
+        /* Real-Time Widget Section (Clock & Weather) */
+        .utility-widget {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .clock-container { display: flex; align-items: center; gap: 10px; }
+        .analog-clock {
+            width: 42px;
+            height: 42px;
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            position: relative;
+            background: #0f172a;
+        }
+        .analog-clock .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            background: #fbbf24;
+            border-radius: 2px;
+        }
+        .analog-clock .hour-hand { width: 3px; height: 11px; background: #fbbf24; }
+        .analog-clock .min-hand { width: 2px; height: 16px; background: #38bdf8; }
+        .analog-clock .sec-hand { width: 1px; height: 18px; background: #ef4444; }
+        
+        .digital-clock-box { text-align: left; }
+        .digital-time { font-size: 14px; font-weight: 800; color: #fbbf24; }
+        .digital-date { font-size: 9.5px; color: #94a3b8; }
+
+        .weather-box { text-align: right; border-left: 1px solid #334155; padding-left: 10px; }
+        .weather-temp { font-size: 13px; font-weight: 700; color: #38bdf8; }
+        .weather-desc { font-size: 9.5px; color: #cbd5e1; }
+
+        /* Marquee Update Banner */
+        .marquee-box {
+            background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+            border: 1px solid #f87171;
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            color: #fef2f2;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4);
+        }
+        .marquee-box marquee { width: 100%; color: #fde047; }
+
+        /* Section Titles */
+        .section-title { color: #38bdf8; font-size: 13.5px; font-weight: 700; margin: 16px 0 10px 0; text-transform: uppercase; border-left: 3px solid #38bdf8; padding-left: 8px; }
+
+        /* Membership Plans Section */
+        .plans-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .plan-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1.5px solid #334155;
+            border-radius: 12px;
+            padding: 12px;
+            position: relative;
+        }
+        .plan-card.gold-plan { border-color: #fbbf24; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(120, 53, 15, 0.3)); }
+        .plan-badge { position: absolute; top: -8px; right: 12px; background: #fbbf24; color: #0f172a; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+        .plan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .plan-title { font-size: 14px; font-weight: 800; color: #38bdf8; }
+        .plan-card.gold-plan .plan-title { color: #fbbf24; }
+        .plan-price { font-size: 18px; font-weight: 900; color: #4ade80; }
+        .plan-features { list-style: none; font-size: 10.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 8px; }
+        .plan-features li::before { content: "✓ "; color: #22c55e; font-weight: bold; }
+
+        /* Products / Kit Grid */
+        .products-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+        .product-card { 
+            background: rgba(30, 41, 59, 0.85); 
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+            border-radius: 10px; 
+            padding: 10px 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .product-icon { font-size: 18px; background: rgba(251, 191, 36, 0.15); padding: 7px 9px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .product-info h5 { color: #fbbf24; font-size: 12.5px; font-weight: 700; margin-bottom: 1px; }
+        .product-info p { color: #94a3b8; font-size: 10.5px; line-height: 1.3; }
+
+        /* Buttons */
+        .btn { padding: 11px 8px; font-weight: bold; font-size: 12.5px; border-radius: 10px; border: none; cursor: pointer; text-transform: uppercase; text-align: center; text-decoration: none; display: block; transition: 0.2s; width: 100%; }
+        .btn-green { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; box-shadow: 0 4px 12px rgba(34,197,94,0.3); }
+        .btn-yellow { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f172a; font-weight: 800; box-shadow: 0 4px 12px rgba(251,191,36,0.3); margin-top: 8px; }
+
+        /* Floating Bottom Bar */
+        .floating-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(251, 191, 36, 0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 6px;
+            z-index: 9999;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.8);
+        }
+        .float-nav-btn {
+            background: #1e293b;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
+
+        .footer-note { text-align: center; font-size: 11px; color: #64748b; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 10px; }
+    </style>
 </head>
 <body>
 
-<div class="live-update">
-  <span class="live-badge">LIVE UPDATE</span>
-  <div class="ticker-wrap"><div class="ticker">
-    🔥 IOIS PLATFORM — ₹10 से शुरुआत करें और Digital Resources प्राप्त करें!
-    &nbsp;&nbsp;&nbsp; 🚀 ₹49 से ₹999 तक Membership Plans उपलब्ध हैं!
-    &nbsp;&nbsp;&nbsp; 🇮🇳 IOIS — Indian Online Income Supporting System
-  </div></div>
-</div>
-
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="index.html" class="brand">
-      <img src="assets/logo.png" alt="IOIS Logo" onerror="this.style.display='none'">
-      <span>
-        <b class="tiranga-text">IOIS PLATFORM</b>
-        <small>Indian Online Income Supporting System</small>
-      </span>
-    </a>
-    <nav class="desktop-nav">
-      <a class="active" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="membership.html"><i class="fa-solid fa-layer-group"></i> 7 Plans</a>
-      <a href="#services"><i class="fa-solid fa-toolbox"></i> Services</a>
-      <a href="#examples"><i class="fa-solid fa-chart-line"></i> Examples</a>
-      <a href="news.html"><i class="fa-solid fa-newspaper"></i> समाचार</a>
-      <a href="jobs.html"><i class="fa-solid fa-briefcase"></i> Jobs</a>
-      <a href="panchang.html"><i class="fa-solid fa-calendar-days"></i> पंचांग</a>
-      <a href="chat.html"><i class="fa-solid fa-comments"></i> Chat</a>
-    </nav>
-    <div class="header-actions">
-      <button class="btn-outline" onclick="openLoginModal()">Login</button>
-      <button class="btn-primary" onclick="openRegistrationFlow()">Join IOIS</button>
+    <!-- Floating Bottom Bar (Help & Plans Only) -->
+    <div class="floating-bottom-bar">
+        <a href="#plansSection" class="float-nav-btn gold">💎 Membership Plans</a>
+        <a href="https://wa.me/918877490845?text=Hello%20IOIS%20Support,%20I%20need%20help" target="_blank" class="float-nav-btn" style="border-color: #22c55e; color: #4ade80;">💬 WhatsApp Help</a>
     </div>
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
-  </div>
-  <div id="mobile-menu" class="mobile-menu">
-    <a href="index.html">🏠 Home</a><a href="membership.html">💳 All Membership Plans</a>
-    <a href="#services">🧰 Services</a><a href="#examples">📊 Referral Examples</a>
-    <a href="news.html">📰 समाचार</a><a href="jobs.html">💼 Jobs</a><a href="panchang.html">📅 पंचांग</a><a href="chat.html">💬 Community Chat</a>
-    <button class="btn-outline full" onclick="openLoginModal()">Login</button>
-    <button class="btn-primary full" onclick="openRegistrationFlow()">Register</button>
-  </div>
-</header>
 
-<main>
-<section class="section hero-section">
-  <div class="container">
-    <div class="room-wall">
-      <div class="clock-panel">
-        <div class="panel-title"><span><i class="fa-solid fa-clock"></i> IOIS Live Clock</span><i class="live-dot"></i></div>
-        <div id="digital-clock" class="digital-clock">12:00:00 AM</div>
-        <div class="analog-clock" aria-label="Live analog clock">
-          <div class="clock-number"><span class="n12">12</span><span class="n1">1</span><span class="n2">2</span><span class="n3">3</span><span class="n4">4</span><span class="n5">5</span><span class="n6">6</span><span class="n7">7</span><span class="n8">8</span><span class="n9">9</span><span class="n10">10</span><span class="n11">11</span></div>
-          <div id="clock-hour" class="clock-hand hour-hand"></div>
-          <div id="clock-min" class="clock-hand minute-hand"></div>
-          <div id="clock-sec" class="clock-hand second-hand"></div>
-          <div class="clock-center"></div>
+    <div class="container">
+        
+        <!-- Brand & Logo Header -->
+        <div class="brand-header floating-anim">
+            <div class="logo-wrapper">
+                <div class="logo-main-text">[ IOIS ]</div>
+                <div class="logo-sub-text">Indian Online Income & Learning System</div>
+            </div>
         </div>
-        <div id="clock-date" class="muted">तारीख लोड हो रही है...</div>
-      </div>
 
-      <div class="weather-panel">
-        <div class="satellite-label"><i class="fa-solid fa-satellite"></i> <span id="weather-location-label">GPS Location</span></div>
-        <div class="weather-scene">
-          <div class="orbit"></div>
-          <div class="weather-info">
-            <div id="weather-temp" class="weather-temp">--°C</div>
-            <div id="weather-status">☀️ मौसम जानकारी लोड हो रही है...</div>
-            <small id="weather-location">Location खोजी जा रही है...</small>
-            <small id="weather-extra">Humidity --% · Wind -- km/h</small>
-            <a href="panchang.html" class="small-primary"><i class="fa-solid fa-calendar-days"></i> पंचांग देखें</a>
-          </div>
+        <div class="main-heading floating-anim">🌟 Smart Student Platform</div>
+        <div class="sub-heading">घर बैठे सीखें, ऑनलाइन पढ़ाई करें और साथ में कमाई करें!</div>
+
+        <!-- Real-Time Digital/Analog Clock & Weather Widget -->
+        <div class="utility-widget">
+            <div class="clock-container">
+                <div class="analog-clock">
+                    <div class="hand hour-hand" id="hourHand"></div>
+                    <div class="hand min-hand" id="minHand"></div>
+                    <div class="hand sec-hand" id="secHand"></div>
+                </div>
+                <div class="digital-clock-box">
+                    <div class="digital-time" id="digitalClock">00:00:00 AM</div>
+                    <div class="digital-date" id="digitalDate">Loading Date...</div>
+                </div>
+            </div>
+            <div class="weather-box">
+                <div class="weather-temp">⛅ 29°C</div>
+                <div class="weather-desc">Mausam: Saaf</div>
+                <div class="weather-desc" style="color:#fbbf24; font-size:8.5px; margin-top:2px;">🌇 Raat Sunset: 06:42 PM</div>
+            </div>
         </div>
-      </div>
 
-      <div class="smart-panel">
-        <div class="panel-title"><span><i class="fa-solid fa-box-archive"></i> IOIS SMART SYSTEM</span><b>IOIS</b></div>
-        <div class="smart-content">
-          <p>✨ आज का शुभ रंग: <strong>पीला & केसरिया</strong></p>
-          <p>⏰ शुभ समय: <strong>सुबह 08:15 से 10:30</strong></p>
-          <p>IOIS Platform पर Digital Resources, Career Tools और Membership Plans उपलब्ध हैं।</p>
+        <!-- Floating Update Banner -->
+        <div class="marquee-box floating-anim">
+            <span>🚨 Update:</span>
+            <marquee scrollamount="4">विद्यार्थियों के लिए विशेष अवसर: पढ़ाई के साथ नोट्स व क्विज़ बनाकर घर बैठे कमाएं!</marquee>
         </div>
-        <a href="panchang.html" class="small-primary full">पंचांग / मौसम देखें</a>
-      </div>
+
+        <!-- Student Membership Plans Section -->
+        <div class="section-title" id="plansSection">💎 Student Membership Plans</div>
+        <div class="plans-container">
+            
+            <!-- ₹10 Plan -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-title">Basic Student Kit</div>
+                    <div class="plan-price">₹10</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Daily Online Practice Quizzes Access</li>
+                    <li>Basic Class Notes & Revision PDFs</li>
+                    <li>Resume & Digital Kits Download</li>
+                </ul>
+                <a href="https://wa.me/918877490845?text=I%20want%20to%20buy%2010%20Rupees%20Plan" class="btn btn-green">Join ₹10 Plan</a>
+            </div>
+
+            <!-- ₹499 Plan -->
+            <div class="plan-card gold-plan">
+                <div class="plan-badge">RECOMMENDED</div>
+                <div class="plan-header">
+                    <div class="plan-title">Pro Student & Earn Plan</div>
+                    <div class="plan-price">₹499</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Complete Subject Notes & Mind Maps Access</li>
+                    <li><strong>Earn Opportunity:</strong> Notes & Quizzes बनाकर पैसे कमाएं</li>
+                    <li>Personalized Doubt Solving & Live Support</li>
+                    <li>VIP Student Access & Work From Home Tasks</li>
+                </ul>
+                <a href="https://wa.me/918877490845?text=I%20want%20to%20buy%20499%20Pro%20Membership%20Plan" class="btn btn-yellow">Join ₹499 Membership</a>
+            </div>
+
+        </div>
+
+        <!-- Digital Kit Products Section -->
+        <div class="section-title">📦 Padhai Aur Kamai Kit</div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">📚</div>
+                <div class="product-info">
+                    <h5>Chapter-Wise Notes & Quizzes</h5>
+                    <p>Padhai ko aasan banane ke liye best study material</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">📄</div>
+                <div class="product-info">
+                    <h5>Professional Resume Templates</h5>
+                    <p>High-quality PDF templates job & freelance ke liye</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">💼</div>
+                <div class="product-info">
+                    <h5>Work From Home Student Tasks</h5>
+                    <p>Content research aur notes check karke earning karein</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://wa.me/918877490845?text=Hello%20IOIS%20Team,%20I%20want%20information" target="_blank" class="btn btn-yellow">💬 Contact Support On WhatsApp</a>
+
+        <div class="footer-note">
+            © IOIS Platform • Indian Online Income & Learning System
+        </div>
+
     </div>
 
-    <div class="smart-tv">
-      <div class="tv-head"><b><i class="fa-solid fa-tv"></i> IOIS Smart TV</b><div><button onclick="openVideo()">YouTube</button><button onclick="openVideo()">Browser</button></div></div>
-      <div class="tv-screen"><iframe src="https://www.youtube.com/embed/0gYd3mIxksc?autoplay=0&mute=1&loop=1&playlist=0gYd3mIxksc" title="IOIS Smart TV" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-    </div>
+    <!-- Live JavaScript for Real-Time Clock Animation -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
 
-    <div class="hero-card">
-      <span class="eyebrow">🇮🇳 Indian Digital Platform</span>
-      <h1 class="tiranga-text">Indian Online Income<br>Supporting System</h1>
-      <p>IOIS एक digital platform है जो students, job seekers और digital creators को affordable digital resources, career tools और creator-supporting products उपलब्ध कराने के लिए बनाया गया है।</p>
-      <div class="hero-buttons"><button class="btn-gradient" onclick="openRegistrationFlow()">🚀 Join IOIS @ ₹10</button><button class="btn-outline large" onclick="scrollToPlans()">📦 View 7 Plans</button></div>
-    </div>
-  </div>
-</section>
+            // Analog Clock Hands Calculation
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+            const minDeg = minutes * 6;
+            const secDeg = seconds * 6;
 
-<section class="section" id="about">
-<div class="container"><div class="section-heading"><span>ABOUT IOIS</span><h2>IOIS क्या है?</h2></div>
-<div class="two-grid">
-<div class="glass-card"><div class="icon-box amber"><i class="fa-solid fa-building"></i></div><h3>Digital Business Platform</h3><p>IOIS का उद्देश्य students, job seekers और digital promoters को affordable digital assets और practical creator resources उपलब्ध कराना है।</p></div>
-<div class="glass-card"><div class="icon-box teal"><i class="fa-solid fa-box-open"></i></div><h3 class="teal-text">Digital Products</h3><p>CV templates, cover letters, ChatGPT prompts, social media resources, useful website links, digital ID cards और AI/freelancing guides शामिल हैं।</p></div>
-</div></div>
-</section>
+            document.getElementById('hourHand').style.transform = `rotate(${hourDeg}deg)`;
+            document.getElementById('minHand').style.transform = `rotate(${minDeg}deg)`;
+            document.getElementById('secHand').style.transform = `rotate(${secDeg}deg)`;
 
-<section class="section" id="services">
-<div class="container"><div class="section-heading"><span>MAIN SERVICES</span><h2>IOIS की मुख्य सेवाएं</h2></div>
-<div class="services-grid">
-<div class="service-card"><i class="fa-solid fa-file-lines"></i><b>CV / Resume</b></div><div class="service-card"><i class="fa-solid fa-envelope"></i><b>Cover Letters</b></div>
-<div class="service-card"><i class="fa-solid fa-robot"></i><b>AI Prompts</b></div><div class="service-card"><i class="fa-solid fa-share-nodes"></i><b>Social Media</b></div>
-<div class="service-card"><i class="fa-solid fa-id-card"></i><b>Digital ID</b></div><div class="service-card"><i class="fa-solid fa-laptop-code"></i><b>AI & Freelancing</b></div>
-</div></div>
-</section>
+            // Digital Clock Calculation
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            let displayHours = hours % 12;
+            displayHours = displayHours ? displayHours : 12;
+            let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
 
-<section class="section" id="plans">
-<div class="container"><div class="section-heading"><span>MEMBERSHIP</span><h2>IOIS 7 Master Plans</h2><p>₹10 से ₹999 तक के digital membership options</p></div>
-<div id="plans-grid" class="plans-grid"></div>
-</div>
-</section>
+            document.getElementById('digitalClock').innerText = `${displayHours}:${displayMinutes}:${displaySeconds} ${ampm}`;
 
-<section class="section">
-<div class="container"><div class="section-heading"><span>REFERRAL STRUCTURE</span><h2>Direct Referral Payout Chart</h2></div>
-<div id="payout-grid" class="payout-grid"></div>
-<div class="notice"><i class="fa-solid fa-bolt"></i><h3>Cross-Level Example</h3><p>Referral payout examples plan-specific हैं। किसी भी payout को guaranteed income न मानें; actual eligibility और payment platform rules के अनुसार होगी।</p></div>
-</div>
-</section>
+            // Date Format
+            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+            document.getElementById('digitalDate').innerText = now.toLocaleDateString('hi-IN', options);
+        }
 
-<section class="section" id="examples">
-<div class="container narrow"><div class="section-heading"><span>PRACTICAL EXAMPLES</span><h2>21 Detailed Referral Examples</h2><p>Master presentation के practical examples</p></div>
-<div id="examples-list" class="examples-list"></div></div>
-</section>
-
-<section class="section">
-<div class="container"><div class="section-heading"><span>SIMPLE PROCESS</span><h2>IOIS कैसे काम करता है?</h2></div>
-<div class="steps-grid">
-<div class="step"><b>1</b><h3>Plan चुनें</h3><p>अपनी जरूरत के अनुसार membership plan चुनें।</p></div>
-<div class="step"><b>2</b><h3>Digital Resources</h3><p>Selected digital resources प्राप्त करें।</p></div>
-<div class="step"><b>3</b><h3>Share / Promote</h3><p>Platform और products को लोगों तक पहुँचाएँ।</p></div>
-<div class="step"><b>4</b><h3>Referral Payout</h3><p>Eligible referral होने पर applicable payout structure लागू होगा।</p></div>
-</div></div>
-</section>
-
-<section class="section"><div class="container"><div class="cta">
-<div class="cta-icon">🚀</div><h2>IOIS Platform से शुरुआत करें</h2><p>अपनी जरूरत के अनुसार digital membership plan चुनें और IOIS ecosystem का हिस्सा बनें।</p><button class="btn-gradient" onclick="openRegistrationFlow()">Join IOIS Now @ ₹10</button>
-</div></div></section>
-</main>
-
-<footer><div class="container footer-grid"><div><b class="tiranga-text footer-logo">IOIS PLATFORM</b><p>Indian Online Income Supporting System</p></div><div><h3>Quick Links</h3><a href="membership.html">Membership</a><a href="jobs.html">Jobs</a><a href="news.html">News</a><a href="chat.html">Community Chat</a></div><div><h3>IOIS</h3><p>Digital resources, creator tools and career-supporting products.</p></div></div><div class="copyright">© 2026 IOIS PLATFORM. All Rights Reserved.</div></footer>
-
-<div id="modal-overlay" class="modal-overlay" onclick="closeModals(event)">
-<div id="registration-modal" class="modal" onclick="event.stopPropagation()">
-<button class="modal-close" onclick="closeModals()">×</button><div class="modal-icon">👤</div><h2>IOIS Member Registration</h2>
-<form id="registration-form" onsubmit="handleDetailsSubmit(event)">
-<label>Select Membership Plan *</label><select id="reg-plan" required></select>
-<label>Full Name</label><input id="reg-name" type="text" placeholder="अपना पूरा नाम" required>
-<label>WhatsApp Number</label><input id="reg-phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit WhatsApp Number" required>
-<label>Referral Code (optional)</label><input id="reg-ref" type="text" placeholder="Referral code">
-<button class="btn-gradient full" type="submit">Proceed</button>
-</form></div>
-
-<div id="login-modal" class="modal" onclick="event.stopPropagation()">
-<button class="modal-close" onclick="closeModals()">×</button><div class="modal-icon">🔐</div><h2>IOIS Member Login</h2>
-<form onsubmit="handleLogin(event)"><label>WhatsApp / Mobile</label><input id="login-phone" type="tel" inputmode="numeric" maxlength="10" required><label>Password / PIN</label><input id="login-password" type="password" required><button class="btn-gradient full" type="submit">Login</button></form>
-<p class="modal-note">Demo frontend login: production authentication के लिए Supabase Auth जोड़ें।</p></div>
-</div>
-
-<div id="toast" class="toast"></div>
-<script src="script.js"></script>
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
