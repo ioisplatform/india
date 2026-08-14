@@ -1,2 +1,160 @@
 <!DOCTYPE html>
-<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IOIS Password Recovery</title><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="supabase-config.js"></script></head><body class="min-h-screen bg-gray-950 text-white flex items-center justify-center p-5"><div class="w-full max-w-md bg-gray-900 border border-amber-500/20 rounded-3xl p-7"><div class="text-center"><img src="assets/logo.png" class="w-20 h-20 mx-auto object-contain" alt="IOIS Logo"><h1 class="text-2xl font-black mt-3">Forgot Password</h1><p class="text-gray-400 text-sm mt-2">Registered email पर reset link भेजें।</p></div><form id="f" class="space-y-4 mt-7"><input id="email" type="email" required autocomplete="email" placeholder="Registered email" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5"><button class="w-full rounded-xl bg-amber-400 text-gray-950 p-3.5 font-black" id="b">Send Reset Link</button><p id="m" class="text-sm text-center"></p></form><a href="login.html" class="block text-center mt-5 text-amber-400 font-bold">Back to Login</a></div><script>const c=window.ioisSupabase||window.supabase.createClient(window.IOIS_SUPABASE_URL,window.IOIS_SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const f=document.getElementById('f'),m=document.getElementById('m'),b=document.getElementById('b');f.addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('email').value.trim().toLowerCase();b.disabled=true;b.textContent='Sending...';try{const redirectTo=new URL('reset-password.html',location.href).href;const {error}=await c.auth.resetPasswordForEmail(email,{redirectTo});if(error)throw error;m.textContent='Reset link आपके registered email पर भेज दिया गया है।';m.className='text-sm text-center text-emerald-400';}catch(err){m.textContent=err.message||'Reset request failed.';m.className='text-sm text-center text-red-400';}finally{b.disabled=false;b.textContent='Send Reset Link';}});</script></body></html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IOIS Account Recovery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="supabase-config.js"></script>
+</head>
+<body class="min-h-screen bg-gray-950 text-white flex items-center justify-center p-5">
+<div class="w-full max-w-md bg-gray-900 border border-amber-500/20 rounded-3xl p-7">
+  <div class="text-center">
+    <img src="assets/logo.png" class="w-20 h-20 mx-auto object-contain" alt="IOIS Logo">
+    <h1 class="text-2xl font-black mt-3">IOIS Account Recovery</h1>
+    <p class="text-gray-400 text-sm mt-2">Email magic link की जरूरत नहीं है। Database में registered details match करके recovery करें।</p>
+  </div>
+
+  <div class="grid grid-cols-2 gap-2 mt-7 p-1 rounded-xl bg-gray-800">
+    <button id="tab-userid" type="button" class="rounded-lg py-2.5 text-sm font-black bg-amber-400 text-gray-950">Recover User ID</button>
+    <button id="tab-password" type="button" class="rounded-lg py-2.5 text-sm font-black text-gray-300">Reset Password</button>
+  </div>
+
+  <section id="userid-panel" class="mt-6">
+    <h2 class="font-black text-lg">Recover User ID</h2>
+    <p class="text-gray-400 text-xs mt-1">Registered Email और Mobile Number database से match होगा।</p>
+    <form id="userid-form" class="space-y-4 mt-5">
+      <input id="uid-email" type="email" required autocomplete="email" placeholder="Registered Email" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5">
+      <input id="uid-phone" type="tel" required inputmode="numeric" maxlength="10" placeholder="Registered Mobile Number" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5">
+      <button id="uid-btn" class="w-full rounded-xl bg-amber-400 text-gray-950 p-3.5 font-black">Recover User ID</button>
+    </form>
+    <div id="uid-result" class="hidden mt-5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 p-4 text-center">
+      <div class="text-xs text-gray-400">Your IOIS User ID</div>
+      <div id="uid-value" class="text-xl font-black text-emerald-300 mt-1 break-all"></div>
+      <button id="uid-copy" type="button" class="mt-3 text-xs font-bold text-amber-300">Copy User ID</button>
+    </div>
+  </section>
+
+  <section id="password-panel" class="hidden mt-6">
+    <h2 class="font-black text-lg">Reset Password</h2>
+    <p class="text-gray-400 text-xs mt-1">User ID और registered Email match होने पर नया password बनाइए।</p>
+    <form id="password-form" class="space-y-4 mt-5">
+      <input id="pw-member-id" type="text" required autocomplete="username" placeholder="IOIS User ID" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5 uppercase">
+      <input id="pw-email" type="email" required autocomplete="email" placeholder="Registered Email" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5">
+      <input id="pw-new" type="password" required minlength="8" autocomplete="new-password" placeholder="New Password (minimum 8 characters)" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5">
+      <input id="pw-confirm" type="password" required minlength="8" autocomplete="new-password" placeholder="Confirm New Password" class="w-full rounded-xl bg-gray-800 border border-gray-700 p-3.5">
+      <button id="pw-btn" class="w-full rounded-xl bg-amber-400 text-gray-950 p-3.5 font-black">Create New Password</button>
+    </form>
+  </section>
+
+  <p id="message" class="text-sm text-center mt-5"></p>
+  <a href="login.html" class="block text-center mt-5 text-amber-400 font-bold">Back to Login</a>
+</div>
+<script>
+(() => {
+  const cfg = window.IOIS_CONFIG || {};
+  const url = cfg.SUPABASE_URL || window.IOIS_SUPABASE_URL;
+  const key = cfg.SUPABASE_PUBLISHABLE_KEY || cfg.SUPABASE_ANON_KEY || window.IOIS_SUPABASE_ANON_KEY;
+  const client = window.supabase.createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const fn = `${url}/functions/v1/iois-account-recovery`;
+  const $ = id => document.getElementById(id);
+
+  function message(text, type = "info") {
+    const el = $("message");
+    el.textContent = text;
+    el.className = `text-sm text-center mt-5 ${type === "success" ? "text-emerald-400" : type === "error" ? "text-red-400" : "text-gray-400"}`;
+  }
+
+  function tab(name) {
+    const user = name === "userid";
+    $("userid-panel").classList.toggle("hidden", !user);
+    $("password-panel").classList.toggle("hidden", user);
+    $("tab-userid").className = `rounded-lg py-2.5 text-sm font-black ${user ? "bg-amber-400 text-gray-950" : "text-gray-300"}`;
+    $("tab-password").className = `rounded-lg py-2.5 text-sm font-black ${!user ? "bg-amber-400 text-gray-950" : "text-gray-300"}`;
+    message("");
+  }
+
+  async function call(body) {
+    const res = await fetch(fn, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": key },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || "Recovery service failed.");
+    return data;
+  }
+
+  $("tab-userid").addEventListener("click", () => tab("userid"));
+  $("tab-password").addEventListener("click", () => tab("password"));
+  const requestedMode = new URLSearchParams(location.search).get("mode");
+  if (requestedMode === "password") tab("password");
+  else tab("userid");
+
+  $("userid-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = $("uid-btn");
+    btn.disabled = true;
+    btn.textContent = "Checking...";
+    $("uid-result").classList.add("hidden");
+    try {
+      const data = await call({
+        action: "find_user_id",
+        email: $("uid-email").value.trim().toLowerCase(),
+        phone: $("uid-phone").value.trim()
+      });
+      $("uid-value").textContent = data.member_id || "—";
+      $("uid-result").classList.remove("hidden");
+      message("Details match हो गए। आपका User ID नीचे है।", "success");
+    } catch (err) {
+      message(err.message || "User ID recover नहीं हो पाया।", "error");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Recover User ID";
+    }
+  });
+
+  $("uid-copy").addEventListener("click", async () => {
+    const value = $("uid-value").textContent.trim();
+    if (!value) return;
+    try { await navigator.clipboard.writeText(value); message("User ID copied.", "success"); }
+    catch (_) { message("User ID copy नहीं हो पाया।", "error"); }
+  });
+
+  $("password-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const newPassword = $("pw-new").value;
+    const confirm = $("pw-confirm").value;
+    if (newPassword !== confirm) {
+      message("New Password और Confirm Password अलग हैं।", "error");
+      return;
+    }
+    if (newPassword.length < 8) {
+      message("Password कम से कम 8 characters का होना चाहिए।", "error");
+      return;
+    }
+    const btn = $("pw-btn");
+    btn.disabled = true;
+    btn.textContent = "Updating...";
+    try {
+      await call({
+        action: "reset_password",
+        member_id: $("pw-member-id").value.trim().toUpperCase(),
+        email: $("pw-email").value.trim().toLowerCase(),
+        new_password: newPassword
+      });
+      message("Password successfully changed. अब Login page पर जाकर नए password से login करें।", "success");
+      $("password-form").reset();
+    } catch (err) {
+      message(err.message || "Password update नहीं हो पाया।", "error");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Create New Password";
+    }
+  });
+})();
+</script>
+</body>
+</html>

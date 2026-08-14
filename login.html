@@ -910,19 +910,11 @@
                         </label>
 
 
-                        <button
-                            id="forgot-password-btn"
-                            type="button"
-                            class="
-                                text-[11px]
-                                text-teal-400
-                                hover:text-amber-400
-                                font-bold
-                                transition
-                            "
-                        >
-                            Forgot User ID / Password?
-                        </button>
+                        <div class="flex items-center gap-2 text-[11px] font-bold">
+                            <button id="recover-user-id-btn" type="button" class="text-teal-400 hover:text-amber-400 transition">Forgot User ID</button>
+                            <span class="text-gray-600">|</span>
+                            <button id="recover-password-btn" type="button" class="text-teal-400 hover:text-amber-400 transition">Reset Password</button>
+                        </div>
 
                     </div>
 
@@ -1620,9 +1612,14 @@
        FORGOT PASSWORD MODAL
     ====================================================== */
 
-    const forgotButton =
+    const recoverUserIdButton =
         document.getElementById(
-            "forgot-password-btn"
+            "recover-user-id-btn"
+        );
+
+    const recoverPasswordButton =
+        document.getElementById(
+            "recover-password-btn"
         );
 
     const modal =
@@ -1646,8 +1643,8 @@
         );
 
 
-    function openForgotModal() {
-        window.location.href = "recovery.html";
+    function openRecovery(mode) {
+        window.location.href = `recovery.html?mode=${encodeURIComponent(mode)}`;
     }
 
 
@@ -1667,17 +1664,13 @@
         );
 
     }
-
-
-    if (forgotButton) {
-
-        forgotButton.addEventListener(
-            "click",
-            openForgotModal
-        );
-
+    if (recoverUserIdButton) {
+        recoverUserIdButton.addEventListener("click", () => openRecovery("userid"));
     }
 
+    if (recoverPasswordButton) {
+        recoverPasswordButton.addEventListener("click", () => openRecovery("password"));
+    }
 
     if (closeModal) {
 

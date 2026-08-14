@@ -1,0 +1,72 @@
+IOIS — AUTH / RECOVERY / DASHBOARD DATA FIX
+============================================
+
+WHAT CHANGED
+------------
+1. Login page now has separate buttons:
+   - Forgot User ID
+   - Reset Password
+
+2. Forgot User ID:
+   - Uses the IOIS account-recovery Edge Function.
+   - Matches registered Email + Mobile Number against the database.
+   - Returns the immutable IOIS User ID.
+
+3. Reset Password:
+   - Uses User ID + registered Email.
+   - No email magic link is used.
+   - User can enter and confirm a new password.
+   - Password is changed server-side with the Supabase service role.
+
+4. Existing members/dashboard:
+   - Dashboard now reads members + iois_member_registry as authoritative fallbacks.
+   - Older records can display their IOIS User ID even when a profiles row is missing/incomplete.
+   - Existing design and membership amounts are not changed.
+
+5. auth.js:
+   - Email magic-link reset API is no longer used.
+   - Shared profile loading now falls back to members/registry.
+
+SUPABASE DEPLOYMENT REQUIRED
+----------------------------
+Deploy the updated Edge Function:
+
+  supabase/functions/iois-account-recovery/index.ts
+
+Recommended command from the project root:
+
+  supabase functions deploy iois-account-recovery
+
+The Edge Function must have these server-side secrets/environment values:
+
+  SUPABASE_URL
+  SUPABASE_SERVICE_ROLE_KEY
+
+NEVER put SUPABASE_SERVICE_ROLE_KEY into frontend files.
+
+AUTH EMAIL CONFIRMATION
+-----------------------
+For the requested no-magic-link / no-email-verification registration flow,
+Supabase Auth must not require email confirmation for new users.
+
+Supabase Dashboard → Authentication → Providers → Email
+Turn off the email-confirmation requirement for the project if it is enabled.
+
+The frontend does not send password-reset emails anymore.
+
+TEST ORDER
+----------
+1. Deploy iois-account-recovery.
+2. Confirm the service-role key exists only as an Edge Function secret.
+3. Open IOIS in an Incognito window.
+4. Test Forgot User ID with a real registered member's Email + Mobile.
+5. Test Reset Password with that User ID + registered Email + new password.
+6. Login with the new password.
+7. Verify Dashboard shows User ID, Name, Email, Membership and Status.
+8. Test an older existing member whose dashboard previously showed missing data.
+
+IMPORTANT
+---------
+The ZIP can be statically verified, but live Supabase recovery and password
+changes require deployment of the Edge Function and a real test account.
+Do not claim those live flows are tested until the above tests succeed.

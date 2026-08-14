@@ -81,7 +81,12 @@
       const phone =
         m.mobile || r.phone || u.phone || "";
       const id =
-        m.iois_user_id || r.member_id || "Pending";
+        m.iois_user_id ||
+        r.member_id ||
+        u.iois_user_id ||
+        u.unique_user_id ||
+        u.user_code ||
+        "Pending";
       const plan =
         m.selected_plan || r.plan_name || r.plan_code || "—";
       const amount =

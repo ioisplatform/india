@@ -376,53 +376,57 @@
        7. LOAD PROFILE
     ===================================================== */
 
-    async function loadProfile(
-        userId = null
-    ) {
+    async function loadProfile(userId = null) {
 
         const client = getClient();
+        if (!client) return null;
 
-        if (!client) {
-            return null;
-        }
-
-        const user =
-            await getCurrentUser();
-
-        const id =
-            userId || user?.id;
-
-        if (!id) {
-            return null;
-        }
+        const user = await getCurrentUser();
+        const id = userId || user?.id;
+        if (!id) return null;
 
         try {
-
-            const {
-                data,
-                error
-            } = await client
+            // Primary legacy source.
+            const { data: profile, error: profileError } = await client
                 .from("profiles")
                 .select("*")
                 .eq("id", id)
                 .maybeSingle();
 
-            if (error) {
+            if (!profileError && profile) return profile;
 
-                console.warn(
-                    "IOIS profile load:",
-                    error.message
-                );
+            // Compatibility fallback for existing IOIS members whose
+            // authoritative record is in members/registry instead of profiles.
+            const [memberResult, registryResult] = await Promise.all([
+                client.from("members").select("*").eq("auth_user_id", id).maybeSingle(),
+                client.from("iois_member_registry").select("*").eq("user_id", id).maybeSingle()
+            ]);
 
-                return null;
-            }
+            const member = memberResult?.data || null;
+            const registry = registryResult?.data || null;
+            if (!member && !registry) return null;
 
-            return data;
-
+            return {
+                ...(profile || {}),
+                id,
+                user_id: member?.iois_user_id || registry?.member_id || profile?.user_id || "",
+                unique_user_id: member?.iois_user_id || registry?.member_id || profile?.unique_user_id || "",
+                member_id: member?.iois_user_id || registry?.member_id || profile?.member_id || "",
+                iois_user_id: member?.iois_user_id || registry?.member_id || "",
+                full_name: member?.full_name || registry?.full_name || profile?.full_name || user?.user_metadata?.full_name || "",
+                email: member?.email || registry?.email || profile?.email || user?.email || "",
+                whatsapp: member?.mobile || registry?.phone || profile?.whatsapp || "",
+                phone: member?.mobile || registry?.phone || profile?.phone || "",
+                address: member?.address || registry?.address || profile?.address || "",
+                sponsor_id: member?.sponsor_id || registry?.sponsor_id || profile?.sponsor_id || "",
+                withdrawal_upi: registry?.withdrawal_details || profile?.withdrawal_upi || "",
+                membership_plan: member?.selected_plan || registry?.plan_name || registry?.plan_code || profile?.membership_plan || "",
+                plan_name: registry?.plan_name || member?.selected_plan || profile?.plan_name || profile?.membership_name || "",
+                plan_amount: member?.plan_amount ?? registry?.plan_amount ?? profile?.plan_amount ?? null,
+                status: member?.status || profile?.status || "pending"
+            };
         } catch (error) {
-
-            console.error(error);
-
+            console.error("IOIS profile load:", error);
             return null;
         }
     }
@@ -776,7 +780,7 @@
                 if (/invalid login credentials/i.test(m)) {
                     showMessage("Email या Password गलत है।", "error");
                 } else if (/email not confirmed/i.test(m)) {
-                    showMessage("Email confirmation अभी enabled है। Supabase में Confirm email OFF करें।", "error");
+                    showMessage("Email या Password गलत है या account अभी active नहीं है।", "error");
                 } else if (/rate limit|too many/i.test(m)) {
                     showMessage("बहुत अधिक login attempts हुए हैं। थोड़ी देर बाद फिर प्रयास करें।", "error");
                 } else {
@@ -875,45 +879,19 @@
 
 
     /* =====================================================
-       11. FORGOT PASSWORD
+       11. ACCOUNT RECOVERY
+       -----------------------------------------------------
+       Email magic-link recovery is intentionally disabled.
+       Recovery is handled by recovery.html + the
+       iois-account-recovery Edge Function, which verifies
+       database-backed member details before returning the
+       User ID or changing the password.
     ===================================================== */
 
-    async function forgotPassword(email) {
-        const client = getClient();
-        email = safeText(email).trim().toLowerCase();
-
-        if (!client) {
-            showMessage("Supabase connection उपलब्ध नहीं है।", "error");
-            return false;
-        }
-        if (!validEmail(email)) {
-            showMessage("कृपया registered Email Address डालें।", "error");
-            return false;
-        }
-
-        try {
-            const redirectTo = new URL("reset-password.html", window.location.href).href;
-            const result = await Promise.race([
-                client.auth.resetPasswordForEmail(email, { redirectTo }),
-                new Promise((_, reject) => setTimeout(() => reject(new Error("RESET_TIMEOUT")), 12000))
-            ]);
-            if (result.error) throw result.error;
-            showMessage("Password reset link आपके registered email पर भेज दिया गया है।", "success");
-            return true;
-        } catch (error) {
-            console.error("IOIS password reset:", error);
-            showMessage(
-                error?.message === "RESET_TIMEOUT"
-                    ? "Password reset request में समय लग रहा है। कृपया फिर प्रयास करें।"
-                    : (error?.message || "Password reset नहीं हो सका।"),
-                "error"
-            );
-            return false;
-        }
-    }
-
-    window.IOISAuth.forgotPassword =
-        forgotPassword;
+    window.IOISAuth.forgotPassword = async function () {
+        window.location.href = "recovery.html";
+        return true;
+    };
 
 
     /* =====================================================
@@ -1494,61 +1472,7 @@
     }
 
 
-    /* =====================================================
-       24. FORGOT PASSWORD FORM
-    ===================================================== */
-
-    function setupForgotPasswordForm() {
-
-        const form =
-            document.getElementById(
-                "forgot-password-form"
-            );
-
-        if (!form) {
-            return;
-        }
-
-
-        form.addEventListener(
-            "submit",
-            async event => {
-
-                event.preventDefault();
-
-
-                const email =
-                    document
-                        .getElementById(
-                            "forgot-email"
-                        )
-                        ?.value;
-
-
-                const button =
-                    form.querySelector(
-                        "button[type='submit']"
-                    );
-
-
-                setButtonLoading(
-                    button,
-                    true
-                );
-
-
-                await forgotPassword(
-                    email
-                );
-
-
-                setButtonLoading(
-                    button,
-                    false
-                );
-            }
-        );
-    }
+    /* Account recovery is handled by recovery.html. */
 
 
     /* =====================================================
@@ -2047,7 +1971,6 @@
 
         setupLoginForm();
 
-        setupForgotPasswordForm();
 
 
         setupRegistrationForm();
