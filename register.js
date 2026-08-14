@@ -167,6 +167,53 @@
     updatePaymentUI();
   }
 
+  async function resolveActivePlanFromDatabase() {
+    // The registration UI has a local copy of the seven plan definitions,
+    // but the database/RPC is the source of truth for whether a plan is active.
+    // Resolve the selected amount against membership_plans before signup so an
+    // old/stale hard-coded plan code cannot trigger:
+    // "Selected membership plan is not active or does not exist".
+    try {
+      const { data, error } = await client
+        .from("membership_plans")
+        .select("*")
+        .eq("amount", Number(selectedPlan.price))
+        .eq("is_active", true)
+        .limit(1)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) {
+        throw new Error(`Selected membership plan (₹${selectedPlan.price}) is not active or does not exist in the database.`);
+      }
+
+      const dbCode = data.plan_code || data.code || data.slug || data.plan_id;
+      if (!dbCode) {
+        throw new Error("Selected membership plan database record में plan code नहीं मिला।");
+      }
+
+      selectedPlan = {
+        ...selectedPlan,
+        code: String(dbCode),
+        name: data.plan_name || data.name || selectedPlan.name,
+        price: Number(data.amount ?? selectedPlan.price),
+        direct: Number(
+          data.direct_payout ??
+          data.direct_referral_amount ??
+          data.referral_payout ??
+          data.direct_commission ??
+          selectedPlan.direct ?? 0
+        )
+      };
+
+      updatePaymentUI();
+      return selectedPlan;
+    } catch (error) {
+      console.error("IOIS active membership plan lookup failed:", error);
+      throw error;
+    }
+  }
+
   function getFormData() {
     return {
       fullName: $("full-name")?.value.trim() || "",
@@ -443,6 +490,11 @@
     if(text) text.textContent="Account बनाया जा रहा है...";
 
     try {
+      // Always resolve the selected plan from the live database before creating
+      // the Auth account. This prevents a stale frontend plan code from being
+      // rejected by iois_finalize_registration.
+      await resolveActivePlanFromDatabase();
+
       savePending(d).catch(e => console.warn("IOIS pending-save skipped:", e));
       try { localStorage.setItem("iois_pending_registration_email",d.email); } catch (_) {}
 

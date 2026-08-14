@@ -26,7 +26,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="auth.js"></script>
-    <script src="dashboard.js"></script>
 
     <!-- IOIS existing CSS -->
     <link rel="stylesheet" href="style.css">
@@ -1665,53 +1664,22 @@ async function initDashboard() {
             throw new Error("SUPABASE_NOT_READY");
         }
 
-        const {
-            data: {
-                session
-            },
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (!session) {
-
-            window.location.href =
-                "login.html";
-
+        /*
+         * Authentication is owned by auth.js.  Do not perform a second
+         * independent redirect/session guard here; doing so can race with
+         * auth.js during login and cause Login <-> Dashboard bouncing.
+         */
+        const session = await supabaseClient.auth.getSession();
+        if (session?.error) throw session.error;
+        if (!session?.data?.session?.user) {
+            // auth.js is the single page-protection authority. If it is
+            // still resolving the session, simply stop this initializer;
+            // auth.js will handle the protected-page redirect.
             return;
         }
 
-
-        currentUser =
-            session.user;
-
-
+        currentUser = session.data.session.user;
         await loadMemberProfile();
-
-
-        supabaseClient.auth.onAuthStateChange(
-            async (
-                event,
-                sessionData
-            ) => {
-
-                if (
-                    event === "SIGNED_OUT"
-                ) {
-
-                    window.location.href =
-                        "login.html";
-
-                }
-
-            }
-        );
 
 
     } catch (error) {
