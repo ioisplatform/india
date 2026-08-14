@@ -1,0 +1,37 @@
+IOIS V7 COMPLETE AUTH SETUP
+
+1. Supabase Authentication -> Sign In / Providers -> Email:
+   - Keep Email provider ON.
+   - Turn OFF "Confirm email".
+   - Save.
+
+2. Supabase Edge Functions:
+   Deploy:
+   - iois-member-login
+   - iois-account-recovery
+
+3. Edge Function Secrets:
+   Add/verify SUPABASE_SERVICE_ROLE_KEY.
+   NEVER put this secret in GitHub/frontend.
+
+4. Registration:
+   V7 now finalizes immediately after Supabase signUp returns a session.
+   It does NOT wait for an email verification link.
+
+5. Recovery:
+   Open recovery.html.
+   Forgot User ID: registered email + mobile -> returns Member ID.
+   Forgot Password: Member ID + registered email + mobile + new password.
+   No email link/OTP is used.
+
+6. Login:
+   Member ID + password -> iois-member-login -> Supabase session -> dashboard.
+
+7. Important:
+   This recovery method intentionally uses knowledge-factor matching. It has no OTP/email link, so keep the Edge Function rate-limited in production. Do not expose the service-role secret.
+
+
+FINAL RECOVERY RULE:
+The frontend must NOT call supabase.auth.resetPasswordForEmail().
+Forgot User ID / Forgot Password must open recovery.html and use iois-account-recovery Edge Function.
+No email reset links, email OTP, SMS OTP, or WhatsApp OTP are used.

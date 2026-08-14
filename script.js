@@ -63,9 +63,14 @@ function renderExamples(){
   box.innerHTML=examples.map((e,i)=>`<details><summary>${e[0]}</summary><p>${e[1]}</p></details>`).join("");
 }
 function updateClock(){
+  // script.js is shared by several pages that do not render the clock.
+  // Do not touch missing clock elements; otherwise the shared controller
+  // throws every second and can break unrelated page functionality.
+  const clock=$("digital-clock");
+  if(!clock)return;
   const now=new Date(), h=now.getHours(), m=now.getMinutes(), s=now.getSeconds();
   const ap=h>=12?"PM":"AM", hh=(h%12)||12;
-  $("digital-clock").textContent=`${String(hh).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")} ${ap}`;
+  clock.textContent=`${String(hh).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")} ${ap}`;
   $("clock-date").textContent=now.toLocaleDateString("hi-IN",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
   $("clock-hour").style.transform=`translateX(-50%) rotate(${h%12*30+m*.5}deg)`;
   $("clock-min").style.transform=`translateX(-50%) rotate(${m*6+s*.1}deg)`;
@@ -73,6 +78,8 @@ function updateClock(){
 }
 async function loadWeather(){
   const temp=$("weather-temp"), status=$("weather-status"), loc=$("weather-location"), extra=$("weather-extra"), label=$("weather-location-label");
+  // Weather UI is not present on every page using the shared controller.
+  if(!temp||!status||!loc||!extra||!label)return;
   if(!navigator.geolocation){fallbackWeather();return;}
   navigator.geolocation.getCurrentPosition(async pos=>{
     try{

@@ -1,0 +1,11 @@
+IOIS V7 FINAL FIXES
+1. Added assets/logo.png and switched HTML pages to it.
+2. Recovery page now has visible IOIS logo.
+3. Recovery is direct: no email reset link/OTP.
+4. Forgot User ID: registered email + mobile -> Member ID.
+5. Forgot Password: Member ID + registered email + mobile -> set new password.
+6. Recovery has a 10-second client timeout.
+7. Recovery Edge Function falls back to iois_member_registry for older records.
+8. Telegram/email are not used as blocking steps in recovery.
+9. Login remains Member ID + Password.
+IMPORTANT: Deploy the updated Supabase Edge Functions from supabase/functions after uploading this package.

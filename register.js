@@ -142,8 +142,22 @@
 
     const q = new URLSearchParams(location.search).get("plan");
     if (q) {
+      // Accept the existing site's plan identifier, numeric amount, or
+      // plan code. The homepage uses tier IDs while older links use amounts.
+      const normalized = String(q).trim().toLowerCase();
+      const aliases = {
+        starter:"10", basic:"49", plus:"99", premium:"199",
+        pro:"299", business:"499", enterprise:"999",
+        silver:"10", gold:"49", platinum:"99", crystal:"199",
+        student:"299", diamond:"499", vip:"999"
+      };
+      const price = aliases[normalized] || normalized;
       const match = [...document.querySelectorAll(".plan-box")]
-        .find(x => x.dataset.price === q);
+        .find(x =>
+          String(x.dataset.price || "").trim() === price ||
+          String(x.dataset.plan || "").trim().toLowerCase() === normalized ||
+          String(x.dataset.code || "").trim().toLowerCase() === normalized
+        );
       if (match) match.click();
     }
 

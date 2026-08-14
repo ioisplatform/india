@@ -1,0 +1,31 @@
+IOIS V7 — FAST MEMBER-ID LOGIN SETUP
+
+What changed:
+- Public login form uses IOIS Member ID + Password.
+- No email verification/OTP is used during login.
+- The browser never receives the member->email mapping.
+- A Supabase Edge Function performs the mapping server-side and returns a normal Supabase session.
+- Telegram and other background tasks must never block login.
+
+ONE-TIME SUPABASE SETUP:
+1. Authentication > Providers > Email:
+   - Keep Email provider enabled because Supabase Auth stores the account.
+   - Turn OFF "Confirm email" if you do not want registration to wait for email verification.
+   - Login itself does not send an email.
+2. Deploy:
+   supabase/functions/iois-member-login/index.ts
+   as:
+   iois-member-login
+3. Edge Function secrets:
+   SUPABASE_SERVICE_ROLE_KEY = your current service-role/secret key
+   SUPABASE_ANON_KEY = your current publishable/anon key
+   NEVER put either secret in config.js.
+4. Make sure members.iois_user_id contains the permanent Member ID and members.email
+   contains the Auth account email.
+5. Existing accounts can continue using their existing password.
+6. Test:
+   Member ID -> Password -> Login -> Dashboard.
+
+SECURITY:
+- Never expose SUPABASE_SERVICE_ROLE_KEY in GitHub or frontend files.
+- The Edge Function uses it only server-side.

@@ -1,0 +1,9 @@
+IOIS V7 FIX AUDIT
+===================
+1. Fixed login form ID mismatch: login-member-id is now read by auth.js.
+2. Fixed dashboard.js missing from dashboard.html.
+3. Dashboard now loads members and iois_member_registry independently.
+4. Registry data is accepted as a valid source when members is incomplete.
+5. Added short, bounded database timeouts; no infinite loading.
+6. Dashboard now populates member ID, plan, amount, sponsor, address, withdrawal details and referral link.
+7. No service-role key was added to frontend.

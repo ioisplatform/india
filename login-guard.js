@@ -1,12 +1,15 @@
-/* IOIS SIMPLE AUTH GUARD */
+/* IOIS Login/Dashboard hardening patch */
 (() => {
   "use strict";
-  const MAX_WAIT = 12000;
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  async function waitForAuth(max=MAX_WAIT) {
-    const start = Date.now();
-    while (!window.IOISAuth && Date.now() - start < max) await sleep(100);
-    return !!window.IOISAuth;
+  const TIMEOUT=20000;
+  const wait = ms => new Promise(r=>setTimeout(r,ms));
+  async function waitForSupabase(max=10000){
+    const start=Date.now();
+    while(!window.supabase && Date.now()-start<max) await wait(100);
+    return !!window.supabase;
   }
-  window.IOISLoginGuard = { waitForAuth, MAX_WAIT };
+  function setLoading(on){
+    document.querySelectorAll('[data-login-loading],#login-loader,.login-loader').forEach(x=>x.classList.toggle('hidden',!on));
+  }
+  window.IOIS_loginGuard = {TIMEOUT, waitForSupabase,setLoading};
 })();
