@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IOIS - All-In-One Indian Online Platform</title>
+    <title>IOIS - All-In-One Interactive Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,169 +15,99 @@
             --text-light: #F0F4F8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         body {
             background: radial-gradient(circle at top, #1C2541 0%, #0A0F24 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            color: var(--text-light);
+            display: flex; justify-content: center; align-items: center;
+            padding: 15px; color: var(--text-light);
         }
 
-        /* Glowing Tiranga Top Bar */
         .tiranga-top-bar {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 5px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 5px;
             background: linear-gradient(90deg, var(--saffron), #FFFFFF, var(--green));
-            box-shadow: 0 0 15px rgba(255, 153, 51, 0.8);
-            z-index: 1000;
+            box-shadow: 0 0 15px rgba(255, 153, 51, 0.8); z-index: 1000;
         }
 
-        .app-wrapper {
-            width: 100%;
-            max-width: 480px;
-        }
+        .app-wrapper { width: 100%; max-width: 480px; }
 
-        /* 3D Glassmorphism Premium Card */
         .card-3d {
-            background: rgba(19, 27, 56, 0.92);
+            background: rgba(19, 27, 56, 0.95);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 28px 20px;
+            border-radius: 24px; padding: 25px 20px;
             border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.2);
-            position: relative;
-            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative; animation: fadeIn 0.3s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Logo & Brand Header */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
+        .logo-container { text-align: center; margin-bottom: 18px; }
         .logo-box {
-            width: 80px; height: 80px;
-            margin: 0 auto 10px auto;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--saffron), var(--green));
-            padding: 3px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-            display: flex; align-items: center; justify-content: center;
+            width: 75px; height: 75px; margin: 0 auto 8px auto; border-radius: 50%;
+            background: linear-gradient(135deg, var(--saffron), var(--green)); padding: 3px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); display: flex; align-items: center; justify-content: center;
         }
+        .logo-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; background: var(--navy-dark); }
+        .brand-title { font-size: 19px; font-weight: 800; background: linear-gradient(180deg, #FFFFFF, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-sub { font-size: 11px; color: #A0AEC0; }
 
-        .logo-box img {
-            width: 100%; height: 100%;
-            object-fit: cover; border-radius: 50%;
-            background: var(--navy-dark);
-        }
-
-        .brand-title {
-            font-size: 20px; font-weight: 800;
-            background: linear-gradient(180deg, #FFFFFF, var(--gold));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-
-        .brand-sub { font-size: 12px; color: #A0AEC0; margin-top: 2px; }
-
-        /* Question Box */
         .question-card {
             background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(19, 136, 8, 0.15));
-            border-left: 4px solid var(--gold);
-            padding: 12px 15px; border-radius: 12px;
-            margin: 18px 0; text-align: left;
+            border-left: 4px solid var(--gold); padding: 12px; border-radius: 12px; margin: 15px 0; text-align: left;
         }
+        .question-card h3 { font-size: 13px; font-weight: 700; color: #FFFFFF; }
 
-        .question-card h3 { font-size: 14px; font-weight: 700; color: #FFFFFF; }
-
-        /* Options Grid */
-        .options-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-
+        .options-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
         .option-item { position: relative; }
         .option-item input[type="radio"] { position: absolute; opacity: 0; }
 
         .option-box {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px; cursor: pointer;
-            transition: all 0.2s ease; text-align: left;
+            display: flex; align-items: center; gap: 12px; padding: 12px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px; cursor: pointer; text-align: left;
         }
-
-        .option-icon {
-            font-size: 20px; width: 40px; height: 40px;
-            background: rgba(255, 255, 255, 0.08); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .option-title { font-size: 14px; font-weight: 600; color: #FFFFFF; display: block; }
-        .option-desc { font-size: 11px; color: #A0AEC0; display: block; }
+        .option-icon { font-size: 20px; width: 38px; height: 38px; background: rgba(255, 255, 255, 0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .option-title { font-size: 13px; font-weight: 600; color: #FFFFFF; display: block; }
+        .option-desc { font-size: 10px; color: #A0AEC0; display: block; }
 
         .option-item input[type="radio"]:checked + .option-box {
             background: linear-gradient(135deg, rgba(255, 153, 51, 0.25), rgba(19, 136, 8, 0.25));
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            border-color: var(--gold); box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
         }
 
-        /* 3D Main Button */
         .btn-3d {
-            width: 100%; padding: 15px; border: none; border-radius: 14px;
+            width: 100%; padding: 14px; border: none; border-radius: 14px;
             background: linear-gradient(135deg, var(--saffron), #FF6B00, var(--green));
-            color: #FFFFFF; font-size: 16px; font-weight: 800;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+            color: #FFFFFF; font-size: 15px; font-weight: 800; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
         }
 
-        /* AUTOMATED SERVICE DASHBOARDS */
         .portal-page { display: none; text-align: left; }
+        .badge-gold { background: linear-gradient(90deg, var(--gold), #FF9933); color: #000; padding: 4px 12px; border-radius: 50px; font-size: 10px; font-weight: 800; display: inline-block; margin-bottom: 10px; }
 
-        .badge-gold {
-            background: linear-gradient(90deg, var(--gold), #FF9933);
-            color: #000; padding: 4px 12px; border-radius: 50px;
-            font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 10px;
+        /* Real Interactive Elements */
+        .game-board {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; max-width: 240px; margin-left: auto; margin-right: auto;
+        }
+        .tictac-cell {
+            width: 70px; height: 70px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--gold);
+            border-radius: 12px; font-size: 28px; font-weight: bold; color: var(--gold);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
 
-        /* Interactive Grid for Features Inside Portal */
-        .content-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 15px 0;
-        }
+        .video-box { width: 100%; border-radius: 14px; overflow: hidden; margin: 15px 0; border: 1px solid rgba(255,255,255,0.2); }
+        .video-box iframe { width: 100%; height: 210px; border: none; }
 
-        .content-card {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px; border-radius: 14px; text-align: center;
-            cursor: pointer; transition: transform 0.2s;
-        }
-
-        .content-card:hover { transform: scale(1.03); border-color: var(--gold); }
-        .content-card h4 { font-size: 13px; color: var(--gold); margin-top: 6px; }
-        .content-card p { font-size: 10px; color: #A0AEC0; margin-top: 2px; }
-
-        .btn-action {
-            background: #25D366; color: white; width: 100%; padding: 14px;
-            border-radius: 12px; border: none; font-size: 15px; font-weight: 700;
-            cursor: pointer; text-align: center; text-decoration: none; display: block; margin-top: 12px;
+        .input-field {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3); color: white; margin-bottom: 10px; font-size: 13px;
         }
 
         .btn-back {
             background: transparent; color: #A0AEC0; border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%; padding: 10px; border-radius: 12px; font-size: 13px; margin-top: 8px; cursor: pointer;
+            width: 100%; padding: 10px; border-radius: 12px; font-size: 12px; margin-top: 10px; cursor: pointer;
         }
     </style>
 </head>
@@ -187,9 +117,8 @@
 
     <div class="app-wrapper">
         
-        <!-- STEP 1: HOMEPAGE (QUESTION & SELECTION) -->
+        <!-- MAIN HOME -->
         <div id="main-card" class="card-3d">
-            
             <div class="logo-container">
                 <div class="logo-box">
                     <img src="logo.png" alt="IOIS Logo" onerror="this.src='https://via.placeholder.com/80/0A0F24/FFD700?text=IOIS'">
@@ -199,171 +128,97 @@
             </div>
 
             <div class="question-card">
-                <h3>❓ Aap abhi kya dekhna ya istemal karna chahte hain?</h3>
+                <h3>❓ Aap abhi kya explore ya istemal karna chahte hain?</h3>
             </div>
 
             <div class="options-grid">
-                
-                <!-- Option 1: Games & Khel Kud -->
                 <div class="option-item">
                     <input type="radio" id="opt_games" name="user_goal" value="games">
                     <label for="opt_games" class="option-box">
                         <div class="option-icon">🎮</div>
                         <div>
-                            <span class="option-title">Online Games & Khel-Kud</span>
-                            <span class="option-desc">Bina kisi dikkat ke direct brain & quiz games khelein</span>
+                            <span class="option-title">Interactive Live Games</span>
+                            <span class="option-desc">Bina kisi loading ke direct Tic-Tac-Toe & Mind Games khelein</span>
                         </div>
                     </label>
                 </div>
 
-                <!-- Option 2: Entertainment & Clips -->
                 <div class="option-item">
-                    <input type="radio" id="opt_entertainment" name="user_goal" value="entertainment">
-                    <label for="opt_entertainment" class="option-box">
+                    <input type="radio" id="opt_clips" name="user_goal" value="clips">
+                    <label for="opt_clips" class="option-box">
                         <div class="option-icon">🍿</div>
                         <div>
-                            <span class="option-title">Video Clips & Entertainment</span>
-                            <span class="option-desc">Short videos, clips aur learning videos dekhein</span>
+                            <span class="option-title">Entertainment & Video Clips</span>
+                            <span class="option-desc">Direct educational & skill video clips dekhein</span>
                         </div>
                     </label>
                 </div>
 
-                <!-- Option 3: Free Website Builder & Automation -->
                 <div class="option-item">
-                    <input type="radio" id="opt_website" name="user_goal" value="website">
-                    <label for="opt_website" class="option-box">
+                    <input type="radio" id="opt_web" name="user_goal" value="web">
+                    <label for="opt_web" class="option-box">
                         <div class="option-icon">🚀</div>
                         <div>
-                            <span class="option-title">Free Website & Automation System</span>
-                            <span class="option-desc">Apne business ya portfolio ke liye free website banayein</span>
+                            <span class="option-title">Instant Free Website Generator</span>
+                            <span class="option-desc">Naam daalein aur 1-click mein apna landing page banayein</span>
                         </div>
                     </label>
                 </div>
-
-                <!-- Option 4: Study Material -->
-                <div class="option-item">
-                    <input type="radio" id="opt_study" name="user_goal" value="study">
-                    <label for="opt_study" class="option-box">
-                        <div class="option-icon">📚</div>
-                        <div>
-                            <span class="option-title">Study Material & Notes</span>
-                            <span class="option-desc">Bacchon ke liye Hindi e-books aur PDFs</span>
-                        </div>
-                    </label>
-                </div>
-
             </div>
 
-            <button class="btn-3d" onclick="openSelectedPortal()">DIRECT ACCESS ➔</button>
-
+            <button class="btn-3d" onclick="openSelectedPortal()">START NOW ➔</button>
         </div>
 
-        <!-- STEP 2: AUTOMATED NEXT PAGES (SABHI EK HI JAGAH) -->
-
-        <!-- 🎮 GAMES PORTAL -->
+        <!-- 🎮 REAL LIVE GAME PORTAL -->
         <div id="portal-games" class="card-3d portal-page">
-            <span class="badge-gold">🎮 IOIS GAME ZONE</span>
-            <h2>Online Brain & Skill Games</h2>
-            <p style="font-size: 11px; color: #A0AEC0;">Bina bhatke ek hi jagah games khelein aur rewards jeetein.</p>
+            <span class="badge-gold">🎮 LIVE GAME ZONE</span>
+            <h3 style="font-size: 16px;">Tic-Tac-Toe (Mind Game)</h3>
+            <p style="font-size: 11px; color: #A0AEC0;">Box par click karke game khelein:</p>
             
-            <div class="content-grid">
-                <div class="content-card" onclick="alert('Quiz Game Loading...')">
-                    <div style="font-size: 24px;">🧩</div>
-                    <h4>GK Quiz Game</h4>
-                    <p>Dimaag tej karein</p>
-                </div>
-                <div class="content-card" onclick="alert('Math Puzzle Loading...')">
-                    <div style="font-size: 24px;">🔢</div>
-                    <h4>Math Puzzle</h4>
-                    <p>Bacchon ke liye puzzle</p>
-                </div>
-                <div class="content-card" onclick="alert('Memory Test Loading...')">
-                    <div style="font-size: 24px;">🧠</div>
-                    <h4>Memory Game</h4>
-                    <p>Dhyan badhane ka khel</p>
-                </div>
-                <div class="content-card" onclick="alert('Word Game Loading...')">
-                    <div style="font-size: 24px;">📝</div>
-                    <h4>Word Challenge</h4>
-                    <p>Naye shabd sikhein</p>
-                </div>
+            <div class="game-board">
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+                <div class="tictac-cell" onclick="playTicTac(this)"></div>
+            </div>
+
+            <button class="btn-3d" onclick="resetGame()" style="padding: 8px; font-size: 12px; margin-bottom: 5px;">Reset Game</button>
+            <button class="btn-back" onclick="goBackToHome()">⬅️ Main Menu Par Jayein</button>
+        </div>
+
+        <!-- 🍿 REAL VIDEO CLIPS PORTAL -->
+        <div id="portal-clips" class="card-3d portal-page">
+            <span class="badge-gold">🍿 IOIS VIDEO HUB</span>
+            <h3 style="font-size: 16px;">Skill & Learning Clips</h3>
+            <p style="font-size: 11px; color: #A0AEC0;">Yahan clips direct play honge:</p>
+            
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/g2JmP3xAnu4" allowfullscreen></iframe>
             </div>
 
             <button class="btn-back" onclick="goBackToHome()">⬅️ Main Menu Par Jayein</button>
         </div>
 
-        <!-- 🍿 ENTERTAINMENT & CLIPS PORTAL -->
-        <div id="portal-entertainment" class="card-3d portal-page">
-            <span class="badge-gold">🍿 CLIPS & VIDEOS HUB</span>
-            <h2>Short Video Clips & Shows</h2>
-            <p style="font-size: 11px; color: #A0AEC0;">Aasani se clips aur informative videos dekhein.</p>
+        <!-- 🚀 INSTANT WEBSITE BUILDER PORTAL -->
+        <div id="portal-web" class="card-3d portal-page">
+            <span class="badge-gold">🚀 INSTANT WEB MAKER</span>
+            <h3 style="font-size: 16px;">Free Instant Page Generator</h3>
+            <p style="font-size: 11px; color: #A0AEC0; margin-bottom: 12px;">Apna naam & title daal kar page create karein:</p>
             
-            <div class="content-grid">
-                <div class="content-card" onclick="alert('Science Clips Playing...')">
-                    <div style="font-size: 24px;">🎬</div>
-                    <h4>Science & Tech Clips</h4>
-                    <p>Nayi jankari dekhein</p>
-                </div>
-                <div class="content-card" onclick="alert('Motivational Videos Loading...')">
-                    <div style="font-size: 24px;">🔥</div>
-                    <h4>Motivation Shorts</h4>
-                    <p>Aage badhne ka jajba</p>
-                </div>
-                <div class="content-card" onclick="alert('Fun Learning Shorts Loading...')">
-                    <div style="font-size: 24px;">💡</div>
-                    <h4>Fun Experiments</h4>
-                    <p>Bacchon ke liye siksha</p>
-                </div>
-                <div class="content-card" onclick="alert('IOIS Special Video Loading...')">
-                    <div style="font-size: 24px;">🌟</div>
-                    <h4>IOIS Specials</h4>
-                    <p>Income & Skill Clips</p>
-                </div>
-            </div>
-
-            <button class="btn-back" onclick="goBackToHome()">⬅️ Main Menu Par Jayein</button>
-        </div>
-
-        <!-- 🚀 FREE AUTOMATION WEBSITE BUILDER PORTAL -->
-        <div id="portal-website" class="card-3d portal-page">
-            <span class="badge-gold">🚀 FREE WEBSITE & AUTOMATION</span>
-            <h2>IOIS Automated Web Creator</h2>
-            <p style="font-size: 11px; color: #A0AEC0;">Bina kisi extra charge ke apni khud ki website setup karein.</p>
+            <input type="text" id="user_name" class="input-field" placeholder="Apna Naam Daalein">
+            <input type="text" id="user_business" class="input-field" placeholder="Business / Work Name">
             
-            <div class="content-grid">
-                <div class="content-card" onclick="alert('Free Website Template Opening...')">
-                    <div style="font-size: 24px;">🌐</div>
-                    <h4>Free Web Template</h4>
-                    <p>1-Click Setup</p>
-                </div>
-                <div class="content-card" onclick="alert('WhatsApp Automation Loading...')">
-                    <div style="font-size: 24px;">🤖</div>
-                    <h4>WhatsApp Auto-Msg</h4>
-                    <p>Automation Links</p>
-                </div>
-            </div>
+            <button class="btn-3d" onclick="generateInstantWeb()">CREATE PAGE ➔</button>
 
-            <a href="https://wa.me/" class="btn-action" target="_blank">📱 Get Free Website Support (WhatsApp)</a>
-            <button class="btn-back" onclick="goBackToHome()">⬅️ Main Menu Par Jayein</button>
-        </div>
-
-        <!-- 📚 STUDY MATERIAL PORTAL -->
-        <div id="portal-study" class="card-3d portal-page">
-            <span class="badge-gold">📚 STUDY & NOTES HUB</span>
-            <h2>Free Study Material & PDFs</h2>
-            <p style="font-size: 11px; color: #A0AEC0;">Bacchon ke sikhne ke liye sabse saral Hindi notes.</p>
-            
-            <div class="content-grid">
-                <div class="content-card" onclick="alert('PDF Download Started...')">
-                    <div style="font-size: 24px;">📄</div>
-                    <h4>Basic Computer PDF</h4>
-                    <p>Free Download</p>
-                </div>
-                <div class="content-card" onclick="alert('Hindi Grammar PDF Loading...')">
-                    <div style="font-size: 24px;">📖</div>
-                    <h4>Hindi & English Notes</h4>
-                    <p>Student Special</p>
-                </div>
+            <div id="web_result" style="display:none; margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--gold);">
+                <h4 id="res_title" style="color: var(--gold); font-size: 14px;"></h4>
+                <p id="res_desc" style="font-size: 11px; color: #A0AEC0; margin-top: 4px;"></p>
+                <p style="font-size: 10px; color: #25D366; margin-top: 8px;">✅ Aapka digital card tayar hai!</p>
             </div>
 
             <button class="btn-back" onclick="goBackToHome()">⬅️ Main Menu Par Jayein</button>
@@ -371,38 +226,53 @@
 
     </div>
 
-    <!-- AUTOMATION JAVASCRIPT -->
     <script>
+        let turn = 'X';
+
         function openSelectedPortal() {
             const selected = document.querySelector('input[name="user_goal"]:checked');
-
             if (!selected) {
-                alert("Kripya pehle koi ek option chuniye!");
+                alert("Kripya aage badhne ke liye koi ek option chuniye!");
                 return;
             }
-
-            // Main Menu Hide Karo
             document.getElementById('main-card').style.display = 'none';
-
-            // Selected Portal Open Karo
-            const choice = selected.value;
-            const targetPortal = document.getElementById('portal-' + choice);
-            if (targetPortal) {
-                targetPortal.style.display = 'block';
-            }
+            document.getElementById('portal-' + selected.value).style.display = 'block';
         }
 
         function goBackToHome() {
-            // Saare Portals Hide Karo
-            const portals = document.querySelectorAll('.portal-page');
-            portals.forEach(p => p.style.display = 'none');
-
-            // Main Menu Wapas Dikhayein
+            document.querySelectorAll('.portal-page').forEach(p => p.style.display = 'none');
             document.getElementById('main-card').style.display = 'block';
-
-            // Radio Selection Reset
             const selected = document.querySelector('input[name="user_goal"]:checked');
             if (selected) selected.checked = false;
+        }
+
+        /* Game Logic */
+        function playTicTac(cell) {
+            if (cell.innerText === '') {
+                cell.innerText = turn;
+                cell.style.color = turn === 'X' ? '#FF9933' : '#138808';
+                turn = turn === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function resetGame() {
+            document.querySelectorAll('.tictac-cell').forEach(cell => cell.innerText = '');
+            turn = 'X';
+        }
+
+        /* Instant Web Generator Logic */
+        function generateInstantWeb() {
+            const name = document.getElementById('user_name').value;
+            const business = document.getElementById('user_business').value;
+
+            if(!name || !business) {
+                alert("Kripya dono detail bhrein!");
+                return;
+            }
+
+            document.getElementById('res_title').innerText = "🇮🇳 " + name + " - " + business;
+            document.getElementById('res_desc').innerText = "Official IOIS Digital Partner Profile Page Created Successfully.";
+            document.getElementById('web_result').style.display = 'block';
         }
     </script>
 </body>
