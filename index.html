@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Jobs, Panchang & Study Material</title>
+    <title>IOIS Platform - Jobs, Panchang, News & Study Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary-blue: #1e3a8a; --accent-blue: #2563eb; }
-        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', sans-serif; }
         .bg-corporate { background-color: var(--primary-blue); }
         .text-corporate { color: var(--primary-blue); }
         .navbar { background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
@@ -16,17 +16,18 @@
         .card-custom { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
         .card-custom:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: var(--accent-blue); }
         .floating-wa { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; border-radius: 50px; padding: 12px 20px; font-weight: bold; text-decoration: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .slider-img { height: 380px; object-fit: cover; border-radius: 12px; }
+        .slider-img { height: 360px; object-fit: cover; border-radius: 12px; }
+        .adsense-slot { background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; color: #64748b; font-size: 13px; }
     </style>
 </head>
 <body>
 
     <!-- Top Announcement Bar -->
     <div class="bg-corporate text-white text-center py-2 small fw-bold">
-        <i class="fa-solid fa-bullhorn me-2"></i> Official Portal: Free Govt Job Alerts, Daily Panchang & NCERT Study Notes
+        <i class="fa-solid fa-bullhorn me-2"></i> Official IOIS Portal: Free Govt Job Alerts, Daily Panchang & NCERT Study Material
     </div>
 
-    <!-- Universal Master Navigation -->
+    <!-- Master Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand text-corporate fw-bold fs-4" href="index.html">
@@ -36,7 +37,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-2 fw-semibold">
+                <ul class="navbar-nav ms-auto gap-1 fw-semibold">
                     <li class="nav-item"><a class="nav-link text-primary active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="jobs.html">Latest Jobs</a></li>
                     <li class="nav-item"><a class="nav-link" href="plans.html">7 VIP Plans</a></li>
@@ -44,7 +45,6 @@
                     <li class="nav-item"><a class="nav-link" href="weather.html">Mausam</a></li>
                     <li class="nav-item"><a class="nav-link" href="entertainment.html">Quiz & Fun</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                    <!-- Admin Panel Link at the very end -->
                     <li class="nav-item"><a class="nav-link text-danger" href="admin.html"><i class="fa-solid fa-lock me-1"></i>Admin</a></li>
                 </ul>
             </div>
@@ -54,9 +54,9 @@
     <!-- Hero Section -->
     <section class="hero-section text-center">
         <div class="container">
-            <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Verified Educational & Job Network</span>
+            <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">100% Verified Educational Portal</span>
             <h1 class="display-5 fw-bold text-corporate mb-3">Bihar & India's Student Guidance Portal</h1>
-            <p class="lead text-secondary mb-4 max-w-700 mx-auto">Har roj paayein Verified Sarkari & Private Vacancies, Daily Shubh Panchang aur Educational Notes — 100% Free.</p>
+            <p class="lead text-secondary mb-4 max-w-700 mx-auto">Har roj paayein Verified Sarkari & Private Vacancies, Daily Shubh Panchang aur Educational Notes.</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="jobs.html" class="btn btn-primary btn-lg px-4 rounded-pill shadow-sm"><i class="fa-solid fa-briefcase me-2"></i>Explore Free Jobs</a>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIEpw4EU8bqPSxkH_Ku9RCabSyw4RrrZ32ydbLHTo-wPIohw/viewform" target="_blank" class="btn btn-outline-primary btn-lg px-4 rounded-pill"><i class="fa-solid fa-user-plus me-2"></i>Free Registration</a>
@@ -64,60 +64,75 @@
         </div>
     </section>
 
-    <!-- Dynamic Photo Carousel / Slider Section -->
+    <!-- Dynamic Photo Carousel / Slider -->
     <section class="py-4">
         <div class="container">
             <div id="ioisCarousel" class="carousel slide shadow-sm rounded-3 overflow-hidden" data-bs-ride="carousel">
                 <div class="carousel-inner" id="sliderContainer">
-                    <!-- Default Slide -->
                     <div class="carousel-item active">
                         <div class="bg-corporate text-white p-5 text-center slider-img d-flex flex-column justify-content-center align-items-center">
                             <h2>Welcome to IOIS Platform</h2>
-                            <p class="lead">Latest Updates & Celebrations Banner Zone</p>
+                            <p class="lead">Latest Updates, Results & Celebrations Banner Zone</p>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#ioisCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#ioisCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                <button class="carousel-control-prev" type="button" data-bs-target="#ioisCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                <button class="carousel-control-next" type="button" data-bs-target="#ioisCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
             </div>
         </div>
     </section>
 
-    <!-- Main Features Grid -->
-    <section class="py-5">
+    <!-- AdSense Slot Placeholder 1 -->
+    <div class="container my-3">
+        <div class="adsense-slot">
+            <i class="fa-solid fa-rectangle-ad me-2"></i><strong>Google AdSense Placement Area</strong> (Approval ke baad adsense code yahan paste karein)
+        </div>
+    </div>
+
+    <!-- Panchang & Daily Updates Widget -->
+    <section class="py-4">
+        <div class="container">
+            <div class="card-custom p-4 border-start border-4 border-primary mb-4">
+                <h4 class="fw-bold text-corporate mb-2"><i class="fa-solid fa-sun text-warning me-2"></i>Aaj Ka Shubh Panchang & Rashifal</h4>
+                <p class="text-secondary mb-0"><strong>Aaj Ka Shubh Muhurat:</strong> Abhijit Muhurat (11:45 AM - 12:30 PM) | <strong>Rahu Kaal:</strong> (03:00 PM - 04:30 PM). Daily updated astrological & auspicious time guide for students & families.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services Grid -->
+    <section class="py-4">
         <div class="container">
             <h2 class="text-center fw-bold text-corporate mb-4">Core Platform Services</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card-custom p-4 text-center h-100">
                         <i class="fa-solid fa-briefcase fa-3x text-primary mb-3"></i>
-                        <h4 class="fw-bold">1. Job Notifications</h4>
-                        <p class="text-muted small">Daily 10th/12th pass & graduate job alerts directly on site.</p>
+                        <h4 class="fw-bold">1. Free Job Alerts</h4>
+                        <p class="text-muted small">Daily 10th/12th pass & graduate job notifications with direct official links.</p>
+                        <a href="jobs.html" class="btn btn-outline-primary btn-sm rounded-pill">View Jobs</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-custom p-4 text-center h-100">
                         <i class="fa-solid fa-book-open fa-3x text-success mb-3"></i>
-                        <h4 class="fw-bold">2. Study Notes & NCERT</h4>
-                        <p class="text-muted small">Free PDF study guides and competitive exam preparation notes.</p>
+                        <h4 class="fw-bold">2. Digital Notes Bundle</h4>
+                        <p class="text-muted small">NCERT Notes, Computer Basics, MS Office & Exam Preparation E-books.</p>
+                        <a href="plans.html" class="btn btn-outline-success btn-sm rounded-pill">Explore Notes</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-custom p-4 text-center h-100">
                         <i class="fa-solid fa-shield-halved fa-3x text-warning mb-3"></i>
-                        <h4 class="fw-bold">3. VIP Access (₹10)</h4>
-                        <p class="text-muted small">Instant WhatsApp alerts, form fill help & affiliate benefits.</p>
+                        <h4 class="fw-bold">3. 7 VIP Access Plans</h4>
+                        <p class="text-muted small">Join starting at ₹10 and earn up to 70% instant referral rewards.</p>
+                        <a href="plans.html" class="btn btn-outline-warning btn-sm rounded-pill">View 7 Plans</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Floating WhatsApp Help Button -->
+    <!-- Floating WhatsApp -->
     <a href="https://wa.me/918877490845?text=Hi%20IOIS%20Team,%20mujhe%20help%20chahiye" class="floating-wa" target="_blank">
         <i class="fa-brands fa-whatsapp me-2"></i> WhatsApp Help
     </a>
@@ -126,13 +141,12 @@
     <footer class="bg-white border-top py-4 text-center text-muted small mt-5">
         <div class="container">
             <p class="mb-1">© 2026 IOIS Platform (Vikas Kumar). All Rights Reserved.</p>
-            <p class="mb-0"><a href="privacy.html" class="text-decoration-none">Privacy Policy</a> | <a href="contact.html" class="text-decoration-none">Contact Support</a> | Email: ioisplatform@gmail.com</p>
+            <p class="mb-0"><a href="privacy.html" class="text-decoration-none me-2">Privacy Policy</a> | <a href="contact.html" class="text-decoration-none ms-2">Contact Support</a> | Email: ioisplatform@gmail.com</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Dynamic Image Slider Loader from Admin Panel Storage
         document.addEventListener("DOMContentLoaded", function() {
             const savedPhotos = JSON.parse(localStorage.getItem("iois_banner_photos") || "[]");
             const container = document.getElementById("sliderContainer");
