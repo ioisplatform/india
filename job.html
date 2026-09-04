@@ -3,6 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Jobs & Vacancies - IOIS Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-blue: #1e3a8a; --accent-blue: #2563eb; }
+        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .card-job { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.3s; }
+        .card-job:hover { transform: translateY(-3px); border-color: var(--accent-blue); box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent-blue); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 30px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Master Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-primary fw-bold fs-4" href="index.html">
+                <i class="fa-solid fa-graduation-cap me-2"></i>IOIS PLATFORM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-1 fw-semibold">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active text-primary fw-bold" href="jobs.html">Auto Jobs Feed</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Study Guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plans.html">7 VIP Plans</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Mausam</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entertainment.html">Quiz & Fun</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="admin.html"><i class="fa-solid fa-lock me-1"></i>Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <span class="badge bg-success px-3 py-2 rounded-pill mb-2">100% Auto-Updated Live Feed</span>
+            <h1 class="fw-bold text-primary"><i class="fa-solid fa-bolt me-2 text-warning"></i>Live Government & Private Jobs</h1>
+            <p class="text-muted">Yeh page internet se latest vacancies automatic fetch karta hai. Direct official links niche dekhein.</p>
+        </div>
+
+        <!-- Search Bar for Students -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" id="jobSearch" class="form-control border-start-0" placeholder="Job Title ya State Search Karein..." onkeyup="filterJobs()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-5">
+            <div class="loader"></div>
+            <p class="text-muted mt-2">Latest Vacancies Fetch Ho Rahi Hain...</p>
+        </div>
+
+        <!-- Dynamic Auto Jobs Grid Container -->
+        <div class="row g-4" id="jobContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-top py-4 text-center text-muted small mt-5">
+        <div class="container">
+            <p class="mb-1">© 2026 IOIS Platform (Vikas Kumar). All Rights Reserved.</p>
+            <p class="mb-0">
+                <a href="privacy.html" class="text-decoration-none me-2">Privacy Policy</a> | 
+                <a href="disclaimer.html" class="text-decoration-none me-2">Disclaimer</a> | 
+                <a href="contact.html" class="text-decoration-none me-2">Contact Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Automatic Free RSS-to-JSON API Fetcher
+        const API_FEED_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dsarkari%2Bnaukri%2Bvacancy%2Bbihar%2Bindia%26hl%3Dhi%26gl%3DIN%26ceid%3DIN%2Ahi';
+
+        let fetchedJobs = [];
+
+        async function fetchLiveJobs() {
+            try {
+                const response = await fetch(API_FEED_URL);
+                const data = await response.json();
+                
+                document.getElementById('loadingSpinner').style.display = 'none';
+                const container = document.getElementById('jobContainer');
+
+                if (data.status === 'ok' && data.items.length > 0) {
+                    fetchedJobs = data.items;
+                    renderJobs(fetchedJobs);
+                } else {
+                    container.innerHTML = `<div class="col-12 text-center text-muted py-4"><p>Filhal Nayi Vacancy Sync Nahi Ho Payi. Kripya Der Baad Reload Karein.</p></div>`;
+                }
+            } catch (error) {
+                console.error('Error fetching live jobs:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('jobContainer').innerHTML = `<div class="col-12 text-center text-danger py-4"><p>Network Issue! Live Feed Sync Nahi Ho Saka.</p></div>`;
+            }
+        }
+
+        function renderJobs(jobsList) {
+            const container = document.getElementById('jobContainer');
+            container.innerHTML = '';
+
+            jobsList.forEach((item) => {
+                const pubDate = new Date(item.pubDate).toLocaleDateString('hi-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                });
+
+                // Strip HTML tags for clean text
+                let cleanDesc = item.description.replace(/<[^>]*>?/gm, '');
+                if (cleanDesc.length > 130) cleanDesc = cleanDesc.substring(0, 130) + '...';
+
+                const cardHTML = `
+                    <div class="col-md-6">
+                        <div class="card-job p-4 h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary">Live Notification</span>
+                                    <small class="text-muted"><i class="fa-regular fa-clock me-1"></i>${pubDate}</small>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-2">${item.title}</h5>
+                                <p class="text-secondary small mb-3">${cleanDesc}</p>
+                            </div>
+                            <div>
+                                <hr class="my-2">
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="text-success small fw-bold"><i class="fa-solid fa-shield-check me-1"></i>Official Source</span>
+                                    <a href="${item.link}" target="_blank" class="btn btn-primary btn-sm rounded-pill font-bold">
+                                        Official Apply Link <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        function filterJobs() {
+            const query = document.getElementById('jobSearch').value.toLowerCase();
+            const filtered = fetchedJobs.filter(job => 
+                job.title.toLowerCase().includes(query) || 
+                job.description.toLowerCase().includes(query)
+            );
+            renderJobs(filtered);
+        }
+
+        // Run automatically when page opens
+        document.addEventListener('DOMContentLoaded', fetchLiveJobs);
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs, Admit Card & Results - IOIS Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
