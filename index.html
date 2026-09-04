@@ -3,6 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS Platform - Jobs, Panchang, Study Notes & News</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-blue: #1e3a8a; --accent-blue: #2563eb; }
+        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', sans-serif; }
+        .bg-corporate { background-color: var(--primary-blue); }
+        .text-corporate { color: var(--primary-blue); }
+        .navbar { background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .hero-section { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 50px 0; border-bottom: 1px solid #bfdbfe; }
+        .card-custom { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .card-custom:hover { transform: translateY(-4px); border-color: var(--accent-blue); }
+        .floating-wa { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; border-radius: 50px; padding: 12px 20px; font-weight: bold; text-decoration: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .slider-img { height: 350px; object-fit: cover; border-radius: 12px; }
+        .adsense-box { background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; text-align: center; color: #64748b; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="bg-corporate text-white text-center py-2 small fw-bold">
+        <i class="fa-solid fa-bullhorn me-2"></i> Official IOIS Portal: Free Govt Job Alerts, Admit Card, Panchang & Study Material
+    </div>
+
+    <!-- Master Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-corporate fw-bold fs-4" href="index.html">
+                <i class="fa-solid fa-graduation-cap me-2"></i>IOIS PLATFORM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-1 fw-semibold">
+                    <li class="nav-item"><a class="nav-link text-primary active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jobs.html">Jobs & Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Study Guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plans.html">7 VIP Plans</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Mausam</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entertainment.html">Quiz & Fun</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="admin.html"><i class="fa-solid fa-lock me-1"></i>Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">100% Verified Educational Portal</span>
+            <h1 class="display-5 fw-bold text-corporate mb-3">Bihar & India's Student Guidance Portal</h1>
+            <p class="lead text-secondary mb-4 max-w-700 mx-auto">Har roj paayein Verified Sarkari Vacancies, Admit Card, Daily Shubh Panchang aur Educational Notes.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="jobs.html" class="btn btn-primary btn-lg px-4 rounded-pill shadow-sm"><i class="fa-solid fa-briefcase me-2"></i>Explore Free Jobs</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIEpw4EU8bqPSxkH_Ku9RCabSyw4RrrZ32ydbLHTo-wPIohw/viewform" target="_blank" class="btn btn-outline-primary btn-lg px-4 rounded-pill"><i class="fa-solid fa-user-plus me-2"></i>Free Registration</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Admin Carousel Slider -->
+    <section class="py-4">
+        <div class="container">
+            <div id="ioisCarousel" class="carousel slide shadow-sm rounded-3 overflow-hidden" data-bs-ride="carousel">
+                <div class="carousel-inner" id="sliderContainer">
+                    <div class="carousel-item active">
+                        <div class="bg-corporate text-white p-5 text-center slider-img d-flex flex-column justify-content-center align-items-center">
+                            <h2>Welcome to IOIS Platform</h2>
+                            <p class="lead">Latest Updates, Results & Celebrations Banner Zone</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#ioisCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                <button class="carousel-control-next" type="button" data-bs-target="#ioisCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AdSense Slot Placeholder -->
+    <div class="container my-3">
+        <div class="adsense-box">
+            <i class="fa-solid fa-rectangle-ad me-2"></i><strong>Google AdSense Placement Area</strong> (Approval ke baad adsense script yahan paste karein)
+        </div>
+    </div>
+
+    <!-- Panchang Widget -->
+    <section class="py-3">
+        <div class="container">
+            <div class="card-custom p-4 border-start border-4 border-primary">
+                <h4 class="fw-bold text-corporate mb-2"><i class="fa-solid fa-sun text-warning me-2"></i>Aaj Ka Shubh Panchang & Rashifal</h4>
+                <p class="text-secondary mb-0"><strong>Shubh Muhurat:</strong> Abhijit Muhurat (11:45 AM - 12:30 PM) | <strong>Rahu Kaal:</strong> (03:00 PM - 04:30 PM). Daily updated astrological & auspicious time guide for students & families.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Educational Articles Preview for AdSense -->
+    <section class="py-4">
+        <div class="container">
+            <h3 class="fw-bold text-corporate mb-3"><i class="fa-solid fa-book-open me-2"></i>Featured Study Guides & Prep Articles</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card-custom p-3">
+                        <span class="badge bg-info text-dark mb-2">Exam Preparation</span>
+                        <h5>Bihar Police Constable Exam 2026: Best Books & Syllabus Guide</h5>
+                        <p class="small text-muted mb-2">Written exam, physical test details aur top preparation strategies ki poori jankari...</p>
+                        <a href="blog.html" class="btn btn-sm btn-link text-primary p-0 text-decoration-none">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-custom p-3">
+                        <span class="badge bg-success mb-2">Skill Guide</span>
+                        <h5>MS Office & Basic Computer Skills for Government Jobs</h5>
+                        <p class="small text-muted mb-2">Data entry jobs aur government exams ke liye zaroori computer certifications...</p>
+                        <a href="blog.html" class="btn btn-sm btn-link text-primary p-0 text-decoration-none">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/918877490845?text=Hi%20IOIS%20Team,%20mujhe%20help%20chahiye" class="floating-wa" target="_blank">
+        <i class="fa-brands fa-whatsapp me-2"></i> WhatsApp Help
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-white border-top py-4 text-center text-muted small mt-5">
+        <div class="container">
+            <p class="mb-1">© 2026 IOIS Platform (Vikas Kumar). All Rights Reserved.</p>
+            <p class="mb-0">
+                <a href="privacy.html" class="text-decoration-none me-2">Privacy Policy</a> | 
+                <a href="disclaimer.html" class="text-decoration-none me-2">Disclaimer</a> | 
+                <a href="contact.html" class="text-decoration-none me-2">Contact Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedPhotos = JSON.parse(localStorage.getItem("iois_banner_photos") || "[]");
+            const container = document.getElementById("sliderContainer");
+            if(savedPhotos.length > 0) {
+                container.innerHTML = "";
+                savedPhotos.forEach((imgUrl, index) => {
+                    const div = document.createElement("div");
+                    div.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                    div.innerHTML = `<img src="${imgUrl}" class="d-block w-100 slider-img" alt="IOIS Banner ${index + 1}">`;
+                    container.appendChild(div);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOIS Platform - Jobs, Panchang, News & Study Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
