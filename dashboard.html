@@ -2,6 +2,55 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - IOIS Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>body { background-color: #f8fafc; color: #1e293b; }</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-primary fw-bold fs-4" href="index.html">IOIS PLATFORM</a>
+            <div class="navbar-nav ms-auto gap-2 fw-semibold">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="plans.html">7 VIP Plans</a>
+                <a class="nav-link active text-primary" href="dashboard.html">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="bg-white p-4 rounded shadow-sm text-center border">
+                    <i class="fa-solid fa-circle-user fa-5x text-primary mb-3"></i>
+                    <h4>IOIS Member Profile</h4>
+                    <span class="badge bg-success my-2">Active Affiliate Partner</span>
+                    <p class="small text-muted mb-0">UPI Payout ID: 8877490845@spicepay</p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="bg-white p-4 rounded shadow-sm border">
+                    <h4 class="text-primary fw-bold mb-3"><i class="fa-solid fa-share-nodes me-2"></i>Share Referral Link & Earn</h4>
+                    <p class="text-muted">Dosto ko refer karke har digital product sale par instant 50% - 70% commission paayein!</p>
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" value="https://ioisplatform.github.io/iois/plans.html" readonly id="refLink">
+                        <button class="btn btn-primary fw-bold" onclick="navigator.clipboard.writeText('https://ioisplatform.github.io/iois/plans.html'); alert('Referral Link Copied!');">Copy Link</button>
+                    </div>
+
+                    <a href="https://api.whatsapp.com/send?text=IOIS%20Platform%20se%20Digital%20Courses%20seekho%20aur%20Referral%20se%20Kamayein:%20https://ioisplatform.github.io/iois/plans.html" target="_blank" class="btn btn-success fw-bold"><i class="fa-brands fa-whatsapp me-2"></i>Share on WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
